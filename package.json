@@ -1,0 +1,44 @@
+{
+  "name": "wx54321",
+  "description": "Node.js APP for WeiXin",
+  "version": "0.0.1",
+  "private": true,
+  "author": {
+    "name": "sunzhilei",
+    "email": "18611822573@163.com"
+  },
+  "dependencies": {
+    "consolidate": "^0.13.1",
+    "crypto": "0.0.3",
+    "express": "^4.13.3",
+    "https": "^1.0.0",
+    "mustache": "^2.2.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "url": "^0.11.0"
+  },
+  "engines": {
+    "node": "4.2.4",
+    "npm": "2.14.12"
+  },
+  "scripts": {
+    "start": "node -use-strict -harmony node-server.js",
+    "dev": "set NODE_ENV=dev && node webpack-dev-server.js",
+    "production": "webpack -p --config webpack.pro.config.js"
+  },
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^1.7.0",
+    "react-hot-loader": "^1.3.0",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.10",
+    "webpack-dev-server": "^1.14.0"
+  }
+}
