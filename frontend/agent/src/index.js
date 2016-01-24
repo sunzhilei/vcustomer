@@ -17,15 +17,14 @@ let NavData = {
     item: [
         {text: '首页', href: '/', active: true},
         {text: '产品', href: '/product'},
-        {text: '关于我们', href: '/about'},
-        {text: '管理中心', href: '/about'}
+        {text: '关于我们', href: '/about'}
     ]
 }
 
 let CarouselData = [
     {title: '技术驱动', text: '互联网产品设计思想满足当下需求，互联网前沿技术成就非凡体验！', active: true, btn: {text: '了解更多', href: '/'}},
     {title: '任性偏执', text: '细节成就完美，兴趣成就梦想，偏执成就价值观！', btn: {text: '了解更多', href: '/'}},
-    {title: '服务宗旨', text: '市场为王，设计可以提高用户体验，技术可以助力企业增值！', btn: {text: '了解更多', href: '/'}},
+    {title: '服务宗旨', text: '市场为王，设计可以提高用户体验，技术可以助力企业增值！', btn: {text: '了解更多', href: '/'}}
 ]
 
 let MarketingData = [

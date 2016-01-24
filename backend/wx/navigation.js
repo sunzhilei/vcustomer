@@ -13,17 +13,17 @@ let getNavigation = function () {
             "button": [
                 {
                     "type": "view",
-                    "name": "服务理念",
+                    "name": "HOME",
                     "url": "http://vcustomer.applinzi.com/"
                 },
                 {
                     "type": "view",
-                    "name": "产品中心",
+                    "name": "Product",
                     "url": "http://vcustomer.applinzi.com/"
                 },
                 {
                     "type": "view",
-                    "name": "关于我们",
+                    "name": "Team",
                     "url": "http://vcustomer.applinzi.com/"
                 }
             ]
@@ -54,7 +54,7 @@ let getNavigation = function () {
                     resolve(d);
                 })
             });
-            req.write(bodyString);
+            req.write(bodyString, 'utf-8');
             req.end();
             req.on('error', (e) => {
                 reject(new Error(e));

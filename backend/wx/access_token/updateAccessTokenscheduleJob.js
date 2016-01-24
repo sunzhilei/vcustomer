@@ -34,9 +34,9 @@ let reqAccessToken = function () {
 
 let setAccessToken = function (d) {
     return new Promise(function (resolve, reject) {
-        fs.writeFile('access_token.json', d, 'utf-8', function (err) {
+        fs.writeFile('./backend/wx/access_token/access_token.json', d, 'utf-8', function (err) {
             if (err) {
-                reject(new Error(e));
+                reject(new Error(err));
             } else {
                 resolve("set access_token successful");
             }
@@ -46,7 +46,7 @@ let setAccessToken = function (d) {
 
 let updateAccessTokenscheduleJob = function () {
     let rule = new schedule.RecurrenceRule();
-    rule.minute = 58;
+    rule.minute = 27;
     schedule.scheduleJob(rule, function () {
         reqAccessToken().then(function (msg) {
             console.log(msg.toString())
