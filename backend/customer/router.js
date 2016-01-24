@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 // 该路由使用的中间件
 router.use(function timeLog(req, res, next) {

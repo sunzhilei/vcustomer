@@ -2,11 +2,11 @@
  * Created by sunzhilei on 2016/1/3.
  */
 
-var fs = require('fs');
+let fs = require('fs');
 
-var getAccessToken = new Promise(function (resolve, reject) {
+let getAccessToken = new Promise(function (resolve, reject) {
 
-    fs.readFile('./access_token/access_token.json', 'utf-8', function (err, d) {
+    fs.readFile('access_token.json', 'utf-8', function (err, d) {
         if (err) {
             reject(new Error(err));
         } else {

@@ -2,16 +2,14 @@
  * Created by sunzhilei on 2016/1/23.
  */
 
-var https = require('https');
-var querystring = require('querystring');
-
-var getAccessToken = require('./access_token/getAccessToken');
+let https = require('https');
+let getAccessToken = require('./access_token/getAccessToken');
 
 
-var getNavigation = function () {
+let getNavigation = function () {
     return new Promise(function (resolve, reject) {
 
-        var body = {
+        let body = {
             "button": [
                 {
                     "type": "view",
@@ -31,12 +29,12 @@ var getNavigation = function () {
             ]
         };
 
-        var bodyString = JSON.stringify(body);
+        let bodyString = JSON.stringify(body);
 
         console.log(bodyString);
 
         getAccessToken.then(function (access_token) {
-            var options = {
+            let options = {
                 hostname: 'api.weixin.qq.com',
                 port: 443,
                 path: '/cgi-bin/menu/create?access_token=' + access_token,
@@ -48,7 +46,7 @@ var getNavigation = function () {
             };
 
 
-            var req = https.request(options, (res) => {
+            let req = https.request(options, (res) => {
                 console.log('statusCode: ', res.statusCode);
                 console.log('headers: ', res.headers);
 
