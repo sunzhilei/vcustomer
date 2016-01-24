@@ -1,5 +1,5 @@
 {
-  "name": "wx54321",
+  "name": "vcustomer",
   "description": "Node.js APP for WeiXin",
   "version": "0.0.1",
   "private": true,
@@ -11,8 +11,11 @@
     "consolidate": "^0.13.1",
     "crypto": "0.0.3",
     "express": "^4.13.3",
+    "fs": "0.0.2",
     "https": "^1.0.0",
     "mustache": "^2.2.1",
+    "node-schedule": "^0.6.0",
+    "querystring": "^0.2.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "url": "^0.11.0"
