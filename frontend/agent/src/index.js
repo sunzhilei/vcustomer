@@ -13,7 +13,7 @@ import FeaturetteComponent from '../../../frontend/public/lib/Featurette';
 import FooterComponent from '../../../frontend/public/lib/Footer';
 
 let NavData = {
-    brand: '优客网',
+    brand: '微客',
     item: [
         {text: '首页', href: '/', active: true},
         {text: '产品', href: '/product'},
@@ -52,7 +52,7 @@ let MarketingData = [
 let FeaturetteData = [
     {title: '订餐系统', subtitle: '敬请期待...', text: '支持店内自助下单， 线上和线下支付， 提供餐饮， 完成交易'},
     {title: '网上商店', subtitle: '敬请期待...', text: '支持线上自助选购， 线上和线下支付， 配送货物， 完成交易'},
-    {title: '移动官网', subtitle: '正常营业...', text: '支持PC、移动响应式网站， 个性定制， 运营运维服务'},
+    {title: '移动官网', subtitle: '正常营业', text: '支持PC、移动响应式网站， 个性定制， 运营运维服务'},
 ]
 
 class AgentIndex extends React.Component {

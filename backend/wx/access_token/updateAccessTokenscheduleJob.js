@@ -46,7 +46,7 @@ let setAccessToken = function (d) {
 
 let updateAccessTokenscheduleJob = function () {
     let rule = new schedule.RecurrenceRule();
-    rule.minute = 27;
+    rule.minute = 55;
     schedule.scheduleJob(rule, function () {
         reqAccessToken().then(function (msg) {
             console.log(msg.toString())
