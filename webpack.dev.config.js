@@ -12,6 +12,7 @@ module.exports = {
         //c_index: ["./frontend/customer/src/index.js"],
         //c_customerList: ["./frontend/customer/src/customerList.js"],
 
+        a_login: ["./frontend/agent/src/login.js"],
         a_index: ["./frontend/agent/src/index.js"]
     },
     output: {

@@ -70,5 +70,5 @@ class AgentIndex extends React.Component {
         );
     }
 }
-;
+
 ReactDOM.render(<AgentIndex/>, document.body);

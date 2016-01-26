@@ -11,6 +11,7 @@ module.exports = {
         //"customer/index": './frontend/customer/src/index.js',
         //"customer/customerList": './frontend/customer/src/customerList.js',
 
+        "agent/login": './frontend/agent/src/login.js',
         "agent/index": './frontend/agent/src/index.js'
     },
     output: {
