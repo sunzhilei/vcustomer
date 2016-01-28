@@ -14,8 +14,8 @@ app.set('view engine', 'html');
 // 连接数据库，开启连接池
 //let enabledMysqlConnection = require('./backend/mysql/enabledMysqlConnection');
 //enabledMysqlConnection.query();
-let enabledMysqlConnection = require('./backend/agent/service/account');
-queryByAccount("vcustomer",function(){
+let account = require('./backend/agent/service/account');
+account.queryByAccount("vcustomer",function(){
     console.log("00000000000000");
 });
 

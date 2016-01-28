@@ -3,12 +3,18 @@ let mysql = require('mysql');
 let  mysqlPool = null;
 
 let initMysqlPool = function(){
+    console.log(process.env.MYSQL_HOST);
+    console.log(process.env.MYSQL_PORT);
+    console.log(process.env.ACCESSKEY);
+    console.log(process.env.SECRETKEY);
+    console.log(process.env.APPNAME);
     mysqlPool = mysql.createPool({
          host     : process.env.MYSQL_HOST,
          port     : process.env.MYSQL_PORT,
          user     : process.env.ACCESSKEY,
          password : process.env.SECRETKEY,
-         database : 'app_' + process.env.APPNAME
+        database : process.env.APPNAME
+         //database : 'app_' + process.env.APPNAME
           /*host: 'localhost',
         user: 'root',
         password: 'root',
