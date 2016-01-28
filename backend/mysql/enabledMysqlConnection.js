@@ -29,6 +29,17 @@ exports.query = function (sqlReq, callback) {
         if (err) {
             throw err;
         }
+
+		connection.config.queryFormat = function (query, values) {
+            if (!values) return query;
+            return query.replace(/\:(\w+)/g, function (txt, key) {
+              if (values.hasOwnProperty(key)) {
+                return this.escape(values[key]);
+              }
+              return txt;
+            }.bind(this));
+        };
+
         connection.query(sqlReq.sql, sqlReq.params, function (err, rows) {
             connection.release();
             return callback(err, rows);
@@ -49,6 +60,17 @@ exports.processTransaction = function (callback) {
         if (err) {
             throw err;
         }
+
+		connection.config.queryFormat = function (query, values) {
+            if (!values) return query;
+            return query.replace(/\:(\w+)/g, function (txt, key) {
+              if (values.hasOwnProperty(key)) {
+                return this.escape(values[key]);
+              }
+              return txt;
+            }.bind(this));
+        };
+
         return callback(connection);
     });
 }
