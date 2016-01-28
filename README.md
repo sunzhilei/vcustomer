@@ -16,7 +16,7 @@ $ npm start
 首先，提交代码到你的sinacloud应用的git仓库。
 
 ```
-$ git remote add sc2 https://git.sinacloud.com/wx54321
+$ git remote add sc2 https://git.sinacloud.com/vcustomer
 $ git push sc2 master:1
 ```
 
