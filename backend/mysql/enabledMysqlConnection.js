@@ -74,4 +74,3 @@ exports.processTransaction = function (callback) {
         return callback(connection);
     });
 }
-module.exports = initMysqlPool;

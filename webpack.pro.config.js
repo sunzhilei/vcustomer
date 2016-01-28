@@ -4,15 +4,16 @@
  */
 var webpack = require('webpack');
 var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
         //"customer/index": './frontend/customer/src/index.js',
         //"customer/customerList": './frontend/customer/src/customerList.js',
 
+        "agent/reg": './frontend/agent/src/reg.js',
         "agent/login": './frontend/agent/src/login.js',
-        "agent/index": './frontend/agent/src/index.js'
+        "agent/index": './frontend/agent/src/index.js',
+        "agent/admin": './frontend/agent/src/admin.js'
     },
     output: {
         path: __dirname + '/frontend/dist',
@@ -26,9 +27,9 @@ module.exports = {
             query: {
                 presets: ['react', 'es2015', 'stage-0']
             }
-        }, {
+        },{
             test: /\.css$/,
-            loader: ExtractTextPlugin.extract("style", "css")
+            loader: 'style-loader!css-loader'
         }]
     },
     plugins: [
@@ -37,7 +38,6 @@ module.exports = {
             "process.env": {
                 NODE_ENV: JSON.stringify("production")
             }
-        }),
-        new ExtractTextPlugin("[name].bundle.css")
+        })
     ]
 };

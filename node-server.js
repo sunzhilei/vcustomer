@@ -12,8 +12,12 @@ app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
 // 连接数据库，开启连接池
-let enabledMysqlConnection = require('./backend/mysql/enabledMysqlConnection');
-enabledMysqlConnection.enabledMysqlConnection();
+//let enabledMysqlConnection = require('./backend/mysql/enabledMysqlConnection');
+//enabledMysqlConnection.query();
+let enabledMysqlConnection = require('./backend/agent/service/account');
+queryByAccount("vcustomer",function(){
+    console.log("00000000000000");
+});
 
 // 注册代理网站路由器
 let agent_router = require('./backend/agent/router');

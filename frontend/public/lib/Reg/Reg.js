@@ -5,7 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-require("./Login.css");
+require("./Reg.css");
 
 import Ajax from '../JQuery/Ajax';
 
@@ -17,6 +17,12 @@ let Login = React.createClass({
                     required: true,
                     minlength: 6,
                     maxlength: 16
+                },
+                inputRepeatPassword: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 16,
+                    equalTo: "#inputPassword"
                 }
             }
         });
@@ -32,7 +38,7 @@ let Login = React.createClass({
         return (
             <div className="container">
                 <form className="form-signin">
-                    <h2 className="form-signin-heading">请登录</h2>
+                    <h2 className="form-signin-heading">请注册</h2>
                     <label htmlFor="inputEmail" className="sr-only">邮箱</label>
                     <input type="email" id="inputEmail" name="inputEmail" className="form-control" placeholder="邮箱"
                            required
@@ -40,14 +46,12 @@ let Login = React.createClass({
                     <label htmlFor="inputPassword" className="sr-only">密码</label>
                     <input type="password" id="inputPassword" name="inputPassword" className="form-control"
                            placeholder="密码"/>
-                    <div className="checkbox">
-                        <label>
-                            <input type="checkbox" value="remember-me"/> 记住我
-                        </label>
-                    </div>
+                    <label htmlFor="inputRepeatPassword" className="sr-only">确认密码</label>
+                    <input type="password" id="inputRepeatPassword" name="inputRepeatPassword" className="form-control"
+                           placeholder="确认密码"/>
                     <input className="btn btn-lg btn-primary btn-block" type="button" value="登录"
                            onClick={this.handleClick}></input>
-                    <a href="/reg">没有帐号，去注册！</a>
+                    <a href="/login">已有帐号，去登录！</a>
                 </form>
             </div>
         );

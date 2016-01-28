@@ -7,26 +7,16 @@ import ReactDOM from 'react-dom';
 //require("../css/Carousel.css");
 
 import NavComponent from '../../../frontend/public/lib/Nav';
-import CarouselComponent from '../../../frontend/public/lib/Carousel/Carousel';
-import MarketingComponent from '../../../frontend/public/lib/Marketing';
-import FeaturetteComponent from '../../../frontend/public/lib/Featurette';
+import SidebarComponent from '../../../frontend/public/lib/Sidebar';
+import OperationAreaComponent from '../../../frontend/public/lib/OperationArea';
 import FooterComponent from '../../../frontend/public/lib/Footer';
 
 let NavData = {
     brand: '微客',
     item: [
-        {text: '首页', href: '/', active: true},
-        {text: '产品', href: '/product'},
-        {text: '团队', href: '/about'},
-        {text: '管理', href: '/login'}
+        {text: '首页', href: '/admin', active: true}
     ]
 }
-
-let CarouselData = [
-    {title: '技术驱动', text: '互联网产品设计思想满足当下需求，互联网前沿技术成就非凡体验！', active: true, btn: {text: '了解更多', href: '/'}},
-    {title: '任性偏执', text: '细节成就完美，兴趣成就梦想，偏执成就价值观！', btn: {text: '了解更多', href: '/'}},
-    {title: '服务宗旨', text: '市场为王，设计可以提高用户体验，技术可以助力企业增值！', btn: {text: '了解更多', href: '/'}}
-]
 
 let MarketingData = [
     {
@@ -61,12 +51,11 @@ class AgentIndex extends React.Component {
         return (
             <div>
                 <NavComponent data={NavData}/>
-                <CarouselComponent data={CarouselData}/>
-                <div className="container marketing">
-                    <MarketingComponent data={MarketingData}/>
-                    <FeaturetteComponent data={FeaturetteData}/>
-                    <FooterComponent text="2016 Company, Inc."/>
+                <div className="row row-offcanvas row-offcanvas-right">
+                    <SidebarComponent/>
+                    <OperationAreaComponent/>
                 </div>
+                <FooterComponent text="2016 Company, Inc."/>
             </div>
         );
     }
