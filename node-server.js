@@ -13,7 +13,7 @@ app.set('view engine', 'html');
 
 // 连接数据库，开启连接池
 let enabledMysqlConnection = require('./backend/mysql/enabledMysqlConnection');
-enabledMysqlConnection();
+enabledMysqlConnection.enabledMysqlConnection();
 
 // 注册代理网站路由器
 let agent_router = require('./backend/agent/router');

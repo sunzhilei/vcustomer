@@ -1,30 +1,55 @@
 let mysql = require('mysql');
 
-// 定义网站主页的路由
-let enabledMysqlConnection = function () {
-    // 连接共享型MySQL
-    console.log(process.env.MYSQL_HOST);
-    console.log(process.env.MYSQL_PORT);
-    console.log(process.env.ACCESSKEY);
-    console.log(process.env.SECRETKEY);
-    console.log(process.env.APPNAME);
-    var connection = mysql.createConnection({
-        host     : process.env.MYSQL_HOST,
-        port     : process.env.MYSQL_PORT,
-        user     : process.env.ACCESSKEY,
-        password : process.env.SECRETKEY,
-        database : 'app_' + process.env.APPNAME
+let  mysqlPool = null;
+
+let initMysqlPool = function(){
+    mysqlPool = mysql.createPool({
+        /* host     : process.env.MYSQL_HOST,
+         port     : process.env.MYSQL_PORT,
+         user     : process.env.ACCESSKEY,
+         password : process.env.SECRETKEY,
+         database : 'app_' + process.env.APPNAME*/
+        host: 'localhost',
+        user: 'root',
+        password: 'root',
+        database: 'source',
+        port: 3306
     });
+}
 
-    connection.query('show status', function(err, rows) {
+/**
+ * 非事物
+ */
+exports.query = function (sqlReq, callback) {
+    //sql, params
+    if (!mysqlPool) {
+        initMysqlPool();
+    }
+    mysqlPool.getConnection(function (err, connection) {
         if (err) {
-            console.log(err);
-            return;
+            throw err;
         }
-        console.log(rows);
-    })
+        connection.query(sqlReq.sql, sqlReq.params, function (err, rows) {
+            connection.release();
+            return callback(err, rows);
+        });
+    });
+}
 
-    connection.end()
-};
+/**
+ *事物
+ */
+exports.processTransaction = function (callback) {
+    if (!mysqlPool) {
+        initMysqlPool();
+    }
 
-module.exports = enabledMysqlConnection;
+    mysqlPool.getConnection(function (err, connection) {
+
+        if (err) {
+            throw err;
+        }
+        return callback(connection);
+    });
+}
+module.exports = initMysqlPool;
