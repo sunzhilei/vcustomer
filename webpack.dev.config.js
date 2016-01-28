@@ -4,7 +4,6 @@
  */
 var webpack = require('webpack');
 var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 //var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -12,8 +11,10 @@ module.exports = {
         //c_index: ["./frontend/customer/src/index.js"],
         //c_customerList: ["./frontend/customer/src/customerList.js"],
 
+        a_reg: ["./frontend/agent/src/reg.js"],
         a_login: ["./frontend/agent/src/login.js"],
-        a_index: ["./frontend/agent/src/index.js"]
+        a_index: ["./frontend/agent/src/index.js"],
+        a_admin: ["./frontend/agent/src/admin.js"]
     },
     output: {
         path: __dirname + '/frontend/dist',
@@ -29,7 +30,7 @@ module.exports = {
             }
         }, {
             test: /\.css$/,
-            loader: ExtractTextPlugin.extract("style", "css")
+            loader: 'style-loader!css-loader'
         }]
     },
     plugins: [
@@ -49,7 +50,6 @@ module.exports = {
         //        removeComments: true,
         //        collapseWhitespace: false
         //    }
-        //}),
-        new ExtractTextPlugin("[name].bundle.css")
+        //})
     ]
 };

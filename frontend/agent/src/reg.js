@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import LoginComponent from '../../../frontend/public/lib/Login/Login';
+import RegComponent from '../../../frontend/public/lib/Reg/Reg';
 
 let NavData = {
     brand: '微客',
@@ -15,12 +15,12 @@ let NavData = {
     ]
 }
 
-class AgentLogin extends React.Component {
+class AgentReg extends React.Component {
     render() {
         return (
-            <LoginComponent data={NavData}/>
+            <RegComponent data={NavData}/>
         );
     }
 }
 
-ReactDOM.render(<AgentLogin/>, document.body);
+ReactDOM.render(<AgentReg/>, document.body);
