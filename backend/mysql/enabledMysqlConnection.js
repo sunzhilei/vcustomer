@@ -4,16 +4,16 @@ let  mysqlPool = null;
 
 let initMysqlPool = function(){
     mysqlPool = mysql.createPool({
-        /* host     : process.env.MYSQL_HOST,
+         host     : process.env.MYSQL_HOST,
          port     : process.env.MYSQL_PORT,
          user     : process.env.ACCESSKEY,
          password : process.env.SECRETKEY,
-         database : 'app_' + process.env.APPNAME*/
-        host: 'localhost',
+         database : 'app_' + process.env.APPNAME
+          /*host: 'localhost',
         user: 'root',
         password: 'root',
         database: 'source',
-        port: 3306
+        port: 3306*/
     });
 }
 
