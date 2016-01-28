@@ -20,17 +20,14 @@ router.get('/login', function (req, res) {
 // 定义网站登录验证的路由
 router.post('/login/valid', function (req, res) {
 
-    console.log(req.body.inputEmail);
-    console.log(req.body.inputPassword);
+    //if (true) {
+    //    res.json({result: true, redirect: "/admin"});
+    //} else {
+    //    res.json({result: false, message: "帐号或密码输入有误，请重新输入！"});
+    //}
 
-    if(true){
-        res.json({result: true, redirect: "/admin"});
-    }else{
-        res.json({result: false, message: "帐号或密码输入有误，请重新输入！"});
-    }
-
-    let accountName = req.getParameter("account");
-    let accountPassword = req.getParameter("password");
+    let accountName = req.body.inputEmail;
+    let accountPassword = req.body.inputPassword;
     let body = {
         "result": true
     }
@@ -40,13 +37,13 @@ router.post('/login/valid', function (req, res) {
 
     let accountObjPassword = null;
 
-    account.queryByAccount(accountName,function(err,accountObj){
+    account.queryByAccount(accountName, accountPassword, function (err, accountObj) {
         accountObjAccountName = accountObj.account;
         accountObjPassword = accountObj.password;
-        if(accountPassword != accountObjPassword){
+        if (accountPassword != accountObjPassword) {
             body = {
                 "result": false,
-                "msg":"密码错误！"
+                "msg": "密码错误！"
             }
         }
     })
@@ -70,9 +67,9 @@ router.post('/reg/valid', function (req, res) {
     console.log(req.body.inputEmail);
     console.log(req.body.inputPassword);
 
-    if(true){
+    if (true) {
         res.json({result: true, redirect: "/admin"});
-    }else{
+    } else {
         res.json({result: false, message: "未知错误！请联系管理员！"});
     }
     //res.redirect('/');

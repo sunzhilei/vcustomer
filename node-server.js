@@ -15,7 +15,7 @@ app.set('view engine', 'html');
 //let enabledMysqlConnection = require('./backend/mysql/enabledMysqlConnection');
 //enabledMysqlConnection.query();
 let account = require('./backend/agent/service/account');
-account.queryByAccount("vcustomer",function(){
+account.queryByAccount("admin@vcustomer.com","123456",function(){
     console.log("00000000000000");
 });
 

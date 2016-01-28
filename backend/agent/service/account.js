@@ -3,11 +3,11 @@ let enabledMysqlConnection = require('./../../mysql/enabledMysqlConnection');
 /**
  * 根据用户名查询用户信息
  */
-exports.queryByAccount = function (account,callback){
+exports.queryByAccount = function (account, password, callback) {
     enabledMysqlConnection.query({
-        sql     : "SELECT account,password from account where account=:account",
-        params  : { account : account }
-    },function (err, rows) {
+        sql: "SELECT account,password from account where account=:account and password=:password",
+        params: {account: account, password: password}
+    }, function (err, rows) {
         if (err || !rows) {
             return callback(err, null);
         }
