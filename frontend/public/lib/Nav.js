@@ -11,22 +11,20 @@ class Nav extends React.Component {
     render() {
 
         let commentItems = this.props.data.item.map(function (item) {
-            let classLi = item.active ? 'nav-item active' : 'nav-item'
+            let classLi = item.active ? 'nav-item nav-link active' : 'nav-item nav-link'
             return (
-                <li className={classLi}>
-                    <a className="nav-link" href={item.href}>
-                        {item.text}
-                    </a>
-                </li>
+                <a className={classLi} href={item.href}>
+                    {item.text}
+                </a>
             );
         });
 
         return (
-            <nav className="navbar navbar-dark bg-inverse navbar-static-top">
+            <nav className="navbar navbar-dark navbar-fixed-top bg-inverse">
                 <a href="/" className="navbar-brand">{this.props.data.brand}</a>
-                <ul className="nav navbar-nav container">
+                <nav className="nav navbar-nav pull-left">
                     {commentItems}
-                </ul>
+                </nav>
             </nav>
         );
     }
