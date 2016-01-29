@@ -2,12 +2,18 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-let Ajax = function (_url, _data) {
+exports.get = function (_url, _data) {
+    return request(_url,_data,'GET');
+}
+exports.post = function (_url, _data) {
+    return request(_url,_data,'POST');
+}
+let request = function (_url, _data, _method) {
     return new Promise(function (resolve, reject) {
         $.ajax({
             url: _url,
-            method: 'POST',
             data: _data,
+            method: _method,
             dataType: 'json',
             async: true,
             cache: true,
@@ -22,5 +28,3 @@ let Ajax = function (_url, _data) {
         });
     });
 }
-
-module.exports = Ajax;

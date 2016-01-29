@@ -5,20 +5,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import LoginComponent from '../../../frontend/public/lib/Login/Login';
-
-let NavData = {
-    brand: '微客',
-    item: [
-        {text: '首页', href: '/', active: true},
-        {text: '产品', href: '/product'},
-        {text: '关于我们', href: '/about'}
-    ]
-}
+import Ajax from '../../../frontend/public/lib/JQuery/Ajax';
 
 class AgentLogin extends React.Component {
+    handleSubmit(body) {
+        Ajax.post('/login/valid', body).then(function (data) {
+            console.log(data.result);
+        }, function (errorThrown) {
+            console.log(errorThrown);
+        })
+    }
+
     render() {
         return (
-            <LoginComponent data={NavData}/>
+            <LoginComponent onSubmit={body => this.handleSubmit(body)}/>
         );
     }
 }

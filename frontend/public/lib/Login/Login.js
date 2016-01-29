@@ -7,10 +7,9 @@ import ReactDOM from 'react-dom';
 
 require("./Login.css");
 
-import Ajax from '../JQuery/Ajax';
-
-let Login = React.createClass({
-    handleClick: function (event) {
+class Login extends React.Component {
+    handleSubmit(e) {
+        e.preventDefault();
         var validator = $("form").validate({
             rules: {
                 inputPassword: {
@@ -21,17 +20,14 @@ let Login = React.createClass({
             }
         });
         if (validator.form()) {
-            Ajax('/login/valid', $('form').serialize()).then(function (data) {
-                console.log(data.result);
-            }, function (errorThrown) {
-                console.log(errorThrown);
-            })
+            this.props.onSubmit($('form').serialize());
         }
-    },
+    }
+
     render() {
         return (
             <div className="container">
-                <form className="form-signin">
+                <form className="form-signin" noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
                     <h2 className="form-signin-heading">请登录</h2>
                     <label htmlFor="inputEmail" className="sr-only">邮箱</label>
                     <input type="email" id="inputEmail" name="inputEmail" className="form-control" placeholder="邮箱"
@@ -45,13 +41,14 @@ let Login = React.createClass({
                             <input type="checkbox" value="remember-me"/> 记住我
                         </label>
                     </div>
-                    <input className="btn btn-lg btn-primary btn-block" type="button" value="登录"
-                           onClick={this.handleClick}></input>
+                    <button className="btn btn-lg btn-primary btn-block" type="submit">
+                        登录
+                    </button>
                     <a href="/reg">没有帐号，去注册！</a>
                 </form>
             </div>
         );
     }
-})
+}
 
 module.exports = Login;
