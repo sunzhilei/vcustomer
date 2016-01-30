@@ -11,14 +11,6 @@ app.set('views','./frontend');
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
-// 连接数据库，开启连接池
-//let enabledMysqlConnection = require('./backend/mysql/enabledMysqlConnection');
-//enabledMysqlConnection.query();
-let account = require('./backend/agent/service/account');
-account.queryByAccount("admin@vcustomer.com","123456",function(){
-    console.log("00000000000000");
-});
-
 // 注册代理网站路由器
 let agent_router = require('./backend/agent/router');
 app.use('/', agent_router);

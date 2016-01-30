@@ -6,65 +6,101 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-class Footer extends React.Component {
+class Pagination extends React.Component {
     render() {
+
+        let pageList = [];
+        let pageNumber
+        let overNumber = this.props.total % 10;
+        if (overNumber != 0) {
+            pageNumber = (this.props.total - overNumber) / 10 + 1;
+        } else {
+            pageNumber = this.props.total / 10;
+        }
+        for (let i = 1; i <= pageNumber; i++) {
+            pageList[i] = i;
+        }
+
+        let pageItems = pageList.map(function (page) {
+            return (
+                <li><a href={page}>{page}</a></li>
+            )
+        })
+
         return (
-            <div className="col-xs-12 col-sm-9">
-                <p className="pull-right visible-xs">
-                    <button type="button" className="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
-                </p>
-                <div className="jumbotron">
-                    <h1>Hello, world!</h1>
-                    <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some
-                        responsive-range viewport sizes to see it in action.</p>
+            <div style={{'text-align':'center'}}>
+                <nav>
+                    <ul className="pagination pagination-sm">
+                        <li>
+                            <a href="#" aria-label="上一页">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span className="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        {pageItems}
+                        <li>
+                            <a href="#" aria-label="下一页">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span className="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        )
+    }
+}
+
+
+class OperationArea extends React.Component {
+    render() {
+
+        let config = this.props.config;
+        let data = this.props.data;
+
+        let PaginationComponent = config.Pagination ? <Pagination total={this.props.data.total}/> : '';
+
+        let columnItems = config.columns.map(function (column) {
+            for (let key in column) {
+                return (<th>{column.text}</th>)
+            }
+        })
+
+        let rowItems = data.rows.map(function (row) {
+            return (
+                <tr>
+                    {
+                        config.columns.map(function (column) {
+                            for (let key in column) {
+                                let column_key = column[key];
+                                let row_key = row[column_key]
+                                return (<td>{row_key}</td>);
+                            }
+                        })
+                    }
+                </tr>
+            );
+        })
+
+
+        return (
+            <div className="col-sm-9 col-md-10 blog-main">
+                <div className="table-responsive">
+                    <table className="table table-bordered">
+                        <thead>
+                        <tr>
+                            {columnItems}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {rowItems}
+                        </tbody>
+                    </table>
                 </div>
-                <div className="row">
-                    <div className="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                            mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                            magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                    <div className="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                            mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                            magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                    <div className="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                            mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                            magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                    <div className="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                            mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                            magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                    <div className="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                            mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                            magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                    <div className="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                            mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                            magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
-                </div>
+                {PaginationComponent}
             </div>
         );
     }
 }
 
-module.exports = Footer;
+module.exports = OperationArea;

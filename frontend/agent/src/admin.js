@@ -9,53 +9,130 @@ import ReactDOM from 'react-dom';
 import NavComponent from '../../../frontend/public/lib/Nav';
 import SidebarComponent from '../../../frontend/public/lib/Sidebar';
 import OperationAreaComponent from '../../../frontend/public/lib/OperationArea';
-import FooterComponent from '../../../frontend/public/lib/Footer';
 
 let NavData = {
     brand: '微客',
     item: [
-        {text: '首页', href: '/admin', active: true}
+        {text: '商家管理', href: '/admin', active: true}
     ]
 }
 
-let MarketingData = [
-    {
-        pic: '../../../frontend/agent/img/technology.jpg',
-        title: '技术驱动',
-        text: '互联网产品设计思想满足当下需求，互联网前沿技术成就非凡体验！',
-        active: true,
-        btn: {text: '了解更多', href: '/'}
-    },
-    {
-        pic: '../../../frontend/agent/img/paranoid.jpg',
-        title: '任性偏执',
-        text: '细节成就完美，兴趣成就梦想，偏执成就价值观！',
-        btn: {text: '了解更多', href: '/'}
-    },
-    {
-        pic: '../../../frontend/agent/img/service.jpg',
-        title: '服务宗旨',
-        text: '市场为王，设计可以提高用户体验，技术可以助力企业增值！',
-        btn: {text: '了解更多', href: '/'}
-    },
+let NavList = [
+    [
+        {text: '功能1', href: '/admin', active: true},
+        {text: '功能1', href: '/admin'},
+        {text: '功能1', href: '/admin'},
+        {text: '功能1', href: '/admin'}
+    ],
+    [
+        {text: '功能2', href: '/admin'},
+        {text: '功能2', href: '/admin'}
+    ],
+    [
+        {text: '功能3', href: '/admin'},
+        {text: '功能3', href: '/admin'},
+        {text: '功能3', href: '/admin'}
+    ]
 ]
 
-let FeaturetteData = [
-    {title: '订餐系统', subtitle: '敬请期待...', text: '支持店内自助下单， 线上和线下支付， 提供餐饮， 完成交易'},
-    {title: '网上商店', subtitle: '敬请期待...', text: '支持线上自助选购， 线上和线下支付， 配送货物， 完成交易'},
-    {title: '移动官网', subtitle: '正常营业', text: '支持PC、移动响应式网站， 个性定制， 运营运维服务'},
-]
+let DataConfig = {
+    "columns": [
+        {field: 'id', text: '标识'},
+        {field: 'account', text: '帐号'},
+        {field: 'name', text: '姓名'},
+        {field: 'phone', text: '电话'},
+        {field: 'email', text: '邮箱'}
+    ],
+    Pagination:true
+}
+let DataList = {
+    "total": "12",
+    "rows": [
+        {
+            "id": "1",
+            "account": "13888888888@163.com",
+            "name": "金刚",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "2",
+            "account": "13888888888@163.com",
+            "name": "葫芦娃",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "3",
+            "account": "13888888888@163.com",
+            "name": "大刚",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "4",
+            "account": "13888888888@163.com",
+            "name": "大圣",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "5",
+            "account": "13888888888@163.com",
+            "name": "金刚",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "6",
+            "account": "13888888888@163.com",
+            "name": "葫芦娃",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "7",
+            "account": "13888888888@163.com",
+            "name": "大刚",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "8",
+            "account": "13888888888@163.com",
+            "name": "大圣",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "9",
+            "account": "13888888888@163.com",
+            "name": "金刚",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "10",
+            "account": "13888888888@163.com",
+            "name": "葫芦娃",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        }
+    ]
+}
+
 
 class AgentIndex extends React.Component {
     render() {
         return (
             <div>
                 <NavComponent data={NavData}/>
-                <div className="row row-offcanvas row-offcanvas-right">
-                    <SidebarComponent/>
-                    <OperationAreaComponent/>
+                <div className="container-fluid">
+                    <div className="row">
+                        <SidebarComponent data={NavList}/>
+                        <OperationAreaComponent config={DataConfig} data={DataList}/>
+                    </div>
                 </div>
-                <FooterComponent text="2016 Company, Inc."/>
             </div>
         );
     }
