@@ -33,17 +33,24 @@ router.post('/login/valid', function (req, res) {
     }
     let bodyString = JSON.stringify(body);
 
-    let accountObjAccountName = null;
 
-    let accountObjPassword = null;
 
     account.queryByAccount(accountName, accountPassword, function (err, accountObj) {
-        accountObjAccountName = accountObj.account;
-        accountObjPassword = accountObj.password;
-        if (accountPassword != accountObjPassword) {
+        if(accountObj){
+            let accountObjAccountName = null;
+            let accountObjPassword = null;
+            accountObjAccountName = accountObj.account;
+            accountObjPassword = accountObj.password;
+            if (accountPassword != accountObjPassword) {
+                body = {
+                    "result": false,
+                    "msg": "密码错误！"
+                }
+            }
+        }else{
             body = {
                 "result": false,
-                "msg": "密码错误！"
+                "msg": "用户不存在！"
             }
         }
     })
