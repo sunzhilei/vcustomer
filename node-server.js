@@ -17,7 +17,7 @@ app.use('/', agent_router);
 
 // 注册客户网站路由器
 let customer_router = require('./backend/customer/router');
-app.use('/SysEntry', customer_router);
+app.use('/customer', customer_router);
 
 
  //与微信公众号对接的URL和TOKEN

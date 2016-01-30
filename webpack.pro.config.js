@@ -7,7 +7,7 @@ var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 
 module.exports = {
     entry: {
-        //"customer/index": './frontend/customer/src/index.js',
+        "customer/index": './frontend/customer/src/index.js',
         //"customer/customerList": './frontend/customer/src/customerList.js',
 
         "agent/reg": './frontend/agent/src/reg.js',
