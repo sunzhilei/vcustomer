@@ -35,41 +35,86 @@ let NavList = [
     ]
 ]
 
-let DataList = {
+let DataConfig = {
     "columns": [
-        {field: 'id'},
-        {field: 'account'},
-        {field: 'name'},
-        {field: 'phone'},
-        {field: 'email'}
+        {field: 'id', text: '标识'},
+        {field: 'account', text: '帐号'},
+        {field: 'name', text: '姓名'},
+        {field: 'phone', text: '电话'},
+        {field: 'email', text: '邮箱'}
     ],
-    "total": "4",
+    Pagination:true
+}
+let DataList = {
+    "total": "12",
     "rows": [
         {
-            "id": "18228",
+            "id": "1",
             "account": "13888888888@163.com",
             "name": "金刚",
             "phone": "13888888888",
             "email": "13888888888@163.com"
         },
         {
-            "id": "18229",
+            "id": "2",
             "account": "13888888888@163.com",
             "name": "葫芦娃",
             "phone": "13888888888",
             "email": "13888888888@163.com"
         },
         {
-            "id": "18231",
+            "id": "3",
             "account": "13888888888@163.com",
             "name": "大刚",
             "phone": "13888888888",
             "email": "13888888888@163.com"
         },
         {
-            "id": "18233",
+            "id": "4",
             "account": "13888888888@163.com",
             "name": "大圣",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "5",
+            "account": "13888888888@163.com",
+            "name": "金刚",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "6",
+            "account": "13888888888@163.com",
+            "name": "葫芦娃",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "7",
+            "account": "13888888888@163.com",
+            "name": "大刚",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "8",
+            "account": "13888888888@163.com",
+            "name": "大圣",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "9",
+            "account": "13888888888@163.com",
+            "name": "金刚",
+            "phone": "13888888888",
+            "email": "13888888888@163.com"
+        },
+        {
+            "id": "10",
+            "account": "13888888888@163.com",
+            "name": "葫芦娃",
             "phone": "13888888888",
             "email": "13888888888@163.com"
         }
@@ -85,7 +130,7 @@ class AgentIndex extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <SidebarComponent data={NavList}/>
-                        <OperationAreaComponent data={DataList}/>
+                        <OperationAreaComponent config={DataConfig} data={DataList}/>
                     </div>
                 </div>
             </div>
