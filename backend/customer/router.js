@@ -14,7 +14,7 @@ router.get('/list', function (req, res) {
         "result": true
     })
 
-    shop.queryShopByAccountUUID(function (err, objList) {
+    shop.queryShopByAccountUUID(req.query.page, req.query.number, function (err, objList) {
 
         let shopList = new Array();
         for (let i = 0; i < objList.length; i++) {
@@ -34,7 +34,7 @@ router.get('/list', function (req, res) {
         }
 
         bodyString = JSON.stringify({
-            total: 10,
+            total: 11,
             rows: shopList
         })
 

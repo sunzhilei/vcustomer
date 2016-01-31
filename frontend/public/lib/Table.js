@@ -105,7 +105,7 @@ class TableComponent extends React.Component {
     }
 
     componentDidMount() {
-        Ajax.get(this.props.url).then(data => {
+        Ajax.get(this.props.url,{page:1,number:10}).then(data => {
             this.setState(data);
 
         }, (errorThrown) => {

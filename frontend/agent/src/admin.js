@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 
 import NavComponent from '../../../frontend/public/lib/Nav';
 import SidebarComponent from '../../../frontend/public/lib/Sidebar';
-import OperationAreaComponent from '../../../frontend/public/lib/OperationArea';
+import TableComponent from '../../../frontend/public/lib/Table';
 
 let NavData = {
     brand: '微客',
@@ -133,7 +133,7 @@ class AgentIndex extends React.Component {
                             <SidebarComponent data={NavList}/>
                         </div>
                         <div className="col-sm-9 col-md-10 blog-main">
-                            <OperationAreaComponent config={DataConfig} data={DataList}/>
+                            <TableComponent config={DataConfig} data={DataList}/>
                         </div>
                     </div>
                 </div>
