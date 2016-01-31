@@ -43,7 +43,7 @@ let DataConfig = {
         {field: 'phone', text: '电话'},
         {field: 'email', text: '邮箱'}
     ],
-    Pagination:true
+    Pagination: true
 }
 let DataList = {
     "total": "12",
@@ -129,8 +129,12 @@ class AgentIndex extends React.Component {
                 <NavComponent data={NavData}/>
                 <div className="container-fluid">
                     <div className="row">
-                        <SidebarComponent data={NavList}/>
-                        <OperationAreaComponent config={DataConfig} data={DataList}/>
+                        <div className="col-sm-3 col-md-2 blog-sidebar">
+                            <SidebarComponent data={NavList}/>
+                        </div>
+                        <div className="col-sm-9 col-md-10 blog-main">
+                            <OperationAreaComponent config={DataConfig} data={DataList}/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,4 +142,4 @@ class AgentIndex extends React.Component {
     }
 }
 
-ReactDOM.render(<AgentIndex/>, document.body);
+ReactDOM.render(<AgentIndex/>, document.getElementById('content'));

@@ -8,9 +8,9 @@ import ReactDOM from 'react-dom';
 class Marketing extends React.Component {
     render() {
 
-        let commentItems = this.props.data.map(function (item) {
+        let commentItems = this.props.data.map(function (item, index) {
             return (
-                <div className="col-lg-4">
+                <div key={'marketing-' + index} className="col-lg-4">
                     <img className="img-circle"
                          src={item.pic}
                          alt="Generic placeholder image" width="140" height="140"/>

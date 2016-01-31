@@ -37,14 +37,14 @@ router.get('/list', function (req, res) {
             total: 10,
             rows: shopList
         })
-    })
 
-    res.writeHead(200, {
-        'Content-Type': 'text/plain',
-        'Trailer': 'Content-MD5'
-    });
-    res.write(bodyString);
-    res.end();
+        res.writeHead(200, {
+            'Content-Type': 'text/plain',
+            'Trailer': 'Content-MD5'
+        });
+        res.write(bodyString);
+        res.end();
+    })
 });
 
 module.exports = router;

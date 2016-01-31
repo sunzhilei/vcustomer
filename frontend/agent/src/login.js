@@ -23,4 +23,4 @@ class AgentLogin extends React.Component {
     }
 }
 
-ReactDOM.render(<AgentLogin/>, document.body);
+ReactDOM.render(<AgentLogin/>, document.getElementById('content'));

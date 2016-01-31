@@ -23,4 +23,4 @@ class AgentReg extends React.Component {
     }
 }
 
-ReactDOM.render(<AgentReg/>, document.body);
+ReactDOM.render(<AgentReg/>, document.getElementById('content'));

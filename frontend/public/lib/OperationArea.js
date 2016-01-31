@@ -4,7 +4,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import Ajax from '../../../frontend/public/lib/JQuery/Ajax';
 
 class Pagination extends React.Component {
     render() {
@@ -21,14 +21,14 @@ class Pagination extends React.Component {
             pageList[i] = i;
         }
 
-        let pageItems = pageList.map(function (page) {
+        let pageItems = pageList.map((page, index) => {
             return (
-                <li><a href={page}>{page}</a></li>
+                <li key={'table-page-item-' + index}><a href={page}>{page}</a></li>
             )
         })
 
         return (
-            <div style={{'text-align':'center'}}>
+            <div className="PaginationComponent">
                 <nav>
                     <ul className="pagination pagination-sm">
                         <li>
@@ -51,56 +51,81 @@ class Pagination extends React.Component {
     }
 }
 
+class RowItemsComponent extends React.Component {
+    render() {
+        return (
+            <tbody>
+            {
+                this.props.rows.map((row, index) => {
+                    return (
+                        <tr key={'table-tr-' + index}>
+                            {
+                                this.props.columns.map((column, index) => {
+                                    for (let key in column) {
+                                        let column_key = column[key];
+                                        let row_key = row[column_key]
+                                        return (<td key={'table-td-' + index}>{row_key}</td>);
+                                    }
+                                })
+                            }
+                        </tr>
+                    )
+                })
+            }
+            </tbody>
+        )
+    }
+}
 
-class OperationArea extends React.Component {
+class ColumnItemsComponent extends React.Component {
+    render() {
+        return (
+            <thead>
+            <tr>
+                {
+                    this.props.columns.map((column, index) => {
+                        for (let key in column) {
+                            return (<th key={'table-column-item-' + index}>{column.text}</th>)
+                        }
+                    })
+                }
+            </tr>
+            </thead>
+        )
+    }
+}
+
+class TableComponent extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            total: 0,
+            rows: []
+        }
+    }
+
+    componentDidMount() {
+        Ajax.get(this.props.url).then(data => {
+            this.setState(data);
+
+        }, (errorThrown) => {
+            console.log(errorThrown);
+        })
+    }
+
     render() {
 
-        let config = this.props.config;
-        let data = this.props.data;
-
-        let PaginationComponent = config.Pagination ? <Pagination total={this.props.data.total}/> : '';
-
-        let columnItems = config.columns.map(function (column) {
-            for (let key in column) {
-                return (<th>{column.text}</th>)
-            }
-        })
-
-        let rowItems = data.rows.map(function (row) {
-            return (
-                <tr>
-                    {
-                        config.columns.map(function (column) {
-                            for (let key in column) {
-                                let column_key = column[key];
-                                let row_key = row[column_key]
-                                return (<td>{row_key}</td>);
-                            }
-                        })
-                    }
-                </tr>
-            );
-        })
-
+        let PaginationComponent = this.props.config.pagination ? <Pagination total={this.state.total}/> : '';
 
         return (
-            <div className="col-sm-9 col-md-10 blog-main">
-                <div className="table-responsive">
-                    <table className="table table-bordered">
-                        <thead>
-                        <tr>
-                            {columnItems}
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {rowItems}
-                        </tbody>
-                    </table>
-                </div>
+            <div className="table-responsive">
+                <table className="table table-bordered">
+                    <ColumnItemsComponent columns={this.props.config.columns}/>
+                    <RowItemsComponent columns={this.props.config.columns} rows={this.state.rows}/>
+                </table>
                 {PaginationComponent}
             </div>
         );
     }
 }
-
-module.exports = OperationArea;
+module.exports = TableComponent;

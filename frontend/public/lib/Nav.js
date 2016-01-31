@@ -10,10 +10,10 @@ class Nav extends React.Component {
 
     render() {
 
-        let commentItems = this.props.data.item.map(function (item) {
+        let commentItems = this.props.data.item.map(function (item, index) {
             let classLi = item.active ? 'nav-item nav-link active' : 'nav-item nav-link'
             return (
-                <a className={classLi} href={item.href}>
+                <a key={'nav-' + index} className={classLi} href={item.href}>
                     {item.text}
                 </a>
             );
