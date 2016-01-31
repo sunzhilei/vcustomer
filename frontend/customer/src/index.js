@@ -11,7 +11,7 @@ import TableComponent from '../../../frontend/public/lib/Table';
 
 let NavData = {
     brand: '微客客户管理系统',
-    item: [
+    items: [
         {text: '客户管理', href: '/admin', active: true}
     ]
 }

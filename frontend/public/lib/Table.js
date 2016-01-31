@@ -6,47 +6,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Ajax from '../../../frontend/public/lib/JQuery/Ajax';
 
-class Pagination extends React.Component {
+class ColumnItemsComponent extends React.Component {
     render() {
-
-        let pageList = [];
-        let pageNumber
-        let overNumber = this.props.total % 10;
-        if (overNumber != 0) {
-            pageNumber = (this.props.total - overNumber) / 10 + 1;
-        } else {
-            pageNumber = this.props.total / 10;
-        }
-        for (let i = 1; i <= pageNumber; i++) {
-            pageList[i] = i;
-        }
-
-        let pageItems = pageList.map((page, index) => {
-            return (
-                <li key={'table-page-item-' + index}><a href={page}>{page}</a></li>
-            )
-        })
-
         return (
-            <div className="PaginationComponent">
-                <nav>
-                    <ul className="pagination pagination-sm">
-                        <li>
-                            <a href="#" aria-label="上一页">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span className="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        {pageItems}
-                        <li>
-                            <a href="#" aria-label="下一页">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span className="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            <thead>
+            <tr>
+                {
+                    this.props.columns.map((column, index) => {
+                        for (let key in column) {
+                            return (<th key={'table-column-item-' + index}>{column.text}</th>)
+                        }
+                    })
+                }
+            </tr>
+            </thead>
         )
     }
 }
@@ -77,20 +50,46 @@ class RowItemsComponent extends React.Component {
     }
 }
 
-class ColumnItemsComponent extends React.Component {
+class Pagination extends React.Component {
     render() {
+        let pageNumber;
+        let overNumber = this.props.total % 10;
+        if (overNumber > 0) {
+            pageNumber = (this.props.total - overNumber) / 10 + 1;
+        } else {
+            pageNumber = this.props.total / 10;
+        }
+        let pageList = [];
+        for (let i = 1; i <= pageNumber; i++) {
+            pageList[i] = i;
+        }
+
+        let pageItems = pageList.map((page, index) => {
+            return (
+                <li key={'table-page-item-' + index}><a href={page}>{page}</a></li>
+            )
+        })
+
         return (
-            <thead>
-            <tr>
-                {
-                    this.props.columns.map((column, index) => {
-                        for (let key in column) {
-                            return (<th key={'table-column-item-' + index}>{column.text}</th>)
-                        }
-                    })
-                }
-            </tr>
-            </thead>
+            <div className="PaginationComponent">
+                <nav>
+                    <ul className="pagination pagination-sm">
+                        <li>
+                            <a href="#" aria-label="上一页">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span className="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        {pageItems}
+                        <li>
+                            <a href="#" aria-label="下一页">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span className="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         )
     }
 }

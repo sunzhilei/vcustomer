@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 class Carousel extends React.Component {
     render() {
 
-        let commentItems = this.props.data.map(function (item, index) {
+        let commentItems = this.props.data.map((item, index) => {
             let classItem = item.active ? 'carousel-item active' : 'carousel-item'
             return (
                 <div key={'carousel-' + index} className={classItem}>

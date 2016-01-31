@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 
 class Featurette extends React.Component {
     render() {
-        let commentItems = this.props.data.map(function (item, index) {
+        let commentItems = this.props.data.map((item, index) => {
             let classDivOne = index % 2 ? 'col-md-7 col-md-push-5' : 'col-md-7'
             let classDivTwo = index % 2 ? 'col-md-5 col-md-pull-7' : 'col-md-5'
             return (

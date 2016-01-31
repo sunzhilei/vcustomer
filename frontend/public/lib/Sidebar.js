@@ -13,11 +13,11 @@ class Sidebar extends React.Component {
         return (
             <div>
                 {
-                    this.props.data.map(function (items, index) {
+                    this.props.data.map((items, index) => {
                         return (
                             <ul key={'sidebar-' + index} className="nav nav-sidebar">
                                 {
-                                    items.map(function (item, index) {
+                                    items.map((item, index) => {
                                         let active = item.active ? 'active' : '';
                                         return (
                                             <li key={'sidebar-item-' + index} className={active}>

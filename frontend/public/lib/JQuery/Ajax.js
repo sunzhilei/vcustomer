@@ -2,20 +2,20 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-exports.get = function (_url) {
+exports.get = _url => {
     return request(_url, '', 'GET');
 }
-exports.get = function (_url, _data) {
+exports.get = (_url, _data) => {
     return request(_url, _data, 'GET');
 }
-exports.post = function (_url) {
+exports.post = _url => {
     return request(_url, '', 'POST');
 }
-exports.post = function (_url, _data) {
+exports.post = (_url, _data) => {
     return request(_url, _data, 'POST');
 }
-let request = function (_url, _data, _method) {
-    return new Promise(function (resolve, reject) {
+let request = (_url, _data, _method) => {
+    return new Promise((resolve, reject) => {
         $.ajax({
             url: _url,
             data: _data,
@@ -24,10 +24,10 @@ let request = function (_url, _data, _method) {
             async: true,
             cache: true,
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            success: function (data, textStatus, jqXHR) {
+            success: (data, textStatus, jqXHR) => {
                 resolve(data)
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: (jqXHR, textStatus, errorThrown) => {
                 reject(errorThrown)
 
             }

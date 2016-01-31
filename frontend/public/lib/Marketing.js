@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 class Marketing extends React.Component {
     render() {
 
-        let commentItems = this.props.data.map(function (item, index) {
+        let commentItems = this.props.data.map((item, index) => {
             return (
                 <div key={'marketing-' + index} className="col-lg-4">
                     <img className="img-circle"
