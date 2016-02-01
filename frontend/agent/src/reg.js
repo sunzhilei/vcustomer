@@ -9,9 +9,9 @@ import Ajax from '../../../frontend/public/lib/JQuery/Ajax';
 
 class AgentReg extends React.Component {
     handleSubmit(body) {
-        Ajax.post('/login/valid', body).then(function (data) {
+        Ajax.post('/login/valid', body).then((data) => {
             console.log(data.result);
-        }, function (errorThrown) {
+        }, (errorThrown) => {
             console.log(errorThrown);
         })
     }
@@ -23,4 +23,4 @@ class AgentReg extends React.Component {
     }
 }
 
-ReactDOM.render(<AgentReg/>, document.body);
+ReactDOM.render(<AgentReg/>, document.getElementById('content'));
