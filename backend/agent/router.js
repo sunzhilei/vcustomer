@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let account = require('./service/account.js');
+let resUtil = require("./../util/resUtil.js");
 
 var bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({extended: false}));
@@ -17,38 +18,28 @@ router.get('/login', function (req, res) {
 });
 // 定义网站登录验证的路由
 router.post('/login/valid', function (req, res) {
-    let bodyString = JSON.stringify({
-        "result": true
-    })
+    let accountName = req.body.inputEmail;
+    let accountPassword = req.body.inputPassword;
 
-    account.queryByAccount(accountName, accountPassword, function (err, accountObj) {
+    account.queryAccount(accountName, accountPassword).then(function (accountObj) {
+        console.log("route:"+accountObj);
         if (accountObj) {
             let accountObjAccountName = null;
             let accountObjPassword = null;
             accountObjAccountName = accountObj.account;
             accountObjPassword = accountObj.password;
             if (accountPassword != accountObjPassword) {
-                body = {
-                    "result": false,
-                    "msg": "密码错误！"
-                }
+                resUtil.resultFail( "密码错误！",req, res);
+            }else{
+                resUtil.resultSuccess(req, res);
             }
         } else {
-            body = {
-                "result": false,
-                "msg": "用户不存在！"
-            }
+            resUtil.resultFail("用户不存在！",req, res);
         }
+    }, function (error) {
+        console.error('route错误', error);
+        resUtil.resultFail("系统异常，稍后重试！",req, res);
     })
-
-    res.writeHead(200, {
-        'Content-Type': 'text/plain',
-        'Trailer': 'Content-MD5'
-    });
-    res.write(bodyString);
-    res.end();
-
-    //res.redirect('/');
 });
 
 // 定义网站注册的路由

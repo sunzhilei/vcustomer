@@ -28,7 +28,16 @@ app.use('/joint', joint);
 //获取access_token通过getAccessToken模块从access_token.json中取出
 let updateAccessTokenscheduleJob = require('./backend/wx/access_token/updateAccessTokenscheduleJob');
 updateAccessTokenscheduleJob();
-
+//初始化mysql
+let MysqlPool = require('./backend/mysql/MysqlPool');
+MysqlPool.query({
+    sql: "select  1 FROM DUAL ",
+    params: null
+}).then(function (rows) {
+    console.log("初始化：:"+rows);
+}, function (error) {
+    console.error('初始化错误', error);
+});
 //启动对5050端口的监听
 app.listen(process.env.PORT || 5050);
 
