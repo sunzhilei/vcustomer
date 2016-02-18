@@ -16,6 +16,18 @@ exports.resultSuccess = function(req, res){
     res.write(JSON.stringify(bodyString));
     res.end();
 }
+exports.resultData = function(rows,total,req, res){
+    let  bodyString =  {
+        total: total,
+        rows:rows
+    };
+   res.writeHead(resCode, {
+        'Content-Type':Content_Type,
+        'Trailer': Trailer
+    });
+    res.write(JSON.stringify(bodyString));
+    res.end();
+}
 exports.resultFail = function(msg,req, res){
     let  bodyString =  {
         "result": false,
