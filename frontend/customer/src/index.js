@@ -10,9 +10,10 @@ import NavComponent from '../../../frontend/public/lib/Nav';
 import TableComponent from '../../../frontend/public/lib/Table';
 
 let NavData = {
-    brand: '微客客户管理系统',
+    brand: '后台管理',
     items: [
-        {text: '客户管理', href: '/admin', active: true}
+        {text: '首页', href: '/admin', active: true},
+        {text: '客户管理', href: '/customerList'}
     ]
 }
 
