@@ -6,9 +6,9 @@ import ReactDOM from 'react-dom';
 
 //require("../css/Carousel.css");
 
-import NavComponent from '../../../frontend/public/lib/Nav';
-import SidebarComponent from '../../../frontend/public/lib/Sidebar';
-import ShopInfoComponent from '../../../frontend/agent/src/admin/ShopInfo';
+import NavComponent from '../../public/lib/Nav';
+import SidebarComponent from '../../public/lib/Sidebar';
+import ShowModulesComponent from './admin/personalCenter/showModules';
 
 let NavData = {
     brand: '微客',
@@ -17,18 +17,35 @@ let NavData = {
     ]
 }
 
-let NavList = [
-    [
-        {text: '店铺信息', href: '/admin', active: true},
-        {text: '修改密码', href: '/admin'}
-    ],
-    [
-        {text: '站内消息', href: '/admin'},
-        {text: '工单管理', href: '/admin'}
-    ]
+let SidebarData = [
+    {
+        title: '配置',
+        items: [
+            {text: '公众号配置', href: '/admin', active: true}
+        ]
+    },
+    {
+        title: '信息中心',
+        items: [
+            {text: '公告', href: '/admin'},
+            {text: '站内消息', href: '/admin'},
+            {text: '技术支持', href: '/admin'}
+        ]
+    }
 ]
 
 class AgentIndex extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            type: 'info'
+        }
+    }
+
+    handleSubmit(type) {
+        this.setState({type: type});
+    }
+
     render() {
         return (
             <div>
@@ -36,10 +53,10 @@ class AgentIndex extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-3 col-md-2 blog-sidebar">
-                            <SidebarComponent data={NavList}/>
+                            <SidebarComponent data={SidebarData}/>
                         </div>
                         <div className="col-sm-9 col-md-10 blog-main">
-                            <ShopInfoComponent />
+                            <ShowModulesComponent type={this.state.type} onSubmit={type => this.handleSubmit(type)}/>
                         </div>
                     </div>
                 </div>

@@ -14,10 +14,10 @@ import FooterComponent from '../../../frontend/public/lib/Footer';
 
 let NavData = {
     brand: '微客',
-    item: [
-        {text: '首页', href: '/', active: true},
-        {text: '产品', href: '/product'},
-        {text: '团队', href: '/about'},
+    items: [
+        {text: '首页', href: '#home', active: true},
+        {text: '产品', href: '#product'},
+        {text: '团队', href: '#about'},
         {text: '管理', href: '/login'}
     ]
 }
@@ -61,11 +61,13 @@ class AgentIndex extends React.Component {
         return (
             <div>
                 <NavComponent data={NavData}/>
-                <CarouselComponent data={CarouselData}/>
-                <div className="container marketing">
-                    <MarketingComponent data={MarketingData}/>
-                    <FeaturetteComponent data={FeaturetteData}/>
-                    <FooterComponent text="2016 Company, Inc."/>
+                <div id="home" className="body">
+                    <CarouselComponent data={CarouselData}/>
+                    <div className="container marketing">
+                        <MarketingComponent data={MarketingData}/>
+                        <FeaturetteComponent data={FeaturetteData}/>
+                        <FooterComponent text="2016 Company, Inc."/>
+                    </div>
                 </div>
             </div>
         );

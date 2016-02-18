@@ -36,7 +36,7 @@ class Featurette extends React.Component {
         });
 
         return (
-            <div>
+            <div id="product">
                 {commentItems}
                 <hr className="featurette-divider"/>
             </div>

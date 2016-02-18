@@ -8,27 +8,27 @@ import ReactDOM from 'react-dom';
 
 class Sidebar extends React.Component {
     render() {
-
-
         return (
             <div>
                 {
-                    this.props.data.map((items, index) => {
+                    this.props.data.map((data, index) => {
                         return (
-                            <ul key={'sidebar-' + index} className="nav nav-sidebar">
+                            <div key={'sidebar-' + index} className="list-group">
+                                <br/>
+                                <a href="#" className="list-group-item disabled">
+                                    {data.title}
+                                </a>
                                 {
-                                    items.map((item, index) => {
-                                        let active = item.active ? 'active' : '';
+                                    data.items.map((item, index) => {
+                                        let active = item.active ? 'list-group-item active' : 'list-group-item';
                                         return (
-                                            <li key={'sidebar-item-' + index} className={active}>
-                                                <a href={item.href}>
-                                                    {item.text}
-                                                </a>
-                                            </li>
+                                            <a href={item.href} key={'sidebar-item-' + index} className={active}>
+                                                {item.text}
+                                            </a>
                                         )
                                     })
                                 }
-                            </ul>
+                            </div>
                         );
                     })
                 }
