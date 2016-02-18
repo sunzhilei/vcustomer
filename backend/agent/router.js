@@ -50,12 +50,13 @@ router.get('/reg', function (req, res) {
 router.post('/reg/valid', function (req, res) {
     console.log(req.body.inputEmail);
     console.log(req.body.inputPassword);
-
-    if (true) {
-        res.json({result: true, redirect: "/admin"});
-    } else {
-        res.json({result: false, message: "未知错误！请联系管理员！"});
-    }
+    account.insertAccount(req.body.inputEmail,req.body.inputPassword).then(function (rows) {
+        //res.json({result: true, redirect: "/admin"});
+        resUtil.resultSuccess(req, res);
+    }, function (error) {
+        console.error('route错误', error);
+        resUtil.resultFail("系统异常，稍后重试！",req, res);
+    })
     //res.redirect('/');
 });
 
