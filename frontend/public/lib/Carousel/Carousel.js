@@ -25,7 +25,7 @@ class Carousel extends React.Component {
         });
 
         return (
-            <div id="home" className="carousel slide" data-ride="carousel">
+            <div className="carousel slide" data-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
                     <li data-target="#myCarousel" data-slide-to="1"></li>

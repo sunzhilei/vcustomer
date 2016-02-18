@@ -6,7 +6,7 @@ let fs = require('fs');
 
 let getAccessToken = new Promise(function (resolve, reject) {
 
-    fs.readFile('./backend/wx/access_token/access_token.json', 'utf-8', function (err, d) {
+    fs.readFile('./access_token/access_token.json', 'utf-8', function (err, d) {
         if (err) {
             reject(new Error(err));
         } else {

@@ -18,13 +18,13 @@ let getNavigation = function () {
                 },
                 {
                     "type": "view",
-                    "name": "Product",
-                    "url": "http://vcustomer.applinzi.com/"
+                    "name": "Login",
+                    "url": "http://vcustomer.applinzi.com/login"
                 },
                 {
                     "type": "view",
-                    "name": "Team",
-                    "url": "http://vcustomer.applinzi.com/"
+                    "name": "Manager",
+                    "url": "http://vcustomer.applinzi.com/admin"
                 }
             ]
         };

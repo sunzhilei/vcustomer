@@ -61,11 +61,13 @@ class AgentIndex extends React.Component {
         return (
             <div>
                 <NavComponent data={NavData}/>
-                <CarouselComponent data={CarouselData}/>
-                <div className="container marketing">
-                    <MarketingComponent data={MarketingData}/>
-                    <FeaturetteComponent data={FeaturetteData}/>
-                    <FooterComponent text="2016 Company, Inc."/>
+                <div id="home" className="body">
+                    <CarouselComponent data={CarouselData}/>
+                    <div className="container marketing">
+                        <MarketingComponent data={MarketingData}/>
+                        <FeaturetteComponent data={FeaturetteData}/>
+                        <FooterComponent text="2016 Company, Inc."/>
+                    </div>
                 </div>
             </div>
         );

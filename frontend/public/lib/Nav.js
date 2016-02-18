@@ -9,32 +9,29 @@ import ReactDOM from 'react-dom';
 class NavItems extends React.Component {
     render() {
         return (
-            <div>
+            <ul className="nav navbar-nav pull-left">
                 {
                     this.props.items.map((item, index) => {
-                        let classLi = item.active ? 'nav-item nav-link active' : 'nav-item nav-link'
                         return (
-                            <a key={'nav-' + index} className={classLi} href={item.href}>
-                                {item.text}
-                            </a>
+                            <li key={'nav-' + index} className="nav-item">
+                                <a className="nav-link" href={item.href}>
+                                    {item.text}
+                                </a>
+                            </li>
                         )
                     })
                 }
-            </div>
+            </ul>
         )
     }
 }
 
 class Nav extends React.Component {
-
     render() {
-
         return (
-            <nav className="navbar navbar-dark navbar-fixed-top bg-inverse">
+            <nav id="navbar-example" className="navbar navbar-dark navbar-fixed-top bg-inverse">
                 <a href="/" className="navbar-brand">{this.props.data.brand}</a>
-                <nav className="nav navbar-nav pull-left">
-                    <NavItems items={this.props.data.items}/>
-                </nav>
+                <NavItems items={this.props.data.items}/>
             </nav>
         );
     }
