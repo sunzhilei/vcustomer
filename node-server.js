@@ -11,7 +11,7 @@ app.set('view engine', 'html');
 app.use('/frontend', express.static('./frontend'));
 
 // 注册Session中间件
-app.use(express.session());
+//app.use(express.session());
 
 //与微信公众号对接的URL和TOKEN
 let joint = require('./backend/wx/joint');
