@@ -4,36 +4,35 @@ let uuid = require("./../../util/UUID.js");
 /**
  * 根据用户名查询用户信息
  */
-exports.queryAccount = function (account, password) {
-    return new Promise(function (resolve, reject) {
+exports.queryAccount = (account, password) => {
+    return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "SELECT uuid,account,password from account where account=:account and password=:password",
             params: {account: account, password: password}
-        }).then(function (rows) {
-            console.log("service:"+rows);
+        }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows[0]);
             } else {
                 resolve(null);
             }
-        }, function (error) {
-            console.error('service错误', error);
-            reject(new Error(error));
+        }, e => {
+            console.error(e);
+            reject(new Error(e));
         })
     })
 }
 /**
  * 插入登录用户信息
  */
-exports.insertAccount = function (account, password) {
-    return new Promise(function (resolve, reject) {
+exports.insertAccount = (account, password) => {
+    return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "insert into account(uuid,account,password) VALUES(:uuid,:account,:password)",
-            params: {uuid:uuid.createUUID(),account: account, password: password}
-        }).then(function (rows) {
-            console.log("service:"+rows);
-        }, function (error) {
-            console.error('service错误', error);
+            params: {uuid: uuid.createUUID(), account: account, password: password}
+        }).then(rows => {
+            console.log("service:" + rows);
+        }, e => {
+            console.error(e);
             reject(new Error(error));
         })
     })

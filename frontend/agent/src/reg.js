@@ -5,15 +5,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import RegComponent from '../../../frontend/public/lib/Reg/Reg';
-import Ajax from '../../../frontend/public/lib/JQuery/Ajax';
 
 class AgentReg extends React.Component {
     handleSubmit(body) {
-        Ajax.post('/login/valid', body).then((data) => {
-            console.log(data.result);
-        }, (errorThrown) => {
-            console.log(errorThrown);
-        })
+        $.post("/reg/valid", body, data => {
+            if (!data.result) {
+                alert(data.msg);
+            } else {
+                window.location.href = data.msg;
+            }
+        }, 'json');
     }
 
     render() {

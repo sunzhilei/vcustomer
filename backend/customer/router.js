@@ -7,11 +7,11 @@ var bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({extended: false}));
 
 // 定义网站主页的路由
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     res.render('./customer/index');
 });
-router.get('/list', function (req, res) {
-    shop.queryShopByAccountUUID(req.query.page, req.query.number).then(function (objList) {
+router.get('/list', (req, res) => {
+    shop.queryShopByAccountUUID(req.query.page, req.query.number).then(objList => {
         let shopList = new Array();
         if(objList){
             for (let i = 0; i < objList.length; i++) {
@@ -31,8 +31,8 @@ router.get('/list', function (req, res) {
             }
         }
         resUtil.resultData(shopList,shopList.length,req,res)
-    },function (error) {
-        console.error('route错误', error);
+    },e => {
+        console.error(e);
         resUtil.resultFail("系统异常，稍后重试！",req, res);
     })
 });

@@ -6,21 +6,21 @@ let https = require('https');
 let fs = require('fs');
 let schedule = require('node-schedule');
 
-let reqAccessToken = function () {
-    return new Promise(function (resolve, reject) {
+let reqAccessToken = () => {
+    return new Promise((resolve, reject) => {
         let options = {
             hostname: 'api.weixin.qq.com',
             port: 443,
             path: '/cgi-bin/token?grant_type=client_credential&appid=wxb05bb562f6415aa6&secret=48e84b1eab2a7746623d896fd7b41e20',
             method: 'GET'
         };
-        let req = https.request(options, function (res) {
+        let req = https.request(options, res => {
             if (res.statusCode === 200) {
-                res.on('data', function (d) {
+                res.on('data', d => {
                     resolve(setAccessToken(d));
                 })
             } else {
-                req.on('error', function (e) {
+                req.on('error', e => {
                     reject(
                         new Error(e)
                     );
@@ -32,11 +32,11 @@ let reqAccessToken = function () {
 }
 
 
-let setAccessToken = function (d) {
-    return new Promise(function (resolve, reject) {
-        fs.writeFile('./backend/wx/access_token/access_token.json', d, 'utf-8', function (err) {
-            if (err) {
-                reject(new Error(err));
+let setAccessToken = d => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./backend/wx/access_token/access_token.json', d, 'utf-8', e => {
+            if (e) {
+                reject(new Error(e));
             } else {
                 resolve("set access_token successful");
             }
@@ -44,14 +44,14 @@ let setAccessToken = function (d) {
     });
 }
 
-let updateAccessTokenscheduleJob = function () {
+let updateAccessTokenscheduleJob = () => {
     let rule = new schedule.RecurrenceRule();
     rule.minute = 55;
-    schedule.scheduleJob(rule, function () {
-        reqAccessToken().then(function (msg) {
+    schedule.scheduleJob(rule, () => {
+        reqAccessToken().then(msg => {
             console.log(msg.toString())
-        }, function (error) {
-            console.error('错误', error);
+        }, e => {
+            console.log(e);
         });
     });
 }

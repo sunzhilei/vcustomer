@@ -5,36 +5,37 @@ let resCode = 200;
 let Content_Type = "text/plain";
 let Trailer = "Content-MD5";
 
-exports.resultSuccess = function(req, res){
-    let  bodyString =  {
-        "result": true
+exports.resultSuccess = (msg,req, res) => {
+    let bodyString = {
+        "result": true,
+        "msg": msg
     };
     res.writeHead(resCode, {
-        'Content-Type':Content_Type,
+        'Content-Type': Content_Type,
         'Trailer': Trailer
     });
     res.write(JSON.stringify(bodyString));
     res.end();
 }
-exports.resultData = function(rows,total,req, res){
-    let  bodyString =  {
+exports.resultData = (rows, total, req, res) => {
+    let bodyString = {
         total: total,
-        rows:rows
+        rows: rows
     };
-   res.writeHead(resCode, {
-        'Content-Type':Content_Type,
+    res.writeHead(resCode, {
+        'Content-Type': Content_Type,
         'Trailer': Trailer
     });
     res.write(JSON.stringify(bodyString));
     res.end();
 }
-exports.resultFail = function(msg,req, res){
-    let  bodyString =  {
+exports.resultFail = (msg, req, res) => {
+    let bodyString = {
         "result": false,
-        "msg":msg
+        "msg": msg
     };
     res.writeHead(resCode, {
-        'Content-Type':Content_Type,
+        'Content-Type': Content_Type,
         'Trailer': Trailer
     });
     res.write(JSON.stringify(bodyString));

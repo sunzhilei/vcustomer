@@ -5,15 +5,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import LoginComponent from '../../../frontend/public/lib/Login/Login';
-import Ajax from '../../../frontend/public/lib/JQuery/Ajax';
 
 class AgentLogin extends React.Component {
     handleSubmit(body) {
-        Ajax.post('/login/valid', body).then((data) => {
-            console.log(data.result);
-        }, (errorThrown) => {
-            console.log(errorThrown);
-        })
+        $.post("/login/valid", body, data => {
+            if (!data.result) {
+                alert(data.msg);
+            } else {
+                window.location.href = data.msg;
+            }
+        }, 'json');
     }
 
     render() {

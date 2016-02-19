@@ -34,10 +34,10 @@ let MysqlPool = require('./backend/mysql/MysqlPool');
 MysqlPool.query({
     sql: "select  1 FROM DUAL ",
     params: null
-}).then(function (rows) {
-    console.log("数据库连接成功：:" + rows);
-}, function (error) {
-    console.error('数据库连接失败', error);
+}).then(rows => {
+    console.log("数据库连接成功");
+}, e => {
+    console.error('数据库连接失败，错误信息：', e.message);
 });
 
 // 启动对5050端口的监听

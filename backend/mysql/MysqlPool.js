@@ -9,8 +9,8 @@ let initMysqlPool = function () {
         port: process.env.MYSQL_PORT,
         user: process.env.ACCESSKEY,
         password: process.env.SECRETKEY,
-        database : process.env.APPNAME
-        //database: 'app_' + process.env.APPNAME
+        //database: process.env.APPNAME
+        database: 'app_' + process.env.APPNAME
     });
 }
 
@@ -19,34 +19,34 @@ let initMysqlPool = function () {
  */
 exports.query = function (sqlReq) {
     return new Promise(function (resolve, reject) {
-    //sql, params
-    if (!mysqlPool) {
-        initMysqlPool();
-    }
-    mysqlPool.getConnection(function (err, connection) {
-        if (err) {
-            reject(new Error(err));
-        } else {
-            connection.config.queryFormat = function (query, values) {
-                if (!values) return query;
-                return query.replace(/\:(\w+)/g, function (txt, key) {
-                    if (values.hasOwnProperty(key)) {
-                        return this.escape(values[key]);
-                    }
-                    return txt;
-                }.bind(this));
-            };
-
-            connection.query(sqlReq.sql, sqlReq.params, function (err, rows) {
-                connection.release();
-                if(err){
-                    reject(new Error(err));
-                }else{
-                    resolve(rows);
-                }
-            });
+        //sql, params
+        if (!mysqlPool) {
+            initMysqlPool();
         }
-    })
+        mysqlPool.getConnection(function (err, connection) {
+            if (err) {
+                reject(new Error(err));
+            } else {
+                connection.config.queryFormat = function (query, values) {
+                    if (!values) return query;
+                    return query.replace(/\:(\w+)/g, (txt, key) => {
+                        if (values.hasOwnProperty(key)) {
+                            return this.escape(values[key]);
+                        }
+                        return txt;
+                    });
+                };
+
+                connection.query(sqlReq.sql, sqlReq.params, function (err, rows) {
+                    connection.release();
+                    if (err) {
+                        reject(new Error(err));
+                    } else {
+                        resolve(rows);
+                    }
+                });
+            }
+        })
     });
 }
 
@@ -66,12 +66,12 @@ exports.processTransaction = function (callback) {
 
         connection.config.queryFormat = function (query, values) {
             if (!values) return query;
-            return query.replace(/\:(\w+)/g, function (txt, key) {
+            return query.replace(/\:(\w+)/g, (txt, key) => {
                 if (values.hasOwnProperty(key)) {
                     return this.escape(values[key]);
                 }
                 return txt;
-            }.bind(this));
+            });
         };
 
         return callback(connection);

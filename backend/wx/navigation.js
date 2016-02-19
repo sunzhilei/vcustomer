@@ -6,8 +6,8 @@ let https = require('https');
 let getAccessToken = require('./access_token/getAccessToken');
 
 
-let getNavigation = function () {
-    return new Promise(function (resolve, reject) {
+let getNavigation = () => {
+    return new Promise((resolve, reject) => {
 
         let body = {
             "button": [
@@ -33,7 +33,7 @@ let getNavigation = function () {
 
         console.log(bodyString);
 
-        getAccessToken.then(function (access_token) {
+        getAccessToken.then((access_token) => {
             let options = {
                 hostname: 'api.weixin.qq.com',
                 port: 443,
@@ -46,28 +46,28 @@ let getNavigation = function () {
             };
 
 
-            let req = https.request(options, (res) => {
+            let req = https.request(options, res => {
                 console.log('statusCode: ', res.statusCode);
                 console.log('headers: ', res.headers);
 
-                res.on('data', function (d) {
+                res.on('data', d => {
                     resolve(d);
                 })
             });
             req.write(bodyString, 'utf-8');
             req.end();
-            req.on('error', (e) => {
+            req.on('error', e => {
                 reject(new Error(e));
             });
-        }, function (error) {
-            console.error('错误', error);
+        }, e => {
+            console.log(e.message);
         });
 
     });
 }
 
-getNavigation().then(function (d) {
+getNavigation().then(d => {
     console.log(d.toString());
-}, function (error) {
-    console.error('错误', error);
+}, e => {
+    console.log(e.message);
 });

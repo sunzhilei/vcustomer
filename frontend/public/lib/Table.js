@@ -4,7 +4,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Ajax from '../../../frontend/public/lib/JQuery/Ajax';
 
 class ColumnItemsComponent extends React.Component {
     render() {
@@ -104,12 +103,9 @@ class TableComponent extends React.Component {
     }
 
     componentDidMount() {
-        Ajax.get(this.props.url,{page:1,number:10}).then(data => {
+        $.get(this.props.url, {page: 1, number: 10}, data => {
             this.setState(data);
-
-        }, (errorThrown) => {
-            console.log(errorThrown);
-        })
+        }, 'json');
     }
 
     render() {
