@@ -30,7 +30,11 @@ exports.insertAccount = (account, password) => {
             sql: "insert into account(uuid,account,password) VALUES(:uuid,:account,:password)",
             params: {uuid: uuid.createUUID(), account: account, password: password}
         }).then(rows => {
-            console.log("service:" + rows);
+            if (rows.length > 0) {
+                resolve(rows[0]);
+            } else {
+                resolve(null);
+            }
         }, e => {
             console.error(e);
             reject(new Error(error));

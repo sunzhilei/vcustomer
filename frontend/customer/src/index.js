@@ -20,7 +20,8 @@ let NavData = {
 let DataConfig = {
     "columns": [
         {field: 'uuid', text: '标识'},
-        {field: 'shop_name', text: '商店名称'},
+        {field: 'mp_name', text: '公众号名称'},
+        {field: 'mp_type', text: '公众号类型'},
         {field: 'operator_name', text: '运营人姓名'},
         {field: 'operator_phone', text: '运营人电话'},
         {field: 'wx_appid', text: '微信凭证'},

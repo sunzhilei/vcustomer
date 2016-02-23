@@ -35,17 +35,6 @@ let SidebarData = [
 ]
 
 class AgentIndex extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            type: 'info'
-        }
-    }
-
-    handleSubmit(type) {
-        this.setState({type: type});
-    }
-
     render() {
         return (
             <div>
@@ -56,7 +45,7 @@ class AgentIndex extends React.Component {
                             <SidebarComponent data={SidebarData}/>
                         </div>
                         <div className="col-sm-9 col-md-10 blog-main">
-                            <ShowModulesComponent type={this.state.type} onSubmit={type => this.handleSubmit(type)}/>
+                            <ShowModulesComponent/>
                         </div>
                     </div>
                 </div>

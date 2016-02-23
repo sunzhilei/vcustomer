@@ -5,7 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class ColumnItemsComponent extends React.Component {
+class ColumnComponent extends React.Component {
     render() {
         return (
             <thead>
@@ -23,7 +23,7 @@ class ColumnItemsComponent extends React.Component {
     }
 }
 
-class RowItemsComponent extends React.Component {
+class RowsComponent extends React.Component {
     render() {
         return (
             <tbody>
@@ -50,6 +50,11 @@ class RowItemsComponent extends React.Component {
 }
 
 class Pagination extends React.Component {
+    handleClick(e) {
+        e.preventDefault();
+        this.props.onPageClick(e.target.getAttribute("value"));
+    }
+
     render() {
         let pageNumber;
         let overNumber = this.props.total % 10;
@@ -63,9 +68,12 @@ class Pagination extends React.Component {
             pageList[i] = i;
         }
 
-        let pageItems = pageList.map((page, index) => {
+        let pageNumbers = pageList.map((page, index) => {
+            let active = (page == this.props.currPage) ? 'active' : '';
             return (
-                <li key={'table-page-item-' + index}><a href={page}>{page}</a></li>
+                <li key={'table-page-item-' + index} className={active}>
+                    <a value={page} onClick={e => {this.handleClick(e)}}>{page}</a>
+                </li>
             )
         })
 
@@ -79,7 +87,7 @@ class Pagination extends React.Component {
                                 <span className="sr-only">Previous</span>
                             </a>
                         </li>
-                        {pageItems}
+                        {pageNumbers}
                         <li>
                             <a href="#" aria-label="下一页">
                                 <span aria-hidden="true">&raquo;</span>
@@ -94,29 +102,39 @@ class Pagination extends React.Component {
 }
 
 class TableComponent extends React.Component {
+    onPageClick(page) {
+        $.get(this.props.url, {page: page * 10 - 10, number: 10}, data => {
+            this.setState(data);
+        }, 'json');
+    }
+
     constructor() {
         super();
         this.state = {
-            total: 0,
+            total: 1,
+            currPage: 1,
             rows: []
         }
     }
 
     componentDidMount() {
-        $.get(this.props.url, {page: 1, number: 10}, data => {
+        let isPagination = this.props.config.pagination ? 10 : this.state.total;
+        $.get(this.props.url, {page: 1, number: isPagination}, data => {
             this.setState(data);
         }, 'json');
     }
 
     render() {
 
-        let PaginationComponent = this.props.config.pagination ? <Pagination total={this.state.total}/> : '';
+        let PaginationComponent = this.props.config.pagination ?
+            <Pagination total={this.state.total} currPage={this.state.currPage}
+                        onPageClick={page => this.onPageClick(page)}/> : '';
 
         return (
             <div className="table-responsive">
                 <table className="table table-bordered">
-                    <ColumnItemsComponent columns={this.props.config.columns}/>
-                    <RowItemsComponent columns={this.props.config.columns} rows={this.state.rows}/>
+                    <ColumnComponent columns={this.props.config.columns}/>
+                    <RowsComponent columns={this.props.config.columns} rows={this.state.rows}/>
                 </table>
                 {PaginationComponent}
             </div>

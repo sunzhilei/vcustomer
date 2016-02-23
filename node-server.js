@@ -10,8 +10,12 @@ app.set('view engine', 'html');
 // 前端资源静态化
 app.use('/frontend', express.static('./frontend'));
 
-// 注册Session中间件
-//app.use(express.session());
+let session = require('express-session');
+let cookieParser = require('cookie-parser');
+//由于Session需要加密session_id，所以一定要传入一个密钥字符串（任意）来加密
+app.use(cookieParser('vcustomer'));
+//靠这个中间件让我们可以用req.session.key获取对应的value
+app.use(session());
 
 //与微信公众号对接的URL和TOKEN
 let joint = require('./backend/wx/joint');

@@ -66,7 +66,7 @@ class AgentIndex extends React.Component {
                     <div className="container marketing">
                         <MarketingComponent data={MarketingData}/>
                         <FeaturetteComponent data={FeaturetteData}/>
-                        <FooterComponent text="2016 Company, Inc."/>
+                        <FooterComponent text="2016 微客, Inc."/>
                     </div>
                 </div>
             </div>

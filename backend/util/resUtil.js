@@ -5,10 +5,10 @@ let resCode = 200;
 let Content_Type = "text/plain";
 let Trailer = "Content-MD5";
 
-exports.resultSuccess = (msg,req, res) => {
+exports.resultSuccess = (custom,req, res) => {
     let bodyString = {
         "result": true,
-        "msg": msg
+        "custom": custom
     };
     res.writeHead(resCode, {
         'Content-Type': Content_Type,
@@ -17,7 +17,7 @@ exports.resultSuccess = (msg,req, res) => {
     res.write(JSON.stringify(bodyString));
     res.end();
 }
-exports.resultData = (rows, total, req, res) => {
+exports.resultData = (total, rows, req, res) => {
     let bodyString = {
         total: total,
         rows: rows
