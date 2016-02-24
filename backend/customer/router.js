@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-let shop = require('./service/customer.js');
+let customer = require('./service/customer.js');
 let resUtil = require("./../util/resUtil.js");
 
 var bodyParser = require("body-parser");
@@ -17,8 +17,8 @@ router.get('/', (req, res) => {
  * 查询客户列表
  */
 router.get('/list', (req, res) => {
-    shop.queryCustomerList(req.query.page, req.query.number).then(objList => {
-        shop.queryCustomerOfTotal().then(total => {
+    customer.queryCustomerList(req.query.page, req.query.number).then(objList => {
+        customer.queryCustomerOfTotal().then(total => {
             resUtil.resultData(total, objList, req, res);
         }, e => {
             console.error(e);
@@ -33,15 +33,9 @@ router.get('/list', (req, res) => {
 /**
  * 添加一个客户
  */
-router.get('/addCustomer', (req, res) => {
-    console.log(req.query);
-    shop.queryCustomerList(req.query.page, req.query.number).then(objList => {
-        shop.queryCustomerOfTotal().then(total => {
-            resUtil.resultData(total, objList, req, res);
-        }, e => {
-            console.error(e);
-            resUtil.resultFail("系统异常，稍后重试！", req, res);
-        })
+router.post('/addCustomer', (req, res) => {
+    customer.insertCustomer(req.session.account.uuid, req.body).then(objList => {
+        resUtil.resultData(total, objList, req, res);
     }, e => {
         console.error(e);
         resUtil.resultFail("系统异常，稍后重试！", req, res);

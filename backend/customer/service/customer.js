@@ -1,4 +1,5 @@
 let MysqlPool = require('./../../mysql/MysqlPool');
+let uuid = require("./../../util/UUID.js");
 
 /**
  * 分页查询客户列表
@@ -63,22 +64,22 @@ exports.queryCustomerByAccountUUID = (uuid) => {
 /**
  * 插入客户信息
  */
-exports.insertCustomer = (account, password) => {
+exports.insertCustomer = (account_uuid, body) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "insert into customer(uuid,account_uuid,mp_name,mp_type,operator_name,operator_phone,wx_appid,wx_secret,wx_url,wx_token,wx_accesstoken) VALUES(:uuid,:account_uuid,:mp_name,:mp_type,:operator_name,:operator_phone,:wx_appid,:wx_secret,:wx_url,:wx_token,:wx_accesstoken)",
             params: {
                 uuid: uuid.createUUID(),
                 account_uuid: account_uuid,
-                mp_name: mp_name,
-                mp_type: mp_type,
-                operator_name: operator_name,
-                operator_phone: operator_phone,
-                wx_appid: wx_appid,
-                wx_secret: wx_secret,
-                wx_url: wx_url,
-                wx_token: wx_token,
-                wx_accesstoken: wx_accesstoken
+                mp_name: body.mp_name,
+                mp_type: body.mp_type,
+                operator_name: body.operator_name,
+                operator_phone: body.operator_phone,
+                wx_appid: body.wx_appid,
+                wx_secret: body.wx_secret,
+                wx_url: '',
+                wx_token: '',
+                wx_accesstoken: ''
             }
         }).then(rows => {
             if (rows.length > 0) {
@@ -87,7 +88,7 @@ exports.insertCustomer = (account, password) => {
                 resolve(null);
             }
         }, e => {
-            console.error(e);
+            console.log(e);
             reject(new Error(error));
         })
     })

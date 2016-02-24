@@ -30,8 +30,7 @@ class Login extends React.Component {
                     <h2 className="form-signin-heading">请登录</h2>
                     <label htmlFor="inputEmail" className="sr-only">邮箱</label>
                     <input type="email" id="inputEmail" name="inputEmail" className="form-control" placeholder="邮箱"
-                           required
-                           autofocus defaultValue="admin@vcustomer.com"/>
+                           required autofocus defaultValue="admin@vcustomer.com"/>
                     <label htmlFor="inputPassword" className="sr-only">密码</label>
                     <input type="password" id="inputPassword" name="inputPassword" className="form-control"
                            placeholder="密码" required defaultValue="123456"/>

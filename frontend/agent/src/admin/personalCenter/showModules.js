@@ -17,7 +17,11 @@ class ShowModules extends React.Component {
                 if (!data.result) {
                     alert(data.msg);
                 } else {
-                    this.setState({type: type, customerInfo: data.custom.row});
+                    if (data.custom.row) {
+                        this.setState({type: type, customer: data.custom.row});
+                    } else {
+                        this.setState({type: type});
+                    }
                 }
             }
         });
@@ -27,7 +31,7 @@ class ShowModules extends React.Component {
         super();
         this.state = {
             type: "info",
-            customerInfo: {
+            customer: {
                 wx_url: '',
                 wx_token: '',
                 mp_name: '',
@@ -44,17 +48,33 @@ class ShowModules extends React.Component {
         this.getCustomerInfo(this.state.type);
     }
 
-    handleSubmit(type) {
-        this.getCustomerInfo(type);
+    handleEnterConfig() {
+        this.getCustomerInfo('config');
+    }
+
+    handleReturnInfo() {
+        this.getCustomerInfo('info');
+    }
+
+    handleSubmitConfig(body) {
+        console.log(body);
+        $.post("/customer/addCustomer", body, data => {
+            if (!data.result) {
+                alert(data.msg);
+            } else {
+                this.getCustomerInfo('info');
+            }
+        }, 'json');
     }
 
     render() {
         if (this.state.type == 'info') {
-            return <ServiceConfigInfoComponent customerInfo={this.state.customerInfo}
-                                               onSubmit={type => this.handleSubmit(type)}/>;
+            return <ServiceConfigInfoComponent customer={this.state.customer}
+                                               onEnterConfig={() => {this.handleEnterConfig()}}/>;
         } else {
-            return <ShopInfoComponent customerInfo={this.state.customerInfo}
-                                      onSubmit={type => this.handleSubmit(type)}/>;
+            return <ShopInfoComponent customer={this.state.customer}
+                                      onSubmitConfig={(body) => this.handleSubmitConfig(body)}
+                                      onReturnInfo={() => {this.handleReturnInfo()}}/>;
         }
     }
 }

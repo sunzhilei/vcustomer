@@ -107,3 +107,18 @@ body {
 .PaginationComponent {
   text-align: center;
 }
+
+form label.error {
+  width: 100%;
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebcccc;
+}
