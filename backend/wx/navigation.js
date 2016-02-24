@@ -24,7 +24,7 @@ let getNavigation = () => {
                 {
                     "type": "view",
                     "name": "Manager",
-                    "url": "http://vcustomer.applinzi.com/admin"
+                    "url": "http://vcustomer.applinzi.com/customer"
                 }
             ]
         };

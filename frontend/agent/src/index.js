@@ -18,7 +18,7 @@ let NavData = {
         {text: '首页', href: '#home', active: true},
         {text: '产品', href: '#product'},
         {text: '团队', href: '#about'},
-        {text: '管理', href: '/login'}
+        {text: '管理', href: '/admin'}
     ]
 }
 

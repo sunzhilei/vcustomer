@@ -12,12 +12,11 @@ class ShowModules extends React.Component {
         $.ajax({
             url: "/admin/personalCenter/customerInfo",
             dataType: "json",
-            async: false,
+            async: true,
             success: data => {
                 if (!data.result) {
                     alert(data.msg);
                 } else {
-                    this.state = {type: type, customerInfo: data.custom.row};
                     this.setState({type: type, customerInfo: data.custom.row});
                 }
             }
@@ -26,7 +25,23 @@ class ShowModules extends React.Component {
 
     constructor() {
         super();
-        this.getCustomerInfo('info');
+        this.state = {
+            type: "info",
+            customerInfo: {
+                wx_url: '',
+                wx_token: '',
+                mp_name: '',
+                mp_type: '',
+                operator_name: '',
+                operator_phone: '',
+                wx_appid: '',
+                wx_secret: ''
+            }
+        };
+    }
+
+    componentDidMount() {
+        this.getCustomerInfo(this.state.type);
     }
 
     handleSubmit(type) {

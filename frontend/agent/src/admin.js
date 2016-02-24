@@ -25,11 +25,11 @@ let SidebarData = [
         ]
     },
     {
-        title: '信息中心',
+        title: '我的配置',
         items: [
-            {text: '公告', href: '/admin'},
-            {text: '站内消息', href: '/admin'},
-            {text: '技术支持', href: '/admin'}
+            {text: '商品分类', href: '/admin'},
+            {text: '商品展示', href: '/admin'},
+            {text: '套餐管理', href: '/admin'}
         ]
     }
 ]

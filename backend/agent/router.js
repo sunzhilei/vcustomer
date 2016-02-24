@@ -70,7 +70,11 @@ router.post('/reg/valid', (req, res) => {
  * 跳转到客户后台管理
  */
 router.get('/admin', (req, res) => {
-    res.render('./agent/admin');
+    if(req.session.account){
+        res.render('./agent/admin');
+    }else{
+        res.render('./agent/login');
+    }
 });
 
 /**

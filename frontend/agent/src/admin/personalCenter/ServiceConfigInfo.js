@@ -9,10 +9,9 @@ import ReactDOM from 'react-dom';
 class ServiceConfigInfo extends React.Component {
     render() {
         return (
-            <form onSubmit={e => {e.preventDefault();this.props.onSubmit(this.refs.type.value)}}>
-                <input type="hidden" ref="type" value="config"/>
+            <form onSubmit={e => {e.preventDefault();this.props.onSubmit('config')}}>
                 <br/>
-                <h5 className="sub-header">服务器配置（将URL和Token配置到 微信·公众平台 =》 基本配置 =》 服务器配置 中）</h5>
+                <h5 className="sub-header">服务器配置</h5>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">URL(服务器地址)&nbsp;：</label>
                     <div className="col-sm-10">
@@ -35,11 +34,11 @@ class ServiceConfigInfo extends React.Component {
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
-                <br/>
-                <h5>对接步骤</h5>
+                <h6>公众号与平台对接流程</h6>
                 <h6>1.复制URL和Token</h6>
-                <h6>2.打开微信公众平台<a href="http://mp.weixin.qq.com">点击这里打开</a></h6>
-                <h6>3.在左侧菜单找到 基本配置 =》 服务器配置 启用并填写复制的URL和Token，保存验证成功即完成对接！</h6>
+                <h6>2.打开<a href="http://mp.weixin.qq.com">微信公众平台</a>，登录进入</h6>
+                <h6>3.在左侧菜单找到 基本配置 =》 服务器配置</h6>
+                <h6>4.启用并填写复制的URL和Token，提交，验证成功即完成对接！</h6>
             </form>
         );
     }
