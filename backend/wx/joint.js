@@ -17,6 +17,9 @@ router.use((req, res, next) => {
 
 // 定义网站主页的路由
 router.get('/valid/:account_uuid', (req, res) => {
+    console.log("================");
+    console.log(req.params.account_uuid);
+    console.log("================");
     customer.queryCustomerByUUID(req.params.account_uuid).then(row => {
         valid(row.wx_token);
     }, e => {
