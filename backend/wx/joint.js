@@ -30,10 +30,15 @@ function valid(wx_token) {
     console.log("================" + wx_token);
     let query = url.parse(req.url, true).query;
 
+    console.log("query================" + query);
     let signature = query.signature;
+    console.log("signature================" + signature);
     let echostr = query.echostr;
+    console.log("echostr================" + scyptoString);
     let timestamp = query['timestamp'];
+    console.log("timestamp================" + timestamp);
     let nonce = query.nonce;
+    console.log("nonce================" + nonce);
 
     let oriArray = new Array();
     oriArray[0] = nonce;
@@ -41,6 +46,7 @@ function valid(wx_token) {
     oriArray[2] = wx_token;
     oriArray.sort();
     let original = oriArray.join('');
+    console.log("original================" + original);
     let scyptoString = sha1(original);
 
     console.log("================" + scyptoString);
