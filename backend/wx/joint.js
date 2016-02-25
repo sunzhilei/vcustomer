@@ -17,9 +17,7 @@ router.use((req, res, next) => {
 
 // 定义网站主页的路由
 router.get('/valid/:account_uuid', (req, res) => {
-    console.log("================");
-    console.log(req.params.account_uuid);
-    console.log("================");
+    console.log("================" + req.params.account_uuid);
     customer.queryCustomerByUUID(req.params.account_uuid).then(row => {
         valid(row.wx_token);
     }, e => {
@@ -29,6 +27,7 @@ router.get('/valid/:account_uuid', (req, res) => {
 });
 
 function valid(wx_token) {
+    console.log("================" + wx_token);
     let query = url.parse(req.url, true).query;
 
     let signature = query.signature;
@@ -44,10 +43,14 @@ function valid(wx_token) {
     let original = oriArray.join('');
     let scyptoString = sha1(original);
 
+    console.log("================" + scyptoString);
+
     if (signature == scyptoString) {
+        console.log("================" + "success");
         res.end(echostr);
         console.log("验证成功并返回了echostr！");
     } else {
+        console.log("================" + "failed");
         res.end("false");
         console.log("验证失败!");
     }
