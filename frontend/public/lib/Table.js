@@ -69,10 +69,9 @@ class Pagination extends React.Component {
         }
 
         let pageNumbers = pageList.map((page, index) => {
-            let active = (page == this.props.currPage) ? 'active' : '';
             return (
-                <li key={'table-page-item-' + index} className={active}>
-                    <a value={page} onClick={e => {this.handleClick(e)}}>{page}</a>
+                <li key={'table-page-item-' + index}>
+                    <a value={page} href="#" onClick={e => {this.handleClick(e)}}>{page}</a>
                 </li>
             )
         })
@@ -103,7 +102,7 @@ class Pagination extends React.Component {
 
 class TableComponent extends React.Component {
     onPageClick(page) {
-        $.get(this.props.url, {page: page * 10 - 10, number: 10}, data => {
+        $.get(this.props.url, {page: (page * 10 - 10) < 1 ? 1 : (page * 10 - 10), number: 10}, data => {
             this.setState(data);
         }, 'json');
     }
