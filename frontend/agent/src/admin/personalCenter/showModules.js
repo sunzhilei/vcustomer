@@ -57,8 +57,8 @@ class ShowModules extends React.Component {
     }
 
     handleSubmitConfig(body) {
-        console.log(body);
         $.post("/customer/addCustomer", body, data => {
+            console.log(data);
             if (!data.result) {
                 alert(data.msg);
             } else {

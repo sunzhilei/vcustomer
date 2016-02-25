@@ -24,7 +24,6 @@ class ShopInfo extends React.Component {
             }
         });
         if (validator.form()) {
-            console.log($('form').serialize());
             this.props.onSubmitConfig($('form').serialize());
         }
     }
@@ -40,7 +39,8 @@ class ShopInfo extends React.Component {
         };
 
         return (
-            <form  noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
+            <form noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
+                <input type="hidden" name="uuid" defaultValue={this.props.customer.uuid}/>
                 <br/>
                 <h5 className="sub-header">公众号信息</h5>
                 <div className="form-group row">
@@ -53,7 +53,7 @@ class ShopInfo extends React.Component {
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">公众号类型</label>
                     <div className="col-sm-10">
-                        <RadioComponent config={DataConfig}/>
+                        <RadioComponent name="mp_type" config={DataConfig}/>
                     </div>
                 </div>
                 <br/>

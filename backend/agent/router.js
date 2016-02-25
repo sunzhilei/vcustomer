@@ -46,6 +46,14 @@ router.post('/login/valid', (req, res) => {
 });
 
 /**
+ * 退出登录处理
+ */
+router.get('/loginOut', (req, res) => {
+    req.session.destroy();
+    res.render('./agent/index');
+});
+
+/**
  * 跳转到注册页面
  */
 router.get('/reg', (req, res) => {
@@ -70,9 +78,9 @@ router.post('/reg/valid', (req, res) => {
  * 跳转到客户后台管理
  */
 router.get('/admin', (req, res) => {
-    if(req.session.account){
+    if (req.session.account) {
         res.render('./agent/admin');
-    }else{
+    } else {
         res.render('./agent/login');
     }
 });

@@ -30,8 +30,8 @@ let customer_router = require('./backend/customer/router');
 app.use('/customer', customer_router);
 
 // 启动定时任务，每小时获取一次access_token并保存
-let updateAccessTokenscheduleJob = require('./backend/wx/access_token/updateAccessTokenscheduleJob');
-updateAccessTokenscheduleJob();
+let accessTokenJob = require('./backend/wx/access_token/accessTokenJob');
+accessTokenJob.updateAccessTokenscheduleJob();
 
 // 初始化mysql
 let MysqlPool = require('./backend/mysql/MysqlPool');

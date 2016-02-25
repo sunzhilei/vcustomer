@@ -93,3 +93,34 @@ exports.insertCustomer = (account_uuid, body) => {
         })
     })
 }
+/**
+ * 更新客户信息
+ */
+exports.updateCustomer = (uuid, body) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "update customer set mp_name = :mp_name, mp_type = :mp_type, operator_name = :operator_name, operator_phone = :operator_phone, wx_appid = :wx_appid, wx_secret = :wx_secret, wx_url = :wx_url, wx_token = :wx_token, wx_accesstoken = :wx_accesstoken where uuid = :uuid",
+            params: {
+                uuid: uuid,
+                mp_name: body.mp_name,
+                mp_type: body.mp_type,
+                operator_name: body.operator_name,
+                operator_phone: body.operator_phone,
+                wx_appid: body.wx_appid,
+                wx_secret: body.wx_secret,
+                wx_url: body.wx_url,
+                wx_token: body.wx_token,
+                wx_accesstoken: body.wx_accesstoken
+            }
+        }).then(rows => {
+            if (rows.length > 0) {
+                resolve(rows[0]);
+            } else {
+                resolve(null);
+            }
+        }, e => {
+            console.log(e);
+            reject(new Error(error));
+        })
+    })
+}

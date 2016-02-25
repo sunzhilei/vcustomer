@@ -10,11 +10,13 @@ import NavComponent from '../../../frontend/public/lib/Nav';
 import TableComponent from '../../../frontend/public/lib/Table';
 
 let NavData = {
-    brand: '后台管理',
-    items: [
-        {text: '首页', href: '/admin', active: true},
-        {text: '客户管理', href: '/customerList'}
-    ]
+    brand: {text: '后台管理', href: '/customer'},
+    items: {
+        left: [
+            {text: '首页', href: '/customer', active: true},
+            {text: '客户管理', href: '/customer'}
+        ]
+    }
 }
 
 let DataConfig = {

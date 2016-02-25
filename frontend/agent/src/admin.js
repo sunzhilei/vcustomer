@@ -11,10 +11,15 @@ import SidebarComponent from '../../public/lib/Sidebar';
 import ShowModulesComponent from './admin/personalCenter/showModules';
 
 let NavData = {
-    brand: '微客',
-    items: [
-        {text: '个人中心', href: '/admin', active: true}
-    ]
+    brand: {text: '微客', href: '/admin'},
+    items: {
+        left: [
+            {text: '个人中心', href: '/admin', active: true}
+        ],
+        right: [
+            {text: '退出', href: '/loginOut'}
+        ]
+    }
 }
 
 let SidebarData = [

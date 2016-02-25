@@ -3,7 +3,7 @@
  */
 
 let https = require('https');
-let getAccessToken = require('./access_token/getAccessToken');
+let accessTokenJob = require('./access_token/accessTokenJob');
 
 
 let getNavigation = () => {
@@ -33,7 +33,7 @@ let getNavigation = () => {
 
         console.log(bodyString);
 
-        getAccessToken.then((access_token) => {
+        accessTokenJob.getAccessToken.then((access_token) => {
             let options = {
                 hostname: 'api.weixin.qq.com',
                 port: 443,
