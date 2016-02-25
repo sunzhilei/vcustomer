@@ -27,7 +27,7 @@ router.get('/login', (req, res) => {
  * 验证失败则抛出错误明细
  */
 router.post('/login/valid', (req, res) => {
-    account.queryAccount(req.body.inputEmail, req.body.inputPassword).then(accountObj => {
+    account.queryAccount(req.body).then(accountObj => {
         if (accountObj) {
             let account = {
                 uuid: accountObj.uuid,
@@ -66,7 +66,7 @@ router.get('/reg', (req, res) => {
  * 验证失败则抛出错误明细
  */
 router.post('/reg/valid', (req, res) => {
-    account.insertAccount(req.body.inputEmail, req.body.inputPassword).then(rows => {
+    account.insertAccount(req.body).then(result => {
         resUtil.resultSuccess({url: "/login"}, req, res);
     }, e => {
         console.error(e);

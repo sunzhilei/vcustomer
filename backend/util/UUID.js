@@ -3,5 +3,6 @@
  */
 let uuid = require('node-uuid');
 exports.createUUID = () => {
-    return uuid.v4();
+    var regS = new RegExp("\\-", "g");
+    return uuid.v4().replace(regS, "");
 }

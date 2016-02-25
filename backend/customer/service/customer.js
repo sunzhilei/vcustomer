@@ -29,6 +29,26 @@ exports.queryCustomerOfTotal = () => {
         MysqlPool.query({
             sql: "SELECT count(1) as total from customer",
             params: {}
+        }).then(rows => {
+            if (rows.length > 0) {
+                resolve(rows);
+            } else {
+                resolve(null);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(e));
+        })
+    })
+}
+/**
+ * 查询所有客户信息
+ */
+exports.queryCustomerOfAll = () => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "SELECT * as total from customer",
+            params: {}
         }).then(total => {
             if (total.length > 0) {
                 resolve(total[0].total);
@@ -42,13 +62,33 @@ exports.queryCustomerOfTotal = () => {
     })
 }
 /**
- * 根据帐号的uuid查询客户信息
+ * 根据uuid查询客户信息
  */
-exports.queryCustomerByAccountUUID = (uuid) => {
+exports.queryCustomerByUUID = (account_uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT * from customer where account_uuid = :uuid",
-            params: {uuid: uuid}
+            sql: "SELECT * from customer where account_uuid = :account_uuid",
+            params: {account_uuid: account_uuid}
+        }).then(rows => {
+            if (rows.length > 0) {
+                resolve(rows[0]);
+            } else {
+                resolve(null);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(e));
+        })
+    })
+}
+/**
+ * 根据帐号的uuid查询客户信息
+ */
+exports.queryCustomerByAccountUUID = (account_uuid) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "SELECT * from customer where account_uuid = :account_uuid",
+            params: {account_uuid: account_uuid}
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows[0]);
@@ -77,13 +117,13 @@ exports.insertCustomer = (account_uuid, body) => {
                 operator_phone: body.operator_phone,
                 wx_appid: body.wx_appid,
                 wx_secret: body.wx_secret,
-                wx_url: '',
-                wx_token: '',
+                wx_url: 'http://vcustomer.applinzi.com/joint/valid/' + account_uuid,
+                wx_token: account_uuid,
                 wx_accesstoken: ''
             }
-        }).then(rows => {
-            if (rows.length > 0) {
-                resolve(rows[0]);
+        }).then(result => {
+            if (result.length > 0) {
+                resolve(result);
             } else {
                 resolve(null);
             }
@@ -96,25 +136,48 @@ exports.insertCustomer = (account_uuid, body) => {
 /**
  * 更新客户信息
  */
-exports.updateCustomer = (uuid, body) => {
+exports.updateCustomer = (account_uuid, body) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "update customer set mp_name = :mp_name, mp_type = :mp_type, operator_name = :operator_name, operator_phone = :operator_phone, wx_appid = :wx_appid, wx_secret = :wx_secret, wx_url = :wx_url, wx_token = :wx_token, wx_accesstoken = :wx_accesstoken where uuid = :uuid",
+            sql: "update customer set mp_name = :mp_name, mp_type = :mp_type, operator_name = :operator_name, operator_phone = :operator_phone, wx_appid = :wx_appid, wx_secret = :wx_secret, wx_url = :wx_url, wx_token = :wx_token where uuid = :uuid",
             params: {
-                uuid: uuid,
+                uuid: body.uuid,
                 mp_name: body.mp_name,
                 mp_type: body.mp_type,
                 operator_name: body.operator_name,
                 operator_phone: body.operator_phone,
                 wx_appid: body.wx_appid,
                 wx_secret: body.wx_secret,
-                wx_url: body.wx_url,
-                wx_token: body.wx_token,
-                wx_accesstoken: body.wx_accesstoken
+                wx_url: 'http://vcustomer.applinzi.com/joint/valid/' + account_uuid,
+                wx_token: account_uuid,
             }
-        }).then(rows => {
-            if (rows.length > 0) {
-                resolve(rows[0]);
+        }).then(result => {
+            if (result.length > 0) {
+                resolve(result);
+            } else {
+                resolve(null);
+            }
+        }, e => {
+            console.log(e);
+            reject(new Error(error));
+        })
+    })
+}
+
+/**
+ * 更新客户信息微信访问令牌
+ */
+exports.updateCustomerAccessToken = (uuid, wx_accesstoken) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "update customer set wx_accesstoken = :wx_accesstoken where uuid = :uuid",
+            params: {
+                uuid: uuid,
+                wx_accesstoken: wx_accesstoken
+            }
+        }).then(result => {
+            if (result.length > 0) {
+                resolve(result);
             } else {
                 resolve(null);
             }

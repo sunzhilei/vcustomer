@@ -12,16 +12,16 @@ class Reg extends React.Component {
         e.preventDefault();
         var validator = $("form").validate({
             rules: {
-                inputPassword: {
+                password: {
                     required: true,
                     minlength: 6,
                     maxlength: 16
                 },
-                inputRepeatPassword: {
+                repeatPassword: {
                     required: true,
                     minlength: 6,
                     maxlength: 16,
-                    equalTo: "#inputPassword"
+                    equalTo: "#password"
                 }
             }
         });
@@ -35,15 +35,15 @@ class Reg extends React.Component {
             <div className="container">
                 <form className="form-signin" noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
                     <h2 className="form-signin-heading">请注册</h2>
-                    <label htmlFor="inputEmail" className="sr-only">邮箱</label>
-                    <input type="email" id="inputEmail" name="inputEmail" className="form-control" placeholder="邮箱"
+                    <label htmlFor="account" className="sr-only">邮箱</label>
+                    <input type="email" id="account" name="account" className="form-control" placeholder="邮箱"
                            required
                            autofocus/>
-                    <label htmlFor="inputPassword" className="sr-only">密码</label>
-                    <input type="password" id="inputPassword" name="inputPassword" className="form-control"
+                    <label htmlFor="password" className="sr-only">密码</label>
+                    <input type="password" id="password" name="password" className="form-control"
                            placeholder="密码"/>
-                    <label htmlFor="inputRepeatPassword" className="sr-only">确认密码</label>
-                    <input type="password" id="inputRepeatPassword" name="inputRepeatPassword" className="form-control"
+                    <label htmlFor="repeatPassword" className="sr-only">确认密码</label>
+                    <input type="password" id="repeatPassword" name="repeatPassword" className="form-control"
                            placeholder="确认密码"/>
                     <button className="btn btn-lg btn-primary btn-block" type="submit">
                         注册

@@ -29,10 +29,10 @@ class Login extends React.Component {
                 <form className="form-signin" noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
                     <h2 className="form-signin-heading">请登录</h2>
                     <label htmlFor="inputEmail" className="sr-only">邮箱</label>
-                    <input type="email" id="inputEmail" name="inputEmail" className="form-control" placeholder="邮箱"
+                    <input type="email" id="account" name="account" className="form-control" placeholder="邮箱"
                            required autofocus defaultValue="admin@vcustomer.com"/>
                     <label htmlFor="inputPassword" className="sr-only">密码</label>
-                    <input type="password" id="inputPassword" name="inputPassword" className="form-control"
+                    <input type="password" id="password" name="password" className="form-control"
                            placeholder="密码" required defaultValue="123456"/>
                     <div className="checkbox">
                         <label>

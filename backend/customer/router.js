@@ -17,9 +17,9 @@ router.get('/', (req, res) => {
  * 查询客户列表
  */
 router.get('/list', (req, res) => {
-    customer.queryCustomerList(req.query.page, req.query.number).then(objList => {
+    customer.queryCustomerList(req.query.page, req.query.number).then(rows => {
         customer.queryCustomerOfTotal().then(total => {
-            resUtil.resultData(total, objList, req, res);
+            resUtil.resultData(total, rows, req, res);
         }, e => {
             console.error(e);
             resUtil.resultFail("系统异常，稍后重试！", req, res);
@@ -35,14 +35,14 @@ router.get('/list', (req, res) => {
  */
 router.post('/addCustomer', (req, res) => {
     if (req.body.uuid) {
-        customer.updateCustomer(req.body.uuid, req.body).then(objList => {
+        customer.updateCustomer(req.session.account.uuid, req.body).then(result => {
             resUtil.resultSuccess({}, req, res);
         }, e => {
             console.error(e);
             resUtil.resultFail("系统异常，稍后重试！", req, res);
         })
     } else {
-        customer.insertCustomer(req.session.account.uuid, req.body).then(objList => {
+        customer.insertCustomer(req.session.account.uuid, req.body).then(result => {
             resUtil.resultSuccess({}, req, res);
         }, e => {
             console.error(e);

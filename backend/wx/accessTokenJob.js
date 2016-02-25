@@ -6,31 +6,9 @@ let https = require('https');
 let fs = require('fs');
 let schedule = require('node-schedule');
 
-let setAccessToken = d => {
-    return new Promise((resolve, reject) => {
-        fs.writeFile('./backend/wx/access_token/access_token.json', d, 'utf-8', e => {
-            if (e) {
-                reject(new Error(e));
-            } else {
-                resolve("set access_token successful");
-            }
-        });
-    });
-}
+let customer = require('../customer/service/customer.js');
 
-exports.getAccessToken = new Promise((resolve, reject) => {
-    fs.readFile('./backend/wx/access_token/access_token.json', 'utf-8', (err, d) => {
-        //fs.readFile('./access_token/access_token.json', 'utf-8', (err, d) => {
-        if (err) {
-            reject(new Error(err));
-        } else {
-            d = eval('(' + d.toString() + ')');
-            resolve(d.access_token);
-        }
-    });
-});
-
-exports.reqAccessToken = (appid, secret) => {
+exports.getAccessToken = (appid, secret) => {
     return new Promise((resolve, reject) => {
         let options = {
             hostname: 'api.weixin.qq.com',
@@ -41,8 +19,9 @@ exports.reqAccessToken = (appid, secret) => {
         };
         let req = https.request(options, res => {
             if (res.statusCode === 200) {
-                res.on('data', d => {
-                    resolve(setAccessToken(d));
+                res.on('data', data => {
+                    let access_token = data.toString().parseJSON().access_token;
+                    resolve(access_token);
                 })
             } else {
                 req.on('error', e => {
@@ -58,10 +37,21 @@ exports.updateAccessTokenscheduleJob = () => {
     let rule = new schedule.RecurrenceRule();
     rule.minute = 55;
     schedule.scheduleJob(rule, () => {
-        reqAccessToken().then(msg => {
-            console.log(msg.toString())
+        customer.queryCustomerOfAll().then(rows => {
+            this.getAccessToken(rows.wx_appid, rows.wx_secret).then(access_token => {
+                customer.updateCustomerAccessToken(rows.uuid, access_token).then(result => {
+                    resolve(result);
+                }, e => {
+                    reject(new Error(e));
+                    console.log("更新访问令牌出现异常");
+                })
+            }, e => {
+                console.error(e);
+            });
         }, e => {
-            console.log(e);
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
         });
+
     });
 }
