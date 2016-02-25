@@ -4,7 +4,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import NavComponent from '../../../frontend/public/lib/Nav';
 import RegComponent from '../../../frontend/public/lib/Reg/Reg';
+
+let NavData = {
+    brand: {text: '微客', href: '/'},
+    items: {
+        right: [
+            {text: '登录', href: '/login'}
+        ]
+    }
+}
 
 class AgentReg extends React.Component {
     handleSubmit(body) {
@@ -19,7 +29,11 @@ class AgentReg extends React.Component {
 
     render() {
         return (
-            <RegComponent onSubmit={body => this.handleSubmit(body)}/>
+            <div>
+                <NavComponent data={NavData}/>
+                <br/><br/><br/><br/><br/><br/><br/>
+                <RegComponent onSubmit={body => this.handleSubmit(body)}/>
+            </div>
         );
     }
 }

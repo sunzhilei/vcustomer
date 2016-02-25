@@ -43,10 +43,10 @@ function valid(wx_token, req, res) {
 
     if (signature == scyptoString) {
         res.end(echostr);
-        console.log("验证成功并返回了echostr！");
+        console.log(wx_token + "验证成功并返回了echostr！");
     } else {
         res.end("false");
-        console.log("验证失败!");
+        console.log(wx_token + "验证失败!");
     }
 }
 

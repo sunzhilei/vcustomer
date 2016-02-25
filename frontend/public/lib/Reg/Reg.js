@@ -48,7 +48,6 @@ class Reg extends React.Component {
                     <button className="btn btn-lg btn-primary btn-block" type="submit">
                         注册
                     </button>
-                    <a href="/login">已有帐号，去登录！</a>
                 </form>
             </div>
         );

@@ -42,7 +42,6 @@ class Login extends React.Component {
                     <button className="btn btn-lg btn-primary btn-block" type="submit">
                         登录
                     </button>
-                    <a href="/reg">没有帐号，去注册！</a>
                 </form>
             </div>
         );
