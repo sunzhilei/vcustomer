@@ -21,15 +21,15 @@ let NavData = {
 
 let DataConfig = {
     "columns": [
-        {field: 'uuid', text: '标识'},
+        //{field: 'uuid', text: '标识'},
         {field: 'mp_name', text: '公众号名称'},
         {field: 'mp_type', text: '公众号类型'},
         {field: 'operator_name', text: '运营人姓名'},
-        {field: 'operator_phone', text: '运营人电话'},
-        {field: 'wx_appid', text: '微信凭证'},
-        {field: 'wx_secret', text: '微信凭证密钥'},
-        {field: 'wx_url', text: '微客服务器地址'},
-        {field: 'wx_token', text: '微信令牌'}
+        {field: 'operator_phone', text: '运营人电话'}
+        //{field: 'wx_appid', text: '微信凭证'},
+        //{field: 'wx_secret', text: '微信凭证密钥'},
+        //{field: 'wx_url', text: '微客服务器地址'},
+        //{field: 'wx_token', text: '微信令牌'}
     ],
     pagination: true
 }
