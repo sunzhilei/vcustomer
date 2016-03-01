@@ -47,7 +47,7 @@ exports.queryCustomerOfTotal = () => {
 exports.queryCustomerOfAll = () => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT * as total from customer",
+            sql: "SELECT * from customer",
             params: {}
         }).then(total => {
             if (total.length > 0) {
