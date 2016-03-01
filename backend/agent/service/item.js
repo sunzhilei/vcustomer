@@ -25,7 +25,7 @@ exports.queryItemListByCategoryUUID = (category_uuid, page, number) => {
 /**
  * 查询指定品类的项目总数
  */
-exports.queryitemOfTotal = (category_uuid) => {
+exports.queryItemOfTotal = (category_uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "SELECT count(1) as total from item where category_uuid = '" + category_uuid + "'",
