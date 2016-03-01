@@ -5,8 +5,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Link} from 'react-router'
 
-class ServiceConfigInfo extends React.Component {
+class DockInfo extends React.Component {
+
+    getCustomerInfo() {
+        $.ajax({
+            url: "/admin/getCustomer",
+            dataType: "json",
+            async: true,
+            success: data => {
+                if (!data.result) {
+                    alert(data.msg);
+                } else {
+                    if (data.custom.row) {
+                        this.setState(data.custom.row);
+                    }
+                }
+            }
+        });
+    }
+
+    constructor() {
+        super();
+        this.state = {
+            wx_url: '',
+            wx_token: ''
+        };
+    }
+
+    componentDidMount() {
+        this.getCustomerInfo();
+    }
+
     render() {
         return (
             <form>
@@ -16,14 +47,14 @@ class ServiceConfigInfo extends React.Component {
                     <label className="col-sm-2 form-control-label">URL(服务器地址)&nbsp;：</label>
                     <div className="col-sm-10">
                         <label id="wx_url"
-                               className="form-control-label">{this.props.customer.wx_url != '' ? this.props.customer.wx_url : '通过配置公众号获取URL'}</label>
+                               className="form-control-label">{this.state.wx_url != '' ? this.state.wx_url : '通过配置公众号获取URL'}</label>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">Token(令牌)&nbsp;：</label>
                     <div className="col-sm-10">
                         <label id="wx_token"
-                               className="form-control-label">{this.props.customer.wx_token != '' ? this.props.customer.wx_token : '通过配置公众号获取Token'}</label>
+                               className="form-control-label">{this.state.wx_token != '' ? this.state.wx_token : '通过配置公众号获取Token'}</label>
                     </div>
                 </div>
                 <div className="form-group row">
@@ -37,11 +68,8 @@ class ServiceConfigInfo extends React.Component {
                 </div>
                 <br/>
                 <div className="form-group row pull-right">
-                    <div className="col-sm-offset-2 col-sm-10">
-                        <button type="submit" className="btn btn-primary"
-                                onClick={e => {e.preventDefault();this.props.onEnterConfig()}}>配置公众号
-                        </button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div className="col-sm-12">
+                        <Link to="/admin/getDockConfig" className="btn btn-primary">配置公众号</Link>
                     </div>
                 </div>
             </form>
@@ -49,4 +77,4 @@ class ServiceConfigInfo extends React.Component {
     }
 }
 
-module.exports = ServiceConfigInfo;
+module.exports = DockInfo;

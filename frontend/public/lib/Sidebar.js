@@ -5,6 +5,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Link} from 'react-router'
+
 
 class Sidebar extends React.Component {
     render() {
@@ -20,11 +22,10 @@ class Sidebar extends React.Component {
                                 </a>
                                 {
                                     data.items.map((item, index) => {
-                                        let active = item.active ? 'list-group-item active' : 'list-group-item';
                                         return (
-                                            <a href={item.href} key={'sidebar-item-' + index} className={active}>
+                                            <Link key={'sidebar-item-' + index} to={item.href} className="list-group-item">
                                                 {item.text}
-                                            </a>
+                                            </Link>
                                         )
                                     })
                                 }

@@ -7,13 +7,13 @@ let uuid = require("./../../util/UUID.js");
 exports.queryCustomerList = (page, number) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT * from customer limit " + page + "," + number,
-            params: {}
+            sql: "SELECT * from customer limit :page,:number",
+            params: {page: parseInt(page), number: parseInt(number)}
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows);
             } else {
-                resolve(null);
+                resolve([]);
             }
         }, e => {
             console.error(e);
@@ -33,7 +33,7 @@ exports.queryCustomerOfTotal = () => {
             if (rows.length > 0) {
                 resolve(rows[0].total);
             } else {
-                resolve(null);
+                resolve([]);
             }
         }, e => {
             console.error(e);
@@ -53,7 +53,7 @@ exports.queryCustomerOfAll = () => {
             if (total.length > 0) {
                 resolve(total[0].total);
             } else {
-                resolve(null);
+                resolve([]);
             }
         }, e => {
             console.error(e);
@@ -73,7 +73,7 @@ exports.queryCustomerByUUID = (account_uuid) => {
             if (rows.length > 0) {
                 resolve(rows[0]);
             } else {
-                resolve(null);
+                resolve([]);
             }
         }, e => {
             console.error(e);
@@ -93,7 +93,7 @@ exports.queryCustomerByAccountUUID = (account_uuid) => {
             if (rows.length > 0) {
                 resolve(rows[0]);
             } else {
-                resolve(null);
+                resolve([]);
             }
         }, e => {
             console.error(e);

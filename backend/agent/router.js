@@ -2,6 +2,8 @@ let express = require('express');
 let router = express.Router();
 let account = require('./service/account.js');
 let customer = require('../customer/service/customer.js');
+let category = require('./service/category.js');
+let item = require('./service/item.js');
 let resUtil = require("./../util/resUtil.js");
 
 var bodyParser = require("body-parser");
@@ -86,15 +88,136 @@ router.get('/admin', (req, res) => {
 });
 
 /**
- * 获取当前客户信息
+ * 获取一个客户信息
  */
-router.get('/admin/personalCenter/customerInfo', (req, res) => {
+router.get('/admin/getCustomer', (req, res) => {
     customer.queryCustomerByAccountUUID(req.session.account.uuid).then(row => {
         resUtil.resultSuccess({row: row}, req, res);
     }, e => {
         console.error(e);
         resUtil.resultFail("系统异常，稍后重试！", req, res);
     })
+});
+
+/**
+ * 添加一个客户信息
+ */
+router.post('/admin/addCustomer', (req, res) => {
+    if (req.body.uuid) {
+        customer.updateCustomer(req.session.account.uuid, req.body).then(result => {
+            resUtil.resultSuccess({}, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    } else {
+        customer.insertCustomer(req.session.account.uuid, req.body).then(result => {
+            resUtil.resultSuccess({}, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }
+});
+
+/**
+ * 获取当前用户的品类列表
+ */
+router.get('/admin/getCategoryList', (req, res) => {
+    category.queryCategoryListByAccountUUID(req.session.account.uuid, req.query.page, req.query.number).then(rows => {
+        category.queryCategoryOfTotal(req.session.account.uuid).then(total => {
+            resUtil.resultData(total, rows, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+});
+
+/**
+ * 获取指定的品类信息
+ */
+router.get('/admin/getCategory', (req, res) => {
+    category.queryCategoryByUUID(req.body).then(row => {
+        resUtil.resultSuccess({row: row}, req, res);
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+});
+
+/**
+ * 添加一个客户信息
+ */
+router.post('/admin/addCategory', (req, res) => {
+    if (req.body.uuid) {
+        category.updateCategory(req.body).then(result => {
+            resUtil.resultSuccess({}, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    } else {
+        category.insertCategory(req.session.account.uuid, req.body).then(result => {
+            resUtil.resultSuccess({}, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }
+});
+
+/**
+ * 获取指定品类下的项目
+ */
+router.get('/admin/getItemList/:categroy_uuid', (req, res) => {
+    item.queryItemListByCategoryUUID(req.params.categroy_uuid, req.query.page, req.query.number).then(rows => {
+        item.queryItemOfTotal(req.body).then(total => {
+            resUtil.resultData(total, rows, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+});
+
+/**
+ * 获取指定的项目信息
+ */
+router.get('/admin/getItem', (req, res) => {
+    category.queryItemByUUID(req.body).then(row => {
+        resUtil.resultSuccess({row: row}, req, res);
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+});
+
+/**
+ * 添加一个项目信息
+ */
+router.post('/admin/addItem', (req, res) => {
+    if (req.body.uuid) {
+        item.updateItem(req.body).then(result => {
+            resUtil.resultSuccess({}, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    } else {
+        item.insertItem(req.body).then(result => {
+            resUtil.resultSuccess({}, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }
 });
 
 module.exports = router;

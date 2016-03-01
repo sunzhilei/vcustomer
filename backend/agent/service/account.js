@@ -13,7 +13,7 @@ exports.queryAccount = (body) => {
             if (rows.length > 0) {
                 resolve(rows[0]);
             } else {
-                resolve(null);
+                resolve([]);
             }
         }, e => {
             console.error(e);

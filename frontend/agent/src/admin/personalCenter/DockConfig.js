@@ -5,9 +5,46 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Link} from 'react-router'
+
 import RadioComponent from '../../../../public/lib/Radio';
 
-class ShopInfo extends React.Component {
+class DockConfig extends React.Component {
+
+    getCustomerInfo() {
+        $.ajax({
+            url: "/admin/getCustomer",
+            dataType: "json",
+            async: true,
+            success: data => {
+                if (!data.result) {
+                    alert(data.msg);
+                } else {
+                    if (data.custom.row) {
+                        this.setState(data.custom.row);
+                    }
+                }
+            }
+        });
+    }
+
+    constructor() {
+        super();
+        this.state = {
+            uuid: '',
+            mp_name: '',
+            mp_type: '',
+            operator_name: '',
+            operator_phone: '',
+            wx_appid: '',
+            wx_secret: ''
+        };
+    }
+
+    componentDidMount() {
+        this.getCustomerInfo();
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         var validator = $("form").validate({
@@ -24,13 +61,18 @@ class ShopInfo extends React.Component {
             }
         });
         if (validator.form()) {
-            this.props.onSubmitConfig($('form').serialize());
+            $.post("/admin/addCustomer", $('form').serialize(), data => {
+                if (!data.result) {
+                    alert(data.msg);
+                } else {
+                    alert("配置成功");
+                }
+            }, 'json');
         }
     }
 
     render() {
-        let DataConfig = {
-            active: this.props.customer.mp_type,
+        let DataList = {
             items: [
                 {value: 'service', text: '服务号'},
                 {value: 'subscribe', text: '订阅号'},
@@ -40,20 +82,20 @@ class ShopInfo extends React.Component {
 
         return (
             <form noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
-                <input type="hidden" name="uuid" defaultValue={this.props.customer.uuid}/>
+                <input type="hidden" name="uuid" value={this.state.uuid}/>
                 <br/>
                 <h5 className="sub-header">公众号信息</h5>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">公众号名称</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="mp_name" placeholder="公众号名称"
-                               required autofocus defaultValue={this.props.customer.mp_name}/>
+                               required autofocus value={this.state.mp_name}/>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">公众号类型</label>
                     <div className="col-sm-10">
-                        <RadioComponent name="mp_type" config={DataConfig}/>
+                        <RadioComponent name="mp_type" data={DataList} active={this.state.mp_type}/>
                     </div>
                 </div>
                 <br/>
@@ -62,14 +104,14 @@ class ShopInfo extends React.Component {
                     <label className="col-sm-2 form-control-label">AppID(应用ID)</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="wx_appid" placeholder="AppID(应用ID)"
-                               required defaultValue={this.props.customer.wx_appid}/>
+                               required value={this.state.wx_appid}/>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">AppSecret(应用密钥)</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="wx_secret" placeholder="AppSecret(应用密钥)"
-                               required defaultValue={this.props.customer.wx_secret}/>
+                               required value={this.state.wx_secret}/>
                     </div>
                 </div>
                 <div className="form-group row">
@@ -85,24 +127,22 @@ class ShopInfo extends React.Component {
                     <label className="col-sm-2 form-control-label">运营人姓名</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="operator_name" placeholder="运营人姓名"
-                               required defaultValue={this.props.customer.operator_name}/>
+                               required value={this.state.operator_name}/>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">运营人电话</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="operator_phone" placeholder="运营人电话"
-                               required defaultValue={this.props.customer.operator_phone}/>
+                               required value={this.state.operator_phone}/>
                     </div>
                 </div>
                 <br/>
                 <div className="form-group row pull-right">
                     <div className="col-sm-12">
-                        <button type="submit" className="btn btn-primary">生成服务器配置</button>
+                        <button type="submit" className="btn btn-primary">保存</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="button" className="btn btn-default"
-                                onClick={e => {e.preventDefault();this.props.onReturnInfo()}}>返回
-                        </button>
+                        <Link to="/admin/getDockInfo" className="btn btn-secondary">返回</Link>
                     </div>
                 </div>
             </form>
@@ -110,4 +150,4 @@ class ShopInfo extends React.Component {
     }
 }
 
-module.exports = ShopInfo;
+module.exports = DockConfig;

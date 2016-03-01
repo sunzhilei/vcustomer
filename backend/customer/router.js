@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * 查询客户列表
+ * 分页查询客户信息列表
  */
 router.get('/list', (req, res) => {
     customer.queryCustomerList(req.query.page, req.query.number).then(rows => {
@@ -28,27 +28,6 @@ router.get('/list', (req, res) => {
         console.error(e);
         resUtil.resultFail("系统异常，稍后重试！", req, res);
     })
-});
-
-/**
- * 添加一个客户
- */
-router.post('/addCustomer', (req, res) => {
-    if (req.body.uuid) {
-        customer.updateCustomer(req.session.account.uuid, req.body).then(result => {
-            resUtil.resultSuccess({}, req, res);
-        }, e => {
-            console.error(e);
-            resUtil.resultFail("系统异常，稍后重试！", req, res);
-        })
-    } else {
-        customer.insertCustomer(req.session.account.uuid, req.body).then(result => {
-            resUtil.resultSuccess({}, req, res);
-        }, e => {
-            console.error(e);
-            resUtil.resultFail("系统异常，稍后重试！", req, res);
-        })
-    }
 });
 
 module.exports = router;

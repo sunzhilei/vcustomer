@@ -101,8 +101,8 @@ class Pagination extends React.Component {
 }
 
 class TableComponent extends React.Component {
-    onPageClick(page) {
-        $.get(this.props.url, {page: (page * 10 - 10) < 1 ? 1 : (page * 10 - 10), number: 10}, data => {
+    handlePageClick(url, page) {
+        $.get(url, {page: (page * 10 - 10) < 1 ? 0 : (page * 10 - 10), number: 10}, data => {
             this.setState(data);
         }, 'json');
     }
@@ -118,16 +118,20 @@ class TableComponent extends React.Component {
 
     componentDidMount() {
         let isPagination = this.props.config.pagination ? 10 : this.state.total;
-        $.get(this.props.url, {page: 1, number: isPagination}, data => {
+        $.get(this.props.url, {page: 0, number: isPagination}, data => {
             this.setState(data);
         }, 'json');
+    }
+
+    componentWillReceiveProps(props) {
+        this.handlePageClick(props.url, 0);
     }
 
     render() {
 
         let PaginationComponent = this.props.config.pagination ?
             <Pagination total={this.state.total} currPage={this.state.currPage}
-                        onPageClick={page => this.onPageClick(page)}/> : '';
+                        onPageClick={page => this.handlePageClick(this.props.url,page)}/> : '';
 
         return (
             <div className="table-responsive">

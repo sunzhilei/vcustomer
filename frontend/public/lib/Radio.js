@@ -11,14 +11,10 @@ class Radio extends React.Component {
         return (
             <div className="radio">
                 {
-                    this.props.config.items.map((item, index) => {
-                        //let active = this.props.config.active;
-                        //if (!this.props.config.active) {
-                        //    active = this.props.config.items[0].value
-                        //}
-                        let radio = (this.props.config.active == item.value) ?
-                            <input type="radio" name={this.props.name} defaultValue={item.value} defaultChecked/> :
-                            <input type="radio" name={this.props.name} defaultValue={item.value}/>;
+                    this.props.data.items.map((item, index) => {
+                        let radio = (this.props.active == item.value) ?
+                            <input type="radio" name={this.props.name} value={item.value} checked/> :
+                            <input type="radio" name={this.props.name} value={item.value}/>;
                         return (
                             <label className="radio-inline" key={'radio-item-' + index}>
                                 {radio}
