@@ -25,10 +25,10 @@ exports.queryItemListByCategoryUUID = (category_uuid, page, number) => {
 /**
  * 查询指定品类的项目总数
  */
-exports.queryItemOfTotal = (category_uuid) => {
+exports.queryitemOfTotal = (category_uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT count(1) as total from Item where category_uuid = '" + category_uuid + "'",
+            sql: "SELECT count(1) as total from item where category_uuid = '" + category_uuid + "'",
             params: {}
         }).then(rows => {
             if (rows.length > 0) {
