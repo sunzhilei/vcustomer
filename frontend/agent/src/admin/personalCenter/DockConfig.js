@@ -72,7 +72,7 @@ class DockConfig extends React.Component {
     }
 
     render() {
-        let DataList = {
+        let RadioList = {
             items: [
                 {value: 'service', text: '服务号'},
                 {value: 'subscribe', text: '订阅号'},
@@ -95,7 +95,7 @@ class DockConfig extends React.Component {
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">公众号类型</label>
                     <div className="col-sm-10">
-                        <RadioComponent name="mp_type" data={DataList} active={this.state.mp_type}/>
+                        <RadioComponent name="mp_type" data={RadioList} active={this.state.mp_type}/>
                     </div>
                 </div>
                 <br/>

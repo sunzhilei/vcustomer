@@ -175,7 +175,6 @@ router.post('/admin/addCategory', (req, res) => {
  */
 router.get('/admin/getItemList/:categroy_uuid', (req, res) => {
     item.queryItemListByCategoryUUID(req.params.categroy_uuid, req.query.page, req.query.number).then(rows => {
-        console.log(rows.length);
         item.queryItemOfTotal(req.body).then(total => {
             resUtil.resultData(total, rows, req, res);
         }, e => {

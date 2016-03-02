@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 
 import {Link} from 'react-router'
 
+import SelectComponent from '../../../../../frontend/public/lib/Select';
 import TableComponent from '../../../../../frontend/public/lib/Table';
 
 class ItemList extends React.Component {
@@ -18,13 +19,22 @@ class ItemList extends React.Component {
         };
     }
 
-    handleClick(e) {
+    handleChange(e) {
         e.preventDefault();
-        this.setState({url: "/admin/getItemList/" + e.target.id});
-        document.getElementById("dropdown-text").innerText = e.target.innerText;
+        this.setState({url: "/admin/getItemList/" + e.target.value});
     }
 
     render() {
+        let SelectList = {
+            items: [
+                {value: '0', text: '选择品类', selected: true},
+                {value: '0eb6f5aa35b24dae94471b169a5da2da', text: '特色菜'},
+                {value: '3e680dada5e24b408d57d0fa6e16202c', text: '热菜'},
+                {value: '0b14b6fc3f05499281ad6af24d1f4826', text: '凉菜'},
+                {value: '26606eca8a3b48e2a375b55146b81e1d', text: '酒水'}
+            ]
+        };
+
         let DataConfig = {
             "columns": [
                 {field: 'name', text: '名称'},
@@ -45,30 +55,7 @@ class ItemList extends React.Component {
                     </div>
 
                     <div className="col-sm-6">
-                        <div className="dropdown pull-right">
-                            <button id="dropdown-text" className="btn btn-secondary dropdown-toggle" type="button"
-                                    data-toggle="dropdown">
-                                选择品类
-                            </button>
-                            <div className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <button className="dropdown-item" type="button" id="0eb6f5aa35b24dae94471b169a5da2da"
-                                        onClick={e => {this.handleClick(e)}}>
-                                    特色菜
-                                </button>
-                                <button className="dropdown-item" type="button" id="3e680dada5e24b408d57d0fa6e16202c"
-                                        onClick={e => {this.handleClick(e)}}>
-                                    热菜
-                                </button>
-                                <button className="dropdown-item" type="button" id="0b14b6fc3f05499281ad6af24d1f4826"
-                                        onClick={e => {this.handleClick(e)}}>
-                                    凉菜
-                                </button>
-                                <button className="dropdown-item" type="button" id="26606eca8a3b48e2a375b55146b81e1d"
-                                        onClick={e => {this.handleClick(e)}}>
-                                    酒水
-                                </button>
-                            </div>
-                        </div>
+                        <SelectComponent data={SelectList} onChange={e => {this.handleChange(e)}}/>
                     </div>
                 </div>
                 <TableComponent config={DataConfig} url={this.state.url}/>

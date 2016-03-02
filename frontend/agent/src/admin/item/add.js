@@ -7,6 +7,8 @@ import ReactDOM from 'react-dom';
 
 import {Link} from 'react-router'
 
+import SelectComponent from '../../../../../frontend/public/lib/Select';
+
 class AddItem extends React.Component {
 
     getCustomerInfo() {
@@ -38,10 +40,9 @@ class AddItem extends React.Component {
         this.getCustomerInfo();
     }
 
-    handleClick(e) {
+    handleChange(e) {
         e.preventDefault();
-        document.getElementById("dropdown-value").value = e.target.id;
-        document.getElementById("dropdown-text").innerText = e.target.innerText;
+        this.setState({url: "/admin/getItemList/" + e.target.value});
     }
 
     handleSubmit(e) {
@@ -65,6 +66,15 @@ class AddItem extends React.Component {
     }
 
     render() {
+        let SelectList = {
+            items: [
+                {value: '0', text: '选择品类', selected: true},
+                {value: '0eb6f5aa35b24dae94471b169a5da2da', text: '特色菜'},
+                {value: '3e680dada5e24b408d57d0fa6e16202c', text: '热菜'},
+                {value: '0b14b6fc3f05499281ad6af24d1f4826', text: '凉菜'},
+                {value: '26606eca8a3b48e2a375b55146b81e1d', text: '酒水'}
+            ]
+        };
         return (
             <form noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
                 <input type="hidden" name="uuid" value={this.state.uuid}/>
@@ -73,30 +83,7 @@ class AddItem extends React.Component {
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">品类：</label>
                     <div className="col-sm-10">
-                        <div className="dropdown">
-                            <input id="dropdown-value" type="hidden" name="category_uuid" value=""/>
-                            <button id="dropdown-text" className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                选择品类
-                            </button>
-                            <div className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <button className="dropdown-item" type="button" id="0eb6f5aa35b24dae94471b169a5da2da"
-                                        onClick={this.handleClick}>
-                                    特色菜
-                                </button>
-                                <button className="dropdown-item" type="button" id="3e680dada5e24b408d57d0fa6e16202c"
-                                        onClick={this.handleClick}>
-                                    热菜
-                                </button>
-                                <button className="dropdown-item" type="button" id="0b14b6fc3f05499281ad6af24d1f4826"
-                                        onClick={this.handleClick}>
-                                    凉菜
-                                </button>
-                                <button className="dropdown-item" type="button" id="26606eca8a3b48e2a375b55146b81e1d"
-                                        onClick={this.handleClick}>
-                                    酒水
-                                </button>
-                            </div>
-                        </div>
+                        <SelectComponent name="category_uuid" data={SelectList} onChange={e => {this.handleChange(e)}}/>
                     </div>
                 </div>
                 <div className="form-group row">
@@ -110,21 +97,24 @@ class AddItem extends React.Component {
                     <label className="col-sm-2 form-control-label">价格：</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="price" placeholder="价格"
-                               required autofocus defaultValue={this.state.price}/>
+                               required defaultValue={this.state.price}/>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">图片：</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" name="pic" placeholder="图片"
-                               required autofocus defaultValue={this.state.pic}/>
+                        <label className="file">
+                            <input type="file" name="pic" required/>
+                            <span className="file-custom"></span>
+                        </label>
+                        <label className="form-control-label">{this.state.pic}</label>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">描述：</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" name="descript" placeholder="描述"
-                               required autofocus defaultValue={this.state.descript}/>
+                        <textarea className="form-control" rows="10" name="descript" placeholder="描述"
+                                  required defaultValue={this.state.descript}></textarea>
                     </div>
                 </div>
                 <div className="form-group row pull-right">
