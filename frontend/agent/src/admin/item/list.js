@@ -50,11 +50,11 @@ class ItemList extends React.Component {
                 <br/>
                 <h5 className="sub-header">项目列表</h5>
                 <div className="form-group row">
-                    <div className="col-sm-6">
+                    <div className="col-sm-6 col-md-6">
                         <Link to="/admin/getItemInfo" className="btn btn-primary">增加</Link>
                     </div>
 
-                    <div className="col-sm-6">
+                    <div className="col-sm-6 col-md-6">
                         <SelectComponent data={SelectList} onChange={e => {this.handleChange(e)}}/>
                     </div>
                 </div>
