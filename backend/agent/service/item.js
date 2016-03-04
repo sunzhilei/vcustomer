@@ -4,11 +4,32 @@ let uuid = require("./../../util/UUID.js");
 /**
  * 根据品类ID查询项目列表
  */
-exports.queryItemListByCategoryUUID = (category_uuid, page, number) => {
+exports.queryItemListByCategoryUUID = (category_uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT uuid,category_uuid,name,price,pic,descript from item where category_uuid = '" + category_uuid + "' limit " + parseInt(page) + "," + parseInt(number),
-            params: {}
+            sql: "SELECT uuid,category_uuid,name,price,pic,descript from item where category_uuid = :category_uuid",
+            params: {category_uuid: category_uuid}
+        }).then(rows => {
+            if (rows.length > 0) {
+                resolve(rows);
+            } else {
+                resolve([]);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(e));
+        })
+    })
+}
+
+/**
+ * 根据品类ID查询项目列表
+ */
+exports.queryItemListByCategoryUUIDForPagination = (category_uuid, page, number) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "SELECT uuid,category_uuid,name,price,pic,descript from item where category_uuid = :category_uuid limit :page,:number",
+            params: {category_uuid: category_uuid, page: parseInt(page) - 1, number: parseInt(number)}
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows);

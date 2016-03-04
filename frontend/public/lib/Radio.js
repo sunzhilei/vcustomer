@@ -12,9 +12,11 @@ class Radio extends React.Component {
             <div className="radio">
                 {
                     this.props.data.items.map((item, index) => {
-                        let radio = (this.props.active == item.value) ?
-                            <input type="radio" name={this.props.name} value={item.value} checked/> :
-                            <input type="radio" name={this.props.name} value={item.value}/>;
+                        let radio = (this.props.active == item.value)
+                            ?
+                            <input key={'radio-' + index} type="radio" name={this.props.name} value={item.value} checked/>
+                            :
+                            <input key={'radio-' + index} type="radio" name={this.props.name} value={item.value}/>;
                         return (
                             <label className="radio-inline" key={'radio-item-' + index}>
                                 {radio}

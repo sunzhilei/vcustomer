@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 //require("../css/Carousel.css");
 
 import NavComponent from '../../../frontend/public/lib/Nav';
-import TableComponent from '../../../frontend/public/lib/Table';
+import DataTableComponent from '../../../frontend/public/lib/DataTable';
 
 let NavData = {
     brand: {text: '后台管理', href: '/customer'},
@@ -21,7 +21,7 @@ let NavData = {
 
 let DataConfig = {
     "columns": [
-        //{field: 'uuid', text: '标识'},
+        {field: 'uuid', text: '标识'},
         {field: 'mp_name', text: '名称'},
         {field: 'mp_type', text: '类型'},
         {field: 'operator_name', text: '姓名'},
@@ -42,7 +42,7 @@ class AgentIndex extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-12 col-md-12 blog-main">
-                            <TableComponent config={DataConfig} url="/customer/list"/>
+                            <DataTableComponent config={DataConfig} url="/customer/list"/>
                         </div>
                     </div>
                 </div>

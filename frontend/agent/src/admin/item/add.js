@@ -40,6 +40,13 @@ class AddItem extends React.Component {
         this.getCustomerInfo();
     }
 
+    handleFileChange(e){
+        e.preventDefault();
+        let path = e.target.value.split('\\');
+        let name = path[path.length - 1];
+        $(".file-pic:after").css('content',name);
+    }
+
     handleChange(e) {
         e.preventDefault();
         this.setState({url: "/admin/getItemList/" + e.target.value});
@@ -104,8 +111,8 @@ class AddItem extends React.Component {
                     <label className="col-sm-2 form-control-label">图片：</label>
                     <div className="col-sm-10">
                         <label className="file">
-                            <input type="file" name="pic" required/>
-                            <span className="file-custom"></span>
+                            <input type="file" name="pic" required onChange={e => this.handleFileChange(e)}/>
+                            <span className="file-custom file-pic"></span>
                         </label>
                         <label className="form-control-label">{this.state.pic}</label>
                     </div>

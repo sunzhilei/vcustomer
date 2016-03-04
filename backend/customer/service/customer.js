@@ -2,13 +2,33 @@ let MysqlPool = require('./../../mysql/MysqlPool');
 let uuid = require("./../../util/UUID.js");
 
 /**
+ * 查询所有客户列表
+ */
+exports.queryCustomerList = () => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "SELECT * from customer",
+            params: {}
+        }).then(rows => {
+            if (rows.length > 0) {
+                resolve(rows);
+            } else {
+                resolve([]);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(e));
+        })
+    })
+}
+/**
  * 分页查询客户列表
  */
-exports.queryCustomerList = (page, number) => {
+exports.queryCustomerListByPagination = (page, number) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "SELECT * from customer limit :page,:number",
-            params: {page: parseInt(page), number: parseInt(number)}
+            params: {page: parseInt(page) - 1, number: parseInt(number)}
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows);

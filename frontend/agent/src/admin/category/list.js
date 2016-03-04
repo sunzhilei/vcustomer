@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 
 import {Link} from 'react-router'
 
-import TableComponent from '../../../../../frontend/public/lib/Table';
+import DataTableComponent from '../../../../../frontend/public/lib/DataTable';
 
 class CategoryList extends React.Component {
 
@@ -17,7 +17,7 @@ class CategoryList extends React.Component {
             "columns": [
                 {field: 'name', text: '名称'}
             ],
-            pagination: true
+            pagination: false
         }
 
         return (
@@ -29,7 +29,7 @@ class CategoryList extends React.Component {
                         <Link to="/admin/getCategoryInfo" className="btn btn-primary">增加</Link>
                     </div>
                 </div>
-                <TableComponent config={DataConfig} url="/admin/getCategoryList"/>
+                <DataTableComponent config={DataConfig} url="/admin/getCategoryList"/>
             </form>
         );
     }

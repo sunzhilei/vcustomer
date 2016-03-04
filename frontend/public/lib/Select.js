@@ -14,15 +14,11 @@ class Select extends React.Component {
                     onChange={e => {this.props.onChange(e)}}>
                 {
                     this.props.data.items.map((item, index) => {
-                        if (item.selected) {
-                            return (
-                                <option value={item.value} selected>{item.text}</option>
-                            )
-                        } else {
-                            return (
-                                <option value={item.value}>{item.text}</option>
-                            )
-                        }
+                        return (
+                            <option key={'select-' + index} value={item.value} selected={item.selected}>
+                                {item.text}
+                            </option>
+                        )
                     })
                 }
             </select>

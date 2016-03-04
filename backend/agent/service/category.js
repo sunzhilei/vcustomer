@@ -4,11 +4,32 @@ let uuid = require("./../../util/UUID.js");
 /**
  * 根据当前登录用户查询所有品类列表
  */
-exports.queryCategoryListByAccountUUID = (account_uuid, page, number) => {
+exports.queryCategoryListByAccountUUID = (account_uuid) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "SELECT uuid,account_uuid,name from category where account_uuid = :account_uuid",
+            params: {account_uuid: account_uuid}
+        }).then(rows => {
+            if (rows.length > 0) {
+                resolve(rows);
+            } else {
+                resolve([]);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(e));
+        })
+    })
+}
+
+/**
+ * 根据当前登录用户分页查询品类列表
+ */
+exports.queryCategoryListByAccountUUIDForPagination = (account_uuid, page, number) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "SELECT uuid,account_uuid,name from category where account_uuid = :account_uuid limit :page,:number",
-            params: {account_uuid: account_uuid, page: parseInt(page), number: parseInt(number)}
+            params: {account_uuid: account_uuid, page: parseInt(page) - 1, number: parseInt(number)}
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows);

@@ -17,17 +17,26 @@ router.get('/', (req, res) => {
  * 分页查询客户信息列表
  */
 router.get('/list', (req, res) => {
-    customer.queryCustomerList(req.query.page, req.query.number).then(rows => {
-        customer.queryCustomerOfTotal().then(total => {
-            resUtil.resultData(total, rows, req, res);
+    if (req.query.page && req.query.number) {
+        customer.queryCustomerListByPagination(req.query.page, req.query.number).then(rows => {
+            customer.queryCustomerOfTotal().then(total => {
+                resUtil.resultData(total, rows, req, res);
+            }, e => {
+                console.error(e);
+                resUtil.resultFail("系统异常，稍后重试！", req, res);
+            })
         }, e => {
             console.error(e);
             resUtil.resultFail("系统异常，稍后重试！", req, res);
         })
-    }, e => {
-        console.error(e);
-        resUtil.resultFail("系统异常，稍后重试！", req, res);
-    })
+    } else {
+        customer.queryCustomerList().then(rows => {
+            resUtil.resultData(0, rows, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }
 });
 
 module.exports = router;

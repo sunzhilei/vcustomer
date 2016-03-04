@@ -124,17 +124,26 @@ router.post('/admin/addCustomer', (req, res) => {
  * 获取当前用户的品类列表
  */
 router.get('/admin/getCategoryList', (req, res) => {
-    category.queryCategoryListByAccountUUID(req.session.account.uuid, req.query.page, req.query.number).then(rows => {
-        category.queryCategoryOfTotal(req.session.account.uuid).then(total => {
-            resUtil.resultData(total, rows, req, res);
+    if (req.query.page && req.query.number) {
+        category.queryCategoryListByAccountUUIDForPagination(req.session.account.uuid, req.query.page, req.query.number).then(rows => {
+            category.queryCategoryOfTotal(req.session.account.uuid).then(total => {
+                resUtil.resultData(total, rows, req, res);
+            }, e => {
+                console.error(e);
+                resUtil.resultFail("系统异常，稍后重试！", req, res);
+            })
         }, e => {
             console.error(e);
             resUtil.resultFail("系统异常，稍后重试！", req, res);
         })
-    }, e => {
-        console.error(e);
-        resUtil.resultFail("系统异常，稍后重试！", req, res);
-    })
+    } else {
+        category.queryCategoryListByAccountUUID(req.session.account.uuid).then(rows => {
+            resUtil.resultData(0, rows, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }
 });
 
 /**
@@ -174,17 +183,26 @@ router.post('/admin/addCategory', (req, res) => {
  * 获取指定品类下的项目
  */
 router.get('/admin/getItemList/:categroy_uuid', (req, res) => {
-    item.queryItemListByCategoryUUID(req.params.categroy_uuid, req.query.page, req.query.number).then(rows => {
-        item.queryItemOfTotal(req.body).then(total => {
-            resUtil.resultData(total, rows, req, res);
+    if (req.query.page && req.query.number) {
+        item.queryItemListByCategoryUUIDForPagination(req.params.categroy_uuid, req.query.page, req.query.number).then(rows => {
+            item.queryItemOfTotal(req.body).then(total => {
+                resUtil.resultData(total, rows, req, res);
+            }, e => {
+                console.error(e);
+                resUtil.resultFail("系统异常，稍后重试！", req, res);
+            })
         }, e => {
             console.error(e);
             resUtil.resultFail("系统异常，稍后重试！", req, res);
         })
-    }, e => {
-        console.error(e);
-        resUtil.resultFail("系统异常，稍后重试！", req, res);
-    })
+    } else {
+        item.queryItemListByCategoryUUID(req.params.categroy_uuid).then(rows => {
+            resUtil.resultData(0, rows, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }
 });
 
 /**
