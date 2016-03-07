@@ -3,19 +3,18 @@
  * compile command: webpack --config webpack.config.js
  */
 var webpack = require('webpack');
-var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 
 module.exports = {
     entry: {
-        "customer/index": './frontend/customer/src/index.js',
-        //"customer/customerList": './frontend/customer/src/customerList.js',
+        "customer/index": ['./frontend/customer/src/index.js'],
 
-        "agent/reg": './frontend/agent/src/reg.js',
-        "agent/login": './frontend/agent/src/login.js',
-        "agent/index": './frontend/agent/src/index.js',
-        "agent/admin": './frontend/agent/src/admin.js'
+        "agent/reg": ['./frontend/agent/src/reg.js'],
+        "agent/login": ['./frontend/agent/src/login.js'],
+        "agent/index": ['./frontend/agent/src/index.js'],
+        "agent/admin": ['./frontend/agent/src/admin.js']
     },
     output: {
+        publicPath: 'http://127.0.0.1/frontend/dist/',
         path: __dirname + '/frontend/dist',
         filename: '[name].bundle.js'
     },
@@ -27,16 +26,17 @@ module.exports = {
             query: {
                 presets: ['react', 'es2015', 'stage-0']
             }
-        },{
+        }, {
             test: /\.css$/,
             loader: 'style-loader!css-loader'
         }]
     },
     plugins: [
-        commonsPlugin,
+        new webpack.optimize.CommonsChunkPlugin('common.js'),
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             "process.env": {
-                NODE_ENV: JSON.stringify("production")
+                NODE_ENV: JSON.stringify("development")
             }
         })
     ]

@@ -29,6 +29,10 @@ app.use('/', agent_router);
 let customer_router = require('./backend/customer/router');
 app.use('/customer', customer_router);
 
+// 注册客户管理平台路由器
+let client_router = require('./backend/client/router');
+app.use('/client', client_router);
+
 // 启动定时任务，每小时获取一次access_token并保存
 let accessTokenJob = require('./backend/wx/accessTokenJob');
 accessTokenJob.updateAccessTokenscheduleJob();

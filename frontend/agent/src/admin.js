@@ -6,8 +6,6 @@ import ReactDOM from 'react-dom';
 
 import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
 
-//require("../css/Carousel.css");
-
 import NavComponent from '../../public/lib/Nav';
 import SidebarComponent from '../../public/lib/Sidebar';
 

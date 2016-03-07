@@ -4,8 +4,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-//require("../css/Carousel.css");
-
 import NavComponent from '../../../frontend/public/lib/Nav';
 import CarouselComponent from '../../../frontend/public/lib/Carousel/Carousel';
 import MarketingComponent from '../../../frontend/public/lib/Marketing';

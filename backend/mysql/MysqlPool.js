@@ -9,8 +9,8 @@ let initMysqlPool = function () {
         port: process.env.MYSQL_PORT,
         user: process.env.ACCESSKEY,
         password: process.env.SECRETKEY,
-        //database: process.env.APPNAME
-        database: 'app_' + process.env.APPNAME
+        database: process.env.APPNAME
+        //database: 'app_' + process.env.APPNAME
     });
 }
 
