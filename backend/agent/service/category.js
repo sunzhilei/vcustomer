@@ -67,11 +67,11 @@ exports.queryCategoryOfTotal = (account_uuid) => {
 /**
  * 根据UUID查询品类信息
  */
-exports.queryCategoryByUUID = (body) => {
+exports.queryCategoryByUUID = (uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "SELECT uuid,account_uuid,name from category where uuid = :uuid",
-            params: {uuid: body.uuid}
+            params: {uuid: uuid}
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows[0]);

@@ -12,10 +12,17 @@ import DataTableComponent from '../../../../../frontend/public/lib/DataTable';
 class CategoryList extends React.Component {
 
     render() {
-        console.log("=============");
         let DataConfig = {
-            "columns": [
-                {field: 'name', text: '名称'}
+            columns: [
+                {field: 'name', text: '名称'},
+                {
+                    field: 'uuid',
+                    text:'动作',
+                    formatter: [
+                        {text: '编辑', url: '/admin/editCategoryInfo/'},
+                        {text: '删除', url: '/admin/delCategoryInfo/'}
+                    ]
+                }
             ],
             pagination: false
         }

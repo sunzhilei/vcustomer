@@ -67,11 +67,11 @@ exports.queryItemOfTotal = (category_uuid) => {
 /**
  * 根据UUID查询品类信息
  */
-exports.queryItemByUUID = (body) => {
+exports.queryItemByUUID = (uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "SELECT uuid,category_uuid,name,price,pic,descript from item where uuid = :uuid",
-            params: {uuid: body.uuid}
+            params: {uuid: uuid}
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows[0]);

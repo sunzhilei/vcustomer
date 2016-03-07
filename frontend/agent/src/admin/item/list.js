@@ -36,11 +36,19 @@ class ItemList extends React.Component {
         };
 
         let DataConfig = {
-            "columns": [
+            columns: [
                 {field: 'name', text: '名称'},
                 {field: 'price', text: '价格'},
                 {field: 'pic', text: '图片'},
-                {field: 'descript', text: '描述'}
+                {field: 'descript', text: '描述'},
+                {
+                    field: 'uuid',
+                    text:'动作',
+                    formatter: [
+                        {text: '编辑', url: '/admin/editItemInfo/'},
+                        {text: '删除', url: '/admin/delItemInfo/'}
+                    ]
+                }
             ],
             pagination: false
         }

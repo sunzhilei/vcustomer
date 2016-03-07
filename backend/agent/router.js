@@ -149,8 +149,8 @@ router.get('/admin/getCategoryList', (req, res) => {
 /**
  * 获取指定的品类信息
  */
-router.get('/admin/getCategory', (req, res) => {
-    category.queryCategoryByUUID(req.body).then(row => {
+router.get('/admin/getCategory/:uuid', (req, res) => {
+    category.queryCategoryByUUID(req.params.uuid).then(row => {
         resUtil.resultSuccess({row: row}, req, res);
     }, e => {
         console.error(e);
@@ -208,8 +208,8 @@ router.get('/admin/getItemList/:categroy_uuid', (req, res) => {
 /**
  * 获取指定的项目信息
  */
-router.get('/admin/getItem', (req, res) => {
-    category.queryItemByUUID(req.body).then(row => {
+router.get('/admin/getItem/:uuid', (req, res) => {
+    item.queryItemByUUID(req.params.uuid).then(row => {
         resUtil.resultSuccess({row: row}, req, res);
     }, e => {
         console.error(e);

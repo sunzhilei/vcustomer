@@ -20,7 +20,7 @@ let NavData = {
 }
 
 let DataConfig = {
-    "columns": [
+    columns: [
         {field: 'uuid', text: '标识'},
         {field: 'mp_name', text: '名称'},
         {field: 'mp_type', text: '类型'},

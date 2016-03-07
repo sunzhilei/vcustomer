@@ -11,9 +11,9 @@ import SelectComponent from '../../../../../frontend/public/lib/Select';
 
 class AddItem extends React.Component {
 
-    getCustomerInfo() {
+    getItem(uuid) {
         $.ajax({
-            url: "/admin/getCategory",
+            url: "/admin/getItem/" + uuid,
             dataType: "json",
             async: true,
             success: data => {
@@ -32,19 +32,22 @@ class AddItem extends React.Component {
         super();
         this.state = {
             uuid: '',
-            name: ''
+            name: '',
+            price: '',
+            pic: '',
+            descript: ''
         };
     }
 
     componentDidMount() {
-        this.getCustomerInfo();
+        this.getItem(this.props.params.uuid);
     }
 
-    handleFileChange(e){
+    handleFileChange(e) {
         e.preventDefault();
         let path = e.target.value.split('\\');
         let name = path[path.length - 1];
-        $(".file-pic:after").css('content',name);
+        $(".file-pic:after").css('content', name);
     }
 
     handleChange(e) {
@@ -97,14 +100,14 @@ class AddItem extends React.Component {
                     <label className="col-sm-2 form-control-label">名称：</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="name" placeholder="名称"
-                               required autofocus defaultValue={this.state.name}/>
+                               required autofocus value={this.state.name}/>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">价格：</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="price" placeholder="价格"
-                               required defaultValue={this.state.price}/>
+                               required value={this.state.price}/>
                     </div>
                 </div>
                 <div className="form-group row">
@@ -121,7 +124,7 @@ class AddItem extends React.Component {
                     <label className="col-sm-2 form-control-label">描述：</label>
                     <div className="col-sm-10">
                         <textarea className="form-control" rows="10" name="descript" placeholder="描述"
-                                  required defaultValue={this.state.descript}></textarea>
+                                  required value={this.state.descript}></textarea>
                     </div>
                 </div>
                 <div className="form-group row pull-right">

@@ -76,9 +76,13 @@ const routes = {
 
         {path: '/admin/getCategoryList', component: CategoryListComponent},
         {path: '/admin/getCategoryInfo', component: AddCategoryComponent},
+        {path: '/admin/editCategoryInfo/:uuid', component: AddCategoryComponent},
+        {path: '/admin/delCategoryInfo/:uuid', component: AddCategoryComponent},
 
         {path: '/admin/getItemList', component: ItemListComponent},
-        {path: '/admin/getItemInfo', component: AddItemComponent}
+        {path: '/admin/getItemInfo', component: AddItemComponent},
+        {path: '/admin/editItemInfo/:uuid', component: AddItemComponent},
+        {path: '/admin/delItemInfo/:uuid', component: AddItemComponent}
     ]
 }
 

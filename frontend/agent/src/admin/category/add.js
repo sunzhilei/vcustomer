@@ -9,9 +9,9 @@ import {Link} from 'react-router'
 
 class AddCategory extends React.Component {
 
-    getCustomerInfo() {
+    getCustomerInfo(uuid) {
         $.ajax({
-            url: "/admin/getCategory",
+            url: "/admin/getCategory/" + uuid,
             dataType: "json",
             async: true,
             success: data => {
@@ -35,7 +35,7 @@ class AddCategory extends React.Component {
     }
 
     componentDidMount() {
-        this.getCustomerInfo();
+        this.getCustomerInfo(this.props.params.uuid);
     }
 
     handleSubmit(e) {
@@ -68,7 +68,7 @@ class AddCategory extends React.Component {
                     <label className="col-sm-2 form-control-label">名称：</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="name" placeholder="名称"
-                               required autofocus defaultValue={this.state.name}/>
+                               required autofocus value={this.state.name}/>
                     </div>
                 </div>
                 <div className="form-group row pull-right">

@@ -5,6 +5,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Link} from 'react-router'
+
 class TableComponent extends React.Component {
     render() {
         return (
@@ -14,7 +16,11 @@ class TableComponent extends React.Component {
                     {
                         this.props.columns.map((column, index) => {
                             for (let key in column) {
-                                return (<th key={'table-column-item-' + index}>{column.text}</th>)
+                                if (column.formatter) {
+                                    return (<th key={'table-column-item-' + index}>{column.text}</th>)
+                                } else {
+                                    return (<th key={'table-column-item-' + index}>{column.text}</th>)
+                                }
                             }
                         })
                     }
@@ -30,7 +36,21 @@ class TableComponent extends React.Component {
                                         for (let key in column) {
                                             let column_key = column[key];
                                             let row_key = row[column_key]
-                                            return (<td key={'table-td-' + index}>{row_key}</td>);
+                                            if (column.formatter) {
+                                                return (
+                                                    <td key={'table-td-' + index}>
+                                                        {
+                                                            column.formatter.map((format, index) => {
+                                                                return (<Link key={'table-td-' + index}
+                                                                              to={format.url + row_key}
+                                                                              className="btn btn-secondary">{format.text}</Link>);
+                                                            })
+                                                        }
+                                                    </td>
+                                                )
+                                            } else {
+                                                return (<td key={'table-td-' + index}>{row_key}</td>);
+                                            }
                                         }
                                     })
                                 }
