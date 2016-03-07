@@ -34,10 +34,8 @@
   },
   "scripts": {
     "start": "node -use-strict -harmony node-server.js",
-    "pc-dev": "node pc-webpack-dev-server.js",
-    "pc-pro": "webpack -p --config pc.webpack.config.js",
-    "mobi-dev": "node mobi-webpack-dev-server.js",
-    "mobi-pro": "webpack -p --config mobi.webpack.config.js"
+    "dev": "node webpack-dev-server.js",
+    "pro": "webpack --progress --profile --colors --config webpack.pro.config.js"
   },
   "devDependencies": {
     "babel": "^6.3.26",

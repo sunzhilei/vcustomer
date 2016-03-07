@@ -1,20 +1,22 @@
 /**
  * Created by sunzhilei on 2016/1/9.
- * compile command: webpack --config webpack.config.js
+ * compile command: webpack --progress --profile --colors --config webpack.config.js
  */
 var webpack = require('webpack');
 
-module.exports = {
+var config = {
     entry: {
         "customer/index": ['./frontend/customer/src/index.js'],
 
         "agent/reg": ['./frontend/agent/src/reg.js'],
         "agent/login": ['./frontend/agent/src/login.js'],
         "agent/index": ['./frontend/agent/src/index.js'],
-        "agent/admin": ['./frontend/agent/src/admin.js']
+        "agent/admin": ['./frontend/agent/src/admin.js'],
+
+        'client/index': ["./frontend/client/src/index.js"]
     },
     output: {
-        publicPath: 'http://127.0.0.1/frontend/dist/',
+        publicPath: 'http://localhost/frontend/dist/',
         path: __dirname + '/frontend/dist',
         filename: '[name].bundle.js'
     },
@@ -32,12 +34,16 @@ module.exports = {
         }]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('common.js'),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.DefinePlugin({
-            "process.env": {
-                NODE_ENV: JSON.stringify("development")
-            }
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'commons',
+            filename: 'commons.js',
+        }),
+        new webpack.ProvidePlugin({
+            React: 'react',
+            ReactDOM: 'react-dom'
         })
     ]
-};
+}
+
+module.exports = config;

@@ -4,11 +4,11 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 
-var config = require("./pc.webpack.config.js");
+var config = require("./webpack.config.js");
 
 var entry = config.entry;
 for (x in entry){
-    entry[x].unshift("webpack-dev-server/client?http://127.0.0.1", "webpack/hot/dev-server");
+    entry[x].unshift("webpack-dev-server/client?http://localhost", "webpack/hot/dev-server");
 }
 
 new WebpackDevServer(webpack(config), {
@@ -18,7 +18,7 @@ new WebpackDevServer(webpack(config), {
     noInfo: true,
     historyApiFallback: true,
     stats: { colors: true },
-}).listen(80, '127.0.0.1', function (err, result) {
+}).listen(80, 'localhost', function (err, result) {
     if (err) console.log(err);
-    console.log('Listening at 127.0.0.1');
+    console.log('Listening at localhost');
 });
