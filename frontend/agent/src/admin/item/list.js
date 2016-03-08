@@ -44,11 +44,15 @@ class ItemList extends React.Component {
                 {field: 'descript', text: '描述'},
                 {
                     field: 'uuid',
-                    text:'动作',
-                    formatter: [
-                        {text: '编辑', url: '/admin/editItemInfo/'},
-                        {text: '删除', url: '/admin/delItemInfo/'}
-                    ]
+                    text: '动作',
+                    formatter: function (value, index) {
+                        let content =
+                            <div>
+                                <Link key={'table-td-' + index} to={'/admin/editItemInfo/' + value} className="btn btn-link">编辑</Link>
+                                <Link key={'table-td-' + (index + 1)} to={'/admin/delItemInfo/' + value} className="btn btn-link">删除</Link>
+                            </div>;
+                        return content;
+                    }
                 }
             ],
             pagination: false

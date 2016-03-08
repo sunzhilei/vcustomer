@@ -17,11 +17,15 @@ class CategoryList extends React.Component {
                 {field: 'name', text: '名称'},
                 {
                     field: 'uuid',
-                    text:'动作',
-                    formatter: [
-                        {text: '编辑', url: '/admin/editCategoryInfo/'},
-                        {text: '删除', url: '/admin/delCategoryInfo/'}
-                    ]
+                    text: '动作',
+                    formatter: function (value, index) {
+                        let content =
+                            <div>
+                                <Link key={'table-td-' + index} to={'/admin/editCategoryInfo/' + value} className="btn btn-link">编辑</Link>
+                                <Link key={'table-td-' + (index + 1)} to={'/admin/delCategoryInfo/' + value} className="btn btn-link">删除</Link>
+                            </div>;
+                        return content;
+                    }
                 }
             ],
             pagination: false
