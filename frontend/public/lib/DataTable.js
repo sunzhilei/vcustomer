@@ -43,7 +43,7 @@ class TableComponent extends React.Component {
                                                             column.formatter.map((format, index) => {
                                                                 return (<Link key={'table-td-' + index}
                                                                               to={format.url + row_key}
-                                                                              className="btn btn-secondary">{format.text}</Link>);
+                                                                              className="btn btn-link">{format.text}</Link>);
                                                             })
                                                         }
                                                     </td>

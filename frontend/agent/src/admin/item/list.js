@@ -26,8 +26,9 @@ class ItemList extends React.Component {
 
     render() {
         let SelectList = {
+            value: '0',
             items: [
-                {value: '0', text: '选择品类', selected: true},
+                {value: '0', text: '选择品类'},
                 {value: '0eb6f5aa35b24dae94471b169a5da2da', text: '特色菜'},
                 {value: '3e680dada5e24b408d57d0fa6e16202c', text: '热菜'},
                 {value: '0b14b6fc3f05499281ad6af24d1f4826', text: '凉菜'},

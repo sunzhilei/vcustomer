@@ -9,6 +9,10 @@ import {Link} from 'react-router'
 
 class AddCategory extends React.Component {
 
+    handleNameChange(e) {
+        this.setState({name: e.target.value});
+    }
+
     getCustomerInfo(uuid) {
         $.ajax({
             url: "/admin/getCategory/" + uuid,
@@ -68,7 +72,7 @@ class AddCategory extends React.Component {
                     <label className="col-sm-2 form-control-label">名称：</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" name="name" placeholder="名称"
-                               required autofocus value={this.state.name}/>
+                               required autofocus value={this.state.name} onChange={e => this.handleNameChange(e)}/>
                     </div>
                 </div>
                 <div className="form-group row pull-right">

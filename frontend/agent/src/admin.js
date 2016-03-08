@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
+import { Router, browserHistory } from 'react-router'
 
 import NavComponent from '../../public/lib/Nav';
 import SidebarComponent from '../../public/lib/Sidebar';
@@ -29,17 +29,16 @@ let NavData = {
 
 let SidebarData = [
     {
-        title: '配置',
+        title: '公众号',
         items: [
-            {text: '公众号配置', href: '/admin/getDockInfo', active: true}
+            {text: '配置', href: '/admin/getDockInfo', active: true}
         ]
     },
     {
         title: '我的配置',
         items: [
-            {text: '品类管理', href: '/admin/getCategoryList'},
-            {text: '项目管理', href: '/admin/getItemList'},
-            {text: '套餐管理', href: '/admin'}
+            {text: '商品分类', href: '/admin/getCategoryList'},
+            {text: '商品管理', href: '/admin/getItemList'}
         ]
     }
 ]
