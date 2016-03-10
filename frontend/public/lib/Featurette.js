@@ -2,9 +2,6 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 class Featurette extends React.Component {
     render() {
         let commentItems = this.props.data.map((item, index) => {

@@ -2,9 +2,7 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
+import { Link } from 'react-router'
 
 class NavLeftItems extends React.Component {
     render() {
@@ -13,13 +11,23 @@ class NavLeftItems extends React.Component {
                 <ul className="nav navbar-nav pull-left">
                     {
                         this.props.items.left.map((item, index) => {
-                            return (
-                                <li key={'nav-' + index} className="nav-item">
-                                    <a className="nav-link" href={item.href}>
-                                        {item.text}
-                                    </a>
-                                </li>
-                            )
+                            if (item.link) {
+                                return (
+                                    <li key={'nav-' + index} className="nav-item">
+                                        <Link className="nav-link" to={item.href}>
+                                            {item.text}
+                                        </Link>
+                                    </li>
+                                )
+                            } else {
+                                return (
+                                    <li key={'nav-' + index} className="nav-item">
+                                        <a className="nav-link" href={item.href}>
+                                            {item.text}
+                                        </a>
+                                    </li>
+                                )
+                            }
                         })
                     }
                 </ul>
@@ -37,13 +45,23 @@ class NavRightItems extends React.Component {
                 <ul className="nav navbar-nav pull-right">
                     {
                         this.props.items.right.map((item, index) => {
-                            return (
-                                <li key={'nav-' + index} className="nav-item">
-                                    <a className="nav-link" href={item.href}>
-                                        {item.text}
-                                    </a>
-                                </li>
-                            )
+                            if (item.link) {
+                                return (
+                                    <li key={'nav-' + index}>
+                                        <Link to={item.href}>
+                                            {item.text}
+                                        </Link>
+                                    </li>
+                                )
+                            } else {
+                                return (
+                                    <li key={'nav-' + index}>
+                                        <a href={item.href}>
+                                            {item.text}
+                                        </a>
+                                    </li>
+                                )
+                            }
                         })
                     }
                 </ul>
@@ -57,7 +75,7 @@ class NavRightItems extends React.Component {
 class Nav extends React.Component {
     render() {
         return (
-            <nav id="navbar-example" className="navbar navbar-dark navbar-fixed-top bg-inverse">
+            <nav id="navbar-example" className="navbar navbar-default navbar-fixed-top navbar-inverse">
                 <a href={this.props.data.brand.href} className="navbar-brand">{this.props.data.brand.text}</a>
                 <NavLeftItems items={this.props.data.items}/>
                 <NavRightItems items={this.props.data.items}/>

@@ -2,12 +2,10 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import {Link} from 'react-router'
+import {browserHistory, Link} from 'react-router'
 
 import SelectComponent from '../../../../../frontend/public/lib/Select';
+import FileLibraryComponent from '../../../../../frontend/public/lib/FileLibrary';
 
 class AddItem extends React.Component {
 
@@ -34,13 +32,30 @@ class AddItem extends React.Component {
         });
     }
 
+    handleSelectPicClick(e) {
+        this.setState({model: true});
+    }
+
+    handleGetImageUUID(e) {
+        $("#image").attr("src", e.target.currentSrc);
+        this.setState({
+            pic_uuid: e.target.id,
+            pic_path: e.target.currentSrc
+        });
+        this.setState({model: false});
+    }
+
     constructor() {
         super();
         this.state = {
+            model: false,
+
             uuid: '',
+            category_uuid: 0,
             name: '',
             price: '',
-            pic: '',
+            pic_uuid: '',
+            pic_path: '',
             descript: ''
         };
     }
@@ -49,16 +64,10 @@ class AddItem extends React.Component {
         this.getItem(this.props.params.uuid);
     }
 
-    handleFileChange(e) {
-        e.preventDefault();
-        let path = e.target.value.split('\\');
-        let name = path[path.length - 1];
-        $(".file-pic:after").css('content', name);
-    }
-
     handleCategoryChange(e) {
-        e.preventDefault();
-        this.setState({url: "/admin/getItemList/" + e.target.value});
+        this.setState({
+            category_uuid: e.target.value
+        });
     }
 
     handleSubmit(e) {
@@ -70,79 +79,83 @@ class AddItem extends React.Component {
                 }
             }
         });
-        if (validator.form()) {
-            $.post("/admin/addItem", $('form').serialize(), data => {
+        if (validator.form() && this.state.category_uuid != 0) {
+            $.post('/admin/addItem', $('#itemForm').serialize(), data => {
                 if (!data.result) {
                     alert(data.msg);
                 } else {
-                    alert("增加成功");
+                    browserHistory.replace('/admin/getItemList');
                 }
             }, 'json');
+        }else{
+            alert("请选择商品分类");
         }
     }
 
     render() {
-        let SelectList = {
-            value: '0',
-            items: [
-                {value: '0', text: '选择品类'},
-                {value: '0eb6f5aa35b24dae94471b169a5da2da', text: '特色菜'},
-                {value: '3e680dada5e24b408d57d0fa6e16202c', text: '热菜'},
-                {value: '0b14b6fc3f05499281ad6af24d1f4826', text: '凉菜'},
-                {value: '26606eca8a3b48e2a375b55146b81e1d', text: '酒水'}
-            ]
-        };
         return (
-            <form noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
-                <input type="hidden" name="uuid" value={this.state.uuid}/>
-                <br/>
-                <h5 className="sub-header">项目信息</h5>
-                <div className="form-group row">
-                    <label className="col-sm-2 form-control-label">品类：</label>
-                    <div className="col-sm-10">
-                        <SelectComponent name="category_uuid" data={SelectList}
-                                         onChange={e => {this.handleCategoryChange(e)}}/>
+            <div>
+                <form id="itemForm" noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
+                    <input type="hidden" name="uuid" value={this.state.uuid}/>
+                    <br/>
+                    <h5 className="sub-header">项目信息</h5>
+                    <div className="form-group row">
+                        <label className="col-sm-2 form-control-label">商品分类：</label>
+                        <div className="col-sm-10">
+                            <SelectComponent name="category_uuid" url="/admin/getCategoryList"
+                                             value={this.state.category_uuid}
+                                             onChange={e => {this.handleCategoryChange(e)}}/>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row">
-                    <label className="col-sm-2 form-control-label">名称：</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" name="name" placeholder="名称"
-                               required autofocus value={this.state.name} onChange={e => this.handleChange(e)}/>
+                    <div className="form-group row">
+                        <label className="col-sm-2 form-control-label">名称：</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control" name="name" placeholder="名称"
+                                   required autofocus value={this.state.name} onChange={e => this.handleChange(e)}/>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row">
-                    <label className="col-sm-2 form-control-label">价格：</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" name="price" placeholder="价格"
-                               required value={this.state.price} onChange={e => this.handleChange(e)}/>
+                    <div className="form-group row">
+                        <label className="col-sm-2 form-control-label">价格：</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control" name="price" placeholder="价格"
+                                   required value={this.state.price} onChange={e => this.handleChange(e)}/>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row">
-                    <label className="col-sm-2 form-control-label">图片：</label>
-                    <div className="col-sm-10">
-                        <label className="file">
-                            <input type="file" name="pic" required onChange={e => this.handleFileChange(e)}/>
-                            <span className="file-custom file-pic"></span>
-                        </label>
-                        <label className="form-control-label">{this.state.pic}</label>
+                    <div className="form-group row">
+                        <label className="col-sm-2 form-control-label">图片：</label>
+                        <div className="col-sm-2">
+                            <img id="image" data-src="holder.js/200x200/auto" alt="200x200"
+                                 className="img-thumbnail"
+                                 src={this.state.pic_path ? this.state.pic_path : "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzUwMHg1MDAvYXV0bwpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNi4wLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48IVtDREFUQVsjaG9sZGVyXzE1MjY4N2Y3MDNhIHRleHQgeyBmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjVwdCB9IF1dPjwvc3R5bGU+PC9kZWZzPjxnIGlkPSJob2xkZXJfMTUyNjg3ZjcwM2EiPjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRUVFRUVFIi8+PGc+PHRleHQgeD0iMTg1LjEyNSIgeT0iMjYxLjEiPjUwMHg1MDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4="}
+                                 className="img-thumbnail"/>
+                            <input type="hidden" name="pic_uuid" value={this.state.pic_uuid}/>
+                            <input type="hidden" name="pic_path" value={this.state.pic_path}/>
+                        </div>
+                        <div className="col-sm-8">
+                            <button type="button" className="btn btn-primary"
+                                    onClick={e => this.handleSelectPicClick(e)}>
+                                选择图片
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row">
-                    <label className="col-sm-2 form-control-label">描述：</label>
-                    <div className="col-sm-10">
+                    <div className="form-group row">
+                        <label className="col-sm-2 form-control-label">描述：</label>
+                        <div className="col-sm-10">
                         <textarea className="form-control" rows="10" name="descript" placeholder="描述"
-                                  required value={this.state.descript} onChange={e => this.handleChange(e)}></textarea>
+                                  value={this.state.descript} onChange={e => this.handleChange(e)}></textarea>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row pull-right">
-                    <div className="col-sm-12">
-                        <button type="submit" className="btn btn-primary">保存</button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to="/admin/getItemList" className="btn btn-secondary">返回</Link>
+                    <div className="form-group row pull-right">
+                        <div className="col-sm-12">
+                            <button type="submit" className="btn btn-primary">保存</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <Link to="/admin/getItemList" className="btn btn-default">返回</Link>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+                <FileLibraryComponent modalState={this.state.model}
+                                      onGetImageUUID={(e,uuid,path) => this.handleGetImageUUID(e)}/>
+            </div>
         );
     }
 }

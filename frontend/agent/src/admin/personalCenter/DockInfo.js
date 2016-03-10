@@ -2,9 +2,6 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 import {Link} from 'react-router'
 
 class DockInfo extends React.Component {

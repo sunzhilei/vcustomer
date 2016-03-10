@@ -2,23 +2,42 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 class Select extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+            value: 0,
+            rows: []
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.url) {
+            $.get(this.props.url, {}, data => {
+                this.setState({rows: data.rows});
+            }, 'json');
+        }
+    }
+
+    componentWillReceiveProps(new_props) {
+        this.setState({value: new_props.value})
+    }
+
     render() {
+        let curr_value = this.state.value;
         return (
             <select name={this.props.name ? this.props.name : ''}
-                    className="c-select" value={this.props.data.value ? this.props.data.value : 0}
+                    className="form-control"
                     onChange={e => {this.props.onChange(e)}}>
+                <option value="0"> 请选择</option>
                 {
-                    this.props.data.items.map((item, index) => {
-                        return (
-                            <option key={'select-' + index} value={item.value}>
-                                {item.text}
-                            </option>
-                        )
+                    this.state.rows.map((item, index) => {
+                        let option = <option key={'select-' + index} value={item.uuid}>{item.name}</option>;
+                        if (curr_value == item.uuid) {
+                            option = <option key={'select-' + index} value={item.uuid} selected>{item.name}</option>;
+                        }
+                        return (option)
                     })
                 }
             </select>

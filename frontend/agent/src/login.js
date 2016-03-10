@@ -1,8 +1,6 @@
 /**
  * Created by sunzhilei on 2016/1/7.
  */
-import React from 'react';
-import ReactDOM from 'react-dom';
 
 import NavComponent from '../../../frontend/public/lib/Nav';
 import LoginComponent from '../../../frontend/public/lib/Login/Login';

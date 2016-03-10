@@ -2,10 +2,6 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 class Radio extends React.Component {
     render() {
         return (

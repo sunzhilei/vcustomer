@@ -2,10 +2,7 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import {Link} from 'react-router'
+import {browserHistory, Link} from 'react-router'
 
 class AddCategory extends React.Component {
 
@@ -56,7 +53,7 @@ class AddCategory extends React.Component {
                 if (!data.result) {
                     alert(data.msg);
                 } else {
-                    alert("增加成功");
+                    browserHistory.replace('/admin/getCategoryList');
                 }
             }, 'json');
         }
@@ -79,7 +76,7 @@ class AddCategory extends React.Component {
                     <div className="col-sm-12">
                         <button type="submit" className="btn btn-primary">保存</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to="/admin/getCategoryList" className="btn btn-secondary">返回</Link>
+                        <Link to="/admin/getCategoryList" className="btn btn-default">返回</Link>
                     </div>
                 </div>
             </form>

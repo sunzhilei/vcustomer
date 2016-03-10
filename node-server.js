@@ -9,6 +9,7 @@ app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 // 前端资源静态化
 app.use('/frontend', express.static('./frontend'));
+app.use('/upload', express.static('./upload'));
 
 let session = require('express-session');
 let cookieParser = require('cookie-parser');
@@ -32,6 +33,10 @@ app.use('/customer', customer_router);
 // 注册客户管理平台路由器
 let client_router = require('./backend/client/router');
 app.use('/client', client_router);
+
+// 注册素材管理路由器
+let media_router = require('./backend/media/router');
+app.use('/media', media_router);
 
 // 启动定时任务，每小时获取一次access_token并保存
 let accessTokenJob = require('./backend/wx/accessTokenJob');

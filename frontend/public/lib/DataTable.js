@@ -2,15 +2,12 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 import {Link} from 'react-router'
 
 class TableComponent extends React.Component {
     render() {
         return (
-            <table className="table table-bordered">
+            <table className="table table-striped">
                 <thead>
                 <tr>
                     {
@@ -158,7 +155,7 @@ class DataTableComponent extends React.Component {
     }
 
     componentWillReceiveProps(new_props) {
-        if (this.props.url) {
+        if (new_props.url) {
             this.handlePageClick(new_props.url, 1, 10);
         }
     }
@@ -179,4 +176,5 @@ class DataTableComponent extends React.Component {
         );
     }
 }
+
 module.exports = DataTableComponent;

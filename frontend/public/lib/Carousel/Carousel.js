@@ -2,14 +2,11 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 class Carousel extends React.Component {
     render() {
 
         let commentItems = this.props.data.map((item, index) => {
-            let classItem = item.active ? 'carousel-item active' : 'carousel-item'
+            let classItem = item.active ? 'carousel-item item active' : 'carousel-item item'
             return (
                 <div key={'carousel-' + index} className={classItem}>
                     <div className="container">
@@ -25,7 +22,7 @@ class Carousel extends React.Component {
         });
 
         return (
-            <div className="carousel slide" data-ride="carousel">
+            <div id="myCarousel" className="carousel slide" data-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
                     <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -36,11 +33,11 @@ class Carousel extends React.Component {
                 </div>
                 <a className="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                     <span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span className="sr-only">Previous</span>
+                    <span className="sr-only">上一张</span>
                 </a>
                 <a className="right carousel-control" href="#myCarousel" role="button" data-slide="next">
                     <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span className="sr-only">Next</span>
+                    <span className="sr-only">下一张</span>
                 </a>
             </div>
         );

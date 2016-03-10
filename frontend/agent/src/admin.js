@@ -1,13 +1,14 @@
 /**
  * Created by sunzhilei on 2016/1/7.
  */
-import React from 'react';
-import ReactDOM from 'react-dom';
 
 import { Router, browserHistory } from 'react-router'
 
 import NavComponent from '../../public/lib/Nav';
 import SidebarComponent from '../../public/lib/Sidebar';
+
+//公共删除组件
+import DelCategoryComponent from './admin/del';
 
 import DockInfoComponent from './admin/personalCenter/DockInfo';
 import DockConfigComponent from './admin/personalCenter/DockConfig';
@@ -18,10 +19,22 @@ import AddCategoryComponent from './admin/category/add';
 import ItemListComponent from './admin/item/list';
 import AddItemComponent from './admin/item/add';
 
+//媒体库
+import FileLibraryComponent from '../../public/lib/FileLibrary';
+class MediaLibraryComponent extends React.Component {
+    render() {
+        return (
+            <FileLibraryComponent modalState={true}/>
+        )
+    }
+}
+
+
 let NavData = {
     brand: {text: '微客', href: '/admin'},
     items: {
         right: [
+            {text: '素材库', href: '/mediaLibrary', link: true},
             {text: '退出', href: '/loginOut'}
         ]
     }
@@ -31,7 +44,7 @@ let SidebarData = [
     {
         title: '公众号',
         items: [
-            {text: '配置', href: '/admin/getDockInfo', active: true}
+            {text: '配置', href: '/admin/getDockInfo'}
         ]
     },
     {
@@ -58,6 +71,7 @@ class AgentIndex extends React.Component {
                         </div>
                     </div>
                 </div>
+
             </div>
         );
     }
@@ -69,6 +83,7 @@ const routes = {
     indexRoute: {component: DockInfoComponent},
     childRoutes: [
         {path: '/admin', component: ''},
+        {path: '/mediaLibrary', component: MediaLibraryComponent},
 
         {path: '/admin/getDockInfo', component: DockInfoComponent},
         {path: '/admin/getDockConfig', component: DockConfigComponent},
@@ -76,12 +91,14 @@ const routes = {
         {path: '/admin/getCategoryList', component: CategoryListComponent},
         {path: '/admin/getCategoryInfo', component: AddCategoryComponent},
         {path: '/admin/editCategoryInfo/:uuid', component: AddCategoryComponent},
-        {path: '/admin/delCategoryInfo/:uuid', component: AddCategoryComponent},
+        {path: '/admin/delCategoryInfo', component: DelCategoryComponent},
 
         {path: '/admin/getItemList', component: ItemListComponent},
         {path: '/admin/getItemInfo', component: AddItemComponent},
         {path: '/admin/editItemInfo/:uuid', component: AddItemComponent},
-        {path: '/admin/delItemInfo/:uuid', component: AddItemComponent}
+        {path: '/admin/delItemInfo', component: DelCategoryComponent}
+
+
     ]
 }
 

@@ -121,7 +121,7 @@ router.post('/admin/addCustomer', (req, res) => {
 });
 
 /**
- * 获取当前用户的品类列表
+ * 获取当前用户的商品列表
  */
 router.get('/admin/getCategoryList', (req, res) => {
     if (req.query.page && req.query.number) {
@@ -147,7 +147,7 @@ router.get('/admin/getCategoryList', (req, res) => {
 });
 
 /**
- * 获取指定的品类信息
+ * 获取指定的商品分类
  */
 router.get('/admin/getCategory/:uuid', (req, res) => {
     category.queryCategoryByUUID(req.params.uuid).then(row => {
@@ -180,12 +180,50 @@ router.post('/admin/addCategory', (req, res) => {
 });
 
 /**
- * 获取指定品类下的项目
+ * 删除指定的商品分类
+ */
+router.post('/admin/delCategory/:uuid', (req, res) => {
+    category.delCategoryByUUID(req.params.uuid).then(result => {
+        resUtil.resultSuccess({}, req, res);
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+});
+
+/**
+ * 获取指定商品下的商品
+ */
+router.get('/admin/getItemList', (req, res) => {
+    if (req.query.page && req.query.number) {
+        item.queryItemListForPagination(req.session.account.uuid, req.query.page, req.query.number).then(rows => {
+            item.queryItemListByAccountUUIDOfTotal(req.session.account.uuid).then(total => {
+                resUtil.resultData(total, rows, req, res);
+            }, e => {
+                console.error(e);
+                resUtil.resultFail("系统异常，稍后重试！", req, res);
+            })
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    } else {
+        item.queryItemList(req.session.account.uuid).then(rows => {
+            resUtil.resultData(0, rows, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }
+});
+
+/**
+ * 获取指定商品下的商品
  */
 router.get('/admin/getItemList/:categroy_uuid', (req, res) => {
     if (req.query.page && req.query.number) {
         item.queryItemListByCategoryUUIDForPagination(req.params.categroy_uuid, req.query.page, req.query.number).then(rows => {
-            item.queryItemOfTotal(req.body).then(total => {
+            item.queryItemListByCategoryUUIDOfTotal(req.body).then(total => {
                 resUtil.resultData(total, rows, req, res);
             }, e => {
                 console.error(e);
@@ -206,7 +244,7 @@ router.get('/admin/getItemList/:categroy_uuid', (req, res) => {
 });
 
 /**
- * 获取指定的项目信息
+ * 获取指定的商品信息
  */
 router.get('/admin/getItem/:uuid', (req, res) => {
     item.queryItemByUUID(req.params.uuid).then(row => {
@@ -218,24 +256,36 @@ router.get('/admin/getItem/:uuid', (req, res) => {
 });
 
 /**
- * 添加一个项目信息
+ * 添加一个商品信息
  */
 router.post('/admin/addItem', (req, res) => {
     if (req.body.uuid) {
-        item.updateItem(req.body).then(result => {
+        item.updateItem(req.session.account.uuid, req.body).then(result => {
             resUtil.resultSuccess({}, req, res);
         }, e => {
             console.error(e);
             resUtil.resultFail("系统异常，稍后重试！", req, res);
         })
     } else {
-        item.insertItem(req.body).then(result => {
+        item.insertItem(req.session.account.uuid, req.body).then(result => {
             resUtil.resultSuccess({}, req, res);
         }, e => {
             console.error(e);
             resUtil.resultFail("系统异常，稍后重试！", req, res);
         })
     }
+});
+
+/**
+ * 删除指定的商品信息
+ */
+router.post('/admin/delItem/:uuid', (req, res) => {
+    item.delItemByUUID(req.params.uuid).then(result => {
+        resUtil.resultSuccess({}, req, res);
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
 });
 
 module.exports = router;

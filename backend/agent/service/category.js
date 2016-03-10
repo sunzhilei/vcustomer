@@ -65,7 +65,7 @@ exports.queryCategoryOfTotal = (account_uuid) => {
 }
 
 /**
- * 根据UUID查询品类信息
+ * 根据UUID查询商品分类
  */
 exports.queryCategoryByUUID = (uuid) => {
     return new Promise((resolve, reject) => {
@@ -86,7 +86,7 @@ exports.queryCategoryByUUID = (uuid) => {
 }
 
 /**
- * 为指定用户插入品类信息
+ * 为指定用户插入商品分类
  */
 exports.insertCategory = (account_uuid, body) => {
     return new Promise((resolve, reject) => {
@@ -111,7 +111,7 @@ exports.insertCategory = (account_uuid, body) => {
 }
 
 /**
- * 为指定用户插入品类信息
+ * 为指定用户修改商品分类
  */
 exports.updateCategory = (body) => {
     return new Promise((resolve, reject) => {
@@ -120,6 +120,29 @@ exports.updateCategory = (body) => {
             params: {
                 uuid: body.uuid,
                 name: body.name
+            }
+        }).then(result => {
+            if (result.length > 0) {
+                resolve(result);
+            } else {
+                resolve(null);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(error));
+        })
+    })
+}
+
+/**
+ * 为指定用户删除商品分类
+ */
+exports.delCategoryByUUID = (uuid) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "delete from category where uuid = :uuid",
+            params: {
+                uuid: uuid
             }
         }).then(result => {
             if (result.length > 0) {

@@ -1,10 +1,6 @@
 /**
  * Created by sunzhilei on 2016/1/7.
  */
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-//require("../css/Carousel.css");
 
 import NavComponent from '../../../frontend/public/lib/Nav';
 import DataTableComponent from '../../../frontend/public/lib/DataTable';
