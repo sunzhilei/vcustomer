@@ -19,15 +19,15 @@ import AddCategoryComponent from './admin/category/add';
 import ItemListComponent from './admin/item/list';
 import AddItemComponent from './admin/item/add';
 
-//媒体库
-import FileLibraryComponent from '../../public/lib/FileLibrary';
-class MediaLibraryComponent extends React.Component {
-    render() {
-        return (
-            <FileLibraryComponent modalState={true}/>
-        )
-    }
-}
+////媒体库
+//import FileLibraryComponent from '../../public/lib/FileLibrary';
+//class MediaLibraryComponent extends React.Component {
+//    render() {
+//        return (
+//            <FileLibraryComponent modalState={true}/>
+//        )
+//    }
+//}
 
 
 let NavData = {
@@ -76,7 +76,7 @@ const routes = {
     component: AgentIndex,
     childRoutes: [
         {path: '/admin', component: ''},
-        {path: '/mediaLibrary', component: MediaLibraryComponent},
+        //{path: '/mediaLibrary', component: MediaLibraryComponent},
 
         {path: '/admin/getDockInfo', component: DockInfoComponent},
         {path: '/admin/getDockConfig', component: DockConfigComponent},
