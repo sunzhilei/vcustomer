@@ -7,7 +7,7 @@ require("./Login.css");
 class Login extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
-        var validator = $("form").validate({
+        var validator = $("#agentLoginForm").validate({
             rules: {
                 inputPassword: {
                     minlength: 6,
@@ -16,14 +16,14 @@ class Login extends React.Component {
             }
         });
         if (validator.form()) {
-            this.props.onSubmit($('form').serialize());
+            $("#agentLoginForm").submit();
         }
     }
 
     render() {
         return (
             <div className="container">
-                <form className="form-signin" noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
+                <form id="agentLoginForm" className="form-signin" noValidate="false" method="post" action={this.props.url} onSubmit={e => {this.handleSubmit(e)}}>
                     <h2 className="form-signin-heading">请登录</h2>
                     <label htmlFor="inputEmail" className="sr-only">邮箱</label>
                     <input type="email" id="account" name="account" className="form-control" placeholder="邮箱"

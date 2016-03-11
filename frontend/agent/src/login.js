@@ -15,22 +15,13 @@ let NavData = {
 }
 
 class AgentLogin extends React.Component {
-    handleSubmit(body) {
-        $.post("/login/valid", body, data => {
-            if (!data.result) {
-                alert(data.msg);
-            } else {
-                window.location.href = data.custom.url + "?date=" + new Date().getTime();
-            }
-        }, 'json');
-    }
 
     render() {
         return (
             <div>
                 <NavComponent data={NavData}/>
                 <br/><br/><br/><br/><br/><br/><br/>
-                <LoginComponent onSubmit={body => this.handleSubmit(body)}/>
+                <LoginComponent url="/login/valid"/>
             </div>
         );
     }

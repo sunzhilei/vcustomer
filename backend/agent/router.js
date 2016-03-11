@@ -30,20 +30,20 @@ router.get('/login', (req, res) => {
  */
 router.post('/login/valid', (req, res) => {
     account.queryAccount(req.body).then(accountObj => {
-        if (accountObj) {
+        if (accountObj.uuid) {
             let account = {
                 uuid: accountObj.uuid,
                 account: accountObj.account,
                 password: accountObj.password
             }
             req.session.account = account;
-            resUtil.resultSuccess({url: "/admin"}, req, res);
+            res.redirect('/admin');
         } else {
-            resUtil.resultFail("帐号或密码不正确！", req, res);
+            res.redirect('/login');
         }
     }, e => {
         console.error(e);
-        resUtil.resultFail("系统异常，稍后重试！", req, res);
+        res.redirect('/login');
     })
 });
 
