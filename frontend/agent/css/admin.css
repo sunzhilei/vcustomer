@@ -108,13 +108,6 @@ body {
   text-align: center;
 }
 
-.file-pic:before{
-  content:'选择'
-}
-.file-pic:after{
-  content:'请选择一张图片'
-}
-
 form label.error {
   width: 100%;
   margin-bottom: 10px;

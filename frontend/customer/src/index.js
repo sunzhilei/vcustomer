@@ -9,7 +9,7 @@ let NavData = {
     brand: {text: '后台管理', href: '/customer'},
     items: {
         left: [
-            {text: '首页', href: '/customer', active: true},
+            {text: '首页', href: '/customer'},
             {text: '客户管理', href: '/customer'}
         ]
     }

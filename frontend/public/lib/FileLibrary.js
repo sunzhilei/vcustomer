@@ -77,11 +77,13 @@ class FileLibraryComponent extends React.Component {
                         <div className="modal-footer">
                             <form id="meidaForm" encType="multipart/form-data" method="post"
                                   action="javascript:;">
-                                <span className="btn btn-success">
-                                <input type="file" name="file" className="form-control-file"
-                                       style={{width:'70px'}} multiple required
-                                       onChange={e => this.handleFileChange(e)}/>
-                                </span>
+                                <button className="btn btn-success"
+                                        style={{background:'url(../../../frontend/agent/img/upload.png)'}}>
+                                    <input id="file" type="file" name="file" className="form-control-file"
+                                           style={{width:'58px',filter:'alpha(opacity=0)',MozOpacity:'0',KhtmlOpacity:'0',opacity:'0'}}
+                                           multiple required
+                                           onChange={e => this.handleFileChange(e)}/>
+                                </button>
                                 <button type="button" className="btn btn-default" data-dismiss="modal">关闭</button>
                             </form>
                         </div>

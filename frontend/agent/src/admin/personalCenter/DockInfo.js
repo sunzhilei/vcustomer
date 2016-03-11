@@ -6,33 +6,24 @@ import {Link} from 'react-router'
 
 class DockInfo extends React.Component {
 
-    getCustomerInfo() {
-        $.ajax({
-            url: "/admin/getCustomer",
-            dataType: "json",
-            async: true,
-            success: data => {
-                if (!data.result) {
-                    alert(data.msg);
-                } else {
-                    if (data.custom.row) {
-                        this.setState(data.custom.row);
-                    }
-                }
-            }
-        });
-    }
-
     constructor() {
         super();
         this.state = {
-            wx_url: '',
-            wx_token: ''
+            wx_url: '通过配置公众号获取URL',
+            wx_token: '通过配置公众号获取Token'
         };
     }
 
     componentDidMount() {
-        this.getCustomerInfo();
+        $.get("/admin/getCustomer", {}, data => {
+            if (!data.result) {
+                alert(data.msg);
+            } else {
+                if (data.custom.row) {
+                    this.setState(data.custom.row);
+                }
+            }
+        }, 'json');
     }
 
     render() {
@@ -43,15 +34,13 @@ class DockInfo extends React.Component {
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">URL(服务器地址)&nbsp;：</label>
                     <div className="col-sm-10">
-                        <label id="wx_url"
-                               className="form-control-label">{this.state.wx_url != '' ? this.state.wx_url : '通过配置公众号获取URL'}</label>
+                        <span className="form-control-label">{this.state.wx_url}</span>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">Token(令牌)&nbsp;：</label>
                     <div className="col-sm-10">
-                        <label id="wx_token"
-                               className="form-control-label">{this.state.wx_token != '' ? this.state.wx_token : '通过配置公众号获取Token'}</label>
+                        <span className="form-control-label">{this.state.wx_token}</span>
                     </div>
                 </div>
                 <div className="form-group row">

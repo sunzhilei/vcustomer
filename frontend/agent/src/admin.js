@@ -5,7 +5,7 @@
 import { Router, browserHistory } from 'react-router'
 
 import NavComponent from '../../public/lib/Nav';
-import SidebarComponent from '../../public/lib/Sidebar';
+import ListGroupComponent from '../../public/lib/ListGroup';
 
 //公共删除组件
 import DelCategoryComponent from './admin/del';
@@ -34,19 +34,14 @@ let NavData = {
     brand: {text: '微客', href: '/admin'},
     items: {
         right: [
-            {text: '素材库', href: '/mediaLibrary', link: true},
+            {text: '公众号配置', href: '/admin/getDockInfo', link: true},
+            {text: '素材库管理', href: '/mediaLibrary', link: true},
             {text: '退出', href: '/loginOut'}
         ]
     }
 }
 
 let SidebarData = [
-    {
-        title: '公众号',
-        items: [
-            {text: '配置', href: '/admin/getDockInfo'}
-        ]
-    },
     {
         title: '我的配置',
         items: [
@@ -64,7 +59,7 @@ class AgentIndex extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-3 col-md-2 blog-sidebar">
-                            <SidebarComponent data={SidebarData}/>
+                            <ListGroupComponent data={SidebarData}/>
                         </div>
                         <div className="col-sm-9 col-md-10 blog-main">
                             {this.props.children}
@@ -80,7 +75,6 @@ class AgentIndex extends React.Component {
 const routes = {
     path: '/',
     component: AgentIndex,
-    indexRoute: {component: DockInfoComponent},
     childRoutes: [
         {path: '/admin', component: ''},
         {path: '/mediaLibrary', component: MediaLibraryComponent},

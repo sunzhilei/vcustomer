@@ -5,7 +5,7 @@
 import {Link} from 'react-router'
 
 
-class Sidebar extends React.Component {
+class ListGroup extends React.Component {
     render() {
         return (
             <div>
@@ -35,4 +35,4 @@ class Sidebar extends React.Component {
     }
 }
 
-module.exports = Sidebar;
+module.exports = ListGroup;
