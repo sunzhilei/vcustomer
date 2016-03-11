@@ -96,4 +96,4 @@ const routes = {
     ]
 }
 
-ReactDOM.render(<Router history={browserHistory} routes={routes}/>, document.getElementById('content'));
+ReactDOM.render(<AgentIndex/>, document.getElementById('content'));
