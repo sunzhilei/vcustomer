@@ -37,7 +37,7 @@ router.post('/login/valid', (req, res) => {
                 password: accountObj.password
             }
             req.session.account = account;
-            res.redirect('/admin');
+            res.redirect('/');
         } else {
             res.redirect('/login');
         }
