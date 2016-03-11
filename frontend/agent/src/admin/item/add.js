@@ -5,6 +5,7 @@
 import {browserHistory, Link} from 'react-router'
 
 import SelectComponent from '../../../../../frontend/public/lib/Select';
+import FileLibraryComponent from '../../../../../frontend/public/lib/FileLibrary';
 
 class AddItem extends React.Component {
 
@@ -29,6 +30,19 @@ class AddItem extends React.Component {
                 }
             }
         });
+    }
+
+    handleSelectPicClick(e) {
+        this.setState({model: true});
+    }
+
+    handleGetImageUUID(e) {
+        $("#image").attr("src", e.target.currentSrc);
+        this.setState({
+            pic_uuid: e.target.id,
+            pic_path: e.target.currentSrc
+        });
+        this.setState({model: false});
     }
 
     constructor() {
@@ -139,6 +153,8 @@ class AddItem extends React.Component {
                         </div>
                     </div>
                 </form>
+                <FileLibraryComponent modalState={this.state.model}
+                                      onGetImageUUID={(e,uuid,path) => this.handleGetImageUUID(e)}/>
             </div>
         );
     }

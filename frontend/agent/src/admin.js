@@ -16,8 +16,18 @@ import DockConfigComponent from './admin/personalCenter/DockConfig';
 import CategoryListComponent from './admin/category/list';
 import AddCategoryComponent from './admin/category/add';
 
-import ItemListComponent from './admin/item/list';
-import AddItemComponent from './admin/item/add';
+//import ItemListComponent from './admin/item/list';
+//import AddItemComponent from './admin/item/add';
+
+//媒体库
+import FileLibraryComponent from '../../public/lib/FileLibrary';
+class MediaLibraryComponent extends React.Component {
+    render() {
+        return (
+            <FileLibraryComponent modalState={true}/>
+        )
+    }
+}
 
 
 let NavData = {
@@ -31,7 +41,7 @@ let NavData = {
     }
 }
 
-let ListGroupData = [
+let SidebarData = [
     {
         title: '我的配置',
         items: [
@@ -49,13 +59,14 @@ class AgentIndex extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-3 col-md-2 blog-sidebar">
-                            <ListGroupComponent data={ListGroupData}/>
+                            <ListGroupComponent data={SidebarData}/>
                         </div>
                         <div className="col-sm-9 col-md-10 blog-main">
                             {this.props.children}
                         </div>
                     </div>
                 </div>
+
             </div>
         );
     }
@@ -66,6 +77,7 @@ const routes = {
     component: AgentIndex,
     childRoutes: [
         {path: '/admin', component: ''},
+        {path: '/mediaLibrary', component: MediaLibraryComponent},
 
         {path: '/admin/getDockInfo', component: DockInfoComponent},
         {path: '/admin/getDockConfig', component: DockConfigComponent},
@@ -75,10 +87,12 @@ const routes = {
         {path: '/admin/editCategoryInfo/:uuid', component: AddCategoryComponent},
         {path: '/admin/delCategoryInfo', component: DelCategoryComponent},
 
-        {path: '/admin/getItemList', component: ItemListComponent},
-        {path: '/admin/getItemInfo', component: AddItemComponent},
-        {path: '/admin/editItemInfo/:uuid', component: AddItemComponent},
-        {path: '/admin/delItemInfo', component: DelCategoryComponent}
+        //{path: '/admin/getItemList', component: ItemListComponent},
+        //{path: '/admin/getItemInfo', component: AddItemComponent},
+        //{path: '/admin/editItemInfo/:uuid', component: AddItemComponent},
+        //{path: '/admin/delItemInfo', component: DelCategoryComponent}
+
+
     ]
 }
 
