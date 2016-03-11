@@ -29,17 +29,25 @@ router.get('/login', (req, res) => {
  * 验证失败则抛出错误明细
  */
 router.post('/login/valid', (req, res) => {
+    console.log("valid - 1");
     account.queryAccount(req.body).then(accountObj => {
+        console.log("valid - 2");
         if (accountObj) {
+            console.log("valid - 3");
             let account = {
                 uuid: accountObj.uuid,
                 account: accountObj.account,
                 password: accountObj.password
             }
+            console.log("valid - 4");
             req.session.account = account;
+            console.log("valid - 5");
             resUtil.resultSuccess({url: "/admin"}, req, res);
+            console.log("valid - 6");
         } else {
+            console.log("valid - 7");
             resUtil.resultFail("帐号或密码不正确！", req, res);
+            console.log("valid - 8");
         }
     }, e => {
         console.error(e);
