@@ -41,7 +41,7 @@ let NavData = {
     }
 }
 
-let SidebarData = [
+let ListGroupData = [
     {
         title: '我的配置',
         items: [
@@ -56,16 +56,6 @@ class AgentIndex extends React.Component {
         return (
             <div>
                 <NavComponent data={NavData}/>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-sm-3 col-md-2 blog-sidebar">
-                            <ListGroupComponent data={SidebarData}/>
-                        </div>
-                        <div className="col-sm-9 col-md-10 blog-main">
-                            {this.props.children}
-                        </div>
-                    </div>
-                </div>
             </div>
         );
     }
