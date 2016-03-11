@@ -89,7 +89,7 @@ const routes = {
 
         {path: '/admin/getItemList', component: ItemListComponent},
         {path: '/admin/getItemInfo', component: AddItemComponent},
-        //{path: '/admin/editItemInfo/:uuid', component: AddItemComponent},
+        {path: '/admin/editItemInfo/:uuid', component: AddItemComponent},
         {path: '/admin/delItemInfo', component: DelComponent}
 
 
