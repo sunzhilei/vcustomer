@@ -8,7 +8,7 @@ import NavComponent from '../../public/lib/Nav';
 import ListGroupComponent from '../../public/lib/ListGroup';
 
 //公共删除组件
-import DelCategoryComponent from './admin/del';
+import DelComponent from './admin/del';
 
 import DockInfoComponent from './admin/personalCenter/DockInfo';
 import DockConfigComponent from './admin/personalCenter/DockConfig';
@@ -17,7 +17,7 @@ import CategoryListComponent from './admin/category/list';
 import AddCategoryComponent from './admin/category/add';
 
 import ItemListComponent from './admin/item/list';
-//import AddItemComponent from './admin/item/add';
+import AddItemComponent from './admin/item/add';
 
 //媒体库
 import FileLibraryComponent from '../../public/lib/FileLibrary';
@@ -85,12 +85,12 @@ const routes = {
         {path: '/admin/getCategoryList', component: CategoryListComponent},
         {path: '/admin/getCategoryInfo', component: AddCategoryComponent},
         {path: '/admin/editCategoryInfo/:uuid', component: AddCategoryComponent},
-        {path: '/admin/delCategoryInfo', component: DelCategoryComponent},
+        {path: '/admin/delCategoryInfo', component: DelComponent},
 
         {path: '/admin/getItemList', component: ItemListComponent},
-        //{path: '/admin/getItemInfo', component: AddItemComponent},
+        {path: '/admin/getItemInfo', component: AddItemComponent},
         //{path: '/admin/editItemInfo/:uuid', component: AddItemComponent},
-        //{path: '/admin/delItemInfo', component: DelCategoryComponent}
+        {path: '/admin/delItemInfo', component: DelComponent}
 
 
     ]
