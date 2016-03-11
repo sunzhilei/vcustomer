@@ -122,6 +122,23 @@ class AddItem extends React.Component {
                         </div>
                     </div>
                     <div className="form-group row">
+                        <label className="col-sm-2 form-control-label">图片：</label>
+                        <div className="col-sm-2">
+                            <img id="image" data-src="holder.js/200x200/auto" alt="200x200"
+                                 className="img-thumbnail"
+                                 src={this.state.pic_path}
+                                 className="img-thumbnail"/>
+                            <input type="hidden" name="pic_uuid" value={this.state.pic_uuid}/>
+                            <input type="hidden" name="pic_path" value={this.state.pic_path}/>
+                        </div>
+                        <div className="col-sm-8">
+                            <button type="button" className="btn btn-primary"
+                                    onClick={e => this.handleSelectPicClick(e)}>
+                                选择图片
+                            </button>
+                        </div>
+                    </div>
+                    <div className="form-group row">
                         <label className="col-sm-2 form-control-label">描述：</label>
                         <div className="col-sm-10">
                         <textarea className="form-control" rows="10" name="descript" placeholder="描述"
