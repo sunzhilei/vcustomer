@@ -4,6 +4,7 @@
 
 import {browserHistory, Link} from 'react-router'
 
+import SelectComponent from '../../../../../frontend/public/lib/Select';
 import FileLibraryComponent from '../../../../../frontend/public/lib/FileLibrary';
 
 class AddItem extends React.Component {
@@ -60,7 +61,7 @@ class AddItem extends React.Component {
     }
 
     componentDidMount() {
-        this.getItem(this.props.params.uuid);
+        //this.getItem(this.props.params.uuid);
     }
 
     handleCategoryChange(e) {
@@ -101,6 +102,9 @@ class AddItem extends React.Component {
                     <div className="form-group row">
                         <label className="col-sm-2 form-control-label">商品分类：</label>
                         <div className="col-sm-10">
+                            <SelectComponent name="category_uuid" url="/admin/getCategoryList"
+                                             value={this.state.category_uuid}
+                                             onChange={e => {this.handleCategoryChange(e)}}/>
                         </div>
                     </div>
                     <div className="form-group row">
