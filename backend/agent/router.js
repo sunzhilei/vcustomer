@@ -37,13 +37,13 @@ router.post('/login/valid', (req, res) => {
                 password: accountObj.password
             }
             req.session.account = account;
-            res.render('./agent/admin');
+            res.redirect('/admin');
         } else {
-            res.render('./agent/login');
+            res.redirect('/login');
         }
     }, e => {
         console.error(e);
-        res.render('./agent/login');
+        res.redirect('/login');
     })
 });
 
@@ -69,10 +69,10 @@ router.get('/reg', (req, res) => {
  */
 router.post('/reg/valid', (req, res) => {
     account.insertAccount(req.body).then(result => {
-        res.render('./agent/login');
+        res.redirect('/login');
     }, e => {
         console.error(e);
-        res.render('./agent/reg');
+        res.redirect('/reg');
     })
 });
 
