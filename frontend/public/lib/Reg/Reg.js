@@ -7,7 +7,7 @@ require("./Reg.css");
 class Reg extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
-        var validator = $("form").validate({
+        let validator = $("#agentRegForm").validate({
             rules: {
                 password: {
                     required: true,
@@ -23,14 +23,14 @@ class Reg extends React.Component {
             }
         });
         if (validator.form()) {
-            this.props.onSubmit($('form').serialize());
+            $("#agentRegForm").submit();
         }
     }
 
     render() {
         return (
             <div className="container">
-                <form className="form-signin" noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
+                <form id="agentRegForm" className="form-signin" noValidate="false" method="post" action={this.props.url} onSubmit={e => {this.handleSubmit(e)}}>
                     <h2 className="form-signin-heading">请注册</h2>
                     <label htmlFor="account" className="sr-only">邮箱</label>
                     <input type="email" id="account" name="account" className="form-control" placeholder="邮箱"

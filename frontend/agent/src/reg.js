@@ -15,22 +15,12 @@ let NavData = {
 }
 
 class AgentReg extends React.Component {
-    handleSubmit(body) {
-        $.post("/reg/valid", body, data => {
-            if (!data.result) {
-                alert(data.msg);
-            } else {
-                window.location.href = data.custom.url;
-            }
-        }, 'json');
-    }
-
     render() {
         return (
             <div>
                 <NavComponent data={NavData}/>
                 <br/><br/><br/><br/><br/><br/><br/>
-                <RegComponent onSubmit={body => this.handleSubmit(body)}/>
+                <RegComponent url="/reg/valid"/>
             </div>
         );
     }

@@ -69,10 +69,10 @@ router.get('/reg', (req, res) => {
  */
 router.post('/reg/valid', (req, res) => {
     account.insertAccount(req.body).then(result => {
-        resUtil.resultSuccess({url: "/login"}, req, res);
+        res.redirect('/login');
     }, e => {
         console.error(e);
-        resUtil.resultFail("系统异常，稍后重试！", req, res);
+        res.redirect('/reg');
     })
 });
 

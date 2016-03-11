@@ -7,7 +7,7 @@ require("./Login.css");
 class Login extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
-        var validator = $("#agentLoginForm").validate({
+        let validator = $("#agentLoginForm").validate({
             rules: {
                 inputPassword: {
                     minlength: 6,
