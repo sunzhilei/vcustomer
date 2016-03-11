@@ -20,7 +20,7 @@ class AgentLogin extends React.Component {
             if (!data.result) {
                 alert(data.msg);
             } else {
-                window.location.href = data.custom.url;
+                window.location.href = data.custom.url + "?date=" + new Date().getTime();
             }
         }, 'json');
     }
