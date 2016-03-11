@@ -2,6 +2,8 @@
  * Created by sunzhilei on 2016/1/7.
  */
 
+import { Router, browserHistory } from 'react-router'
+
 import NavComponent from '../../public/lib/Nav';
 import ListGroupComponent from '../../public/lib/ListGroup';
 
@@ -47,4 +49,12 @@ class AgentIndex extends React.Component {
     }
 }
 
-ReactDOM.render(<AgentIndex/>, document.getElementById('content'));
+const routes = {
+    path: '/',
+    component: AgentIndex,
+    childRoutes: [
+        {path: '/admin', component: ''}
+    ]
+}
+
+ReactDOM.render(<Router history={browserHistory} routes={routes}/>, document.getElementById('content'));
