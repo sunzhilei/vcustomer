@@ -77,6 +77,7 @@ const routes = {
     component: AgentIndex,
     childRoutes: [
         {path: '/admin', component: ''},
+        {path: '/login/valid', component: ''},
         {path: '/mediaLibrary', component: MediaLibraryComponent},
 
         {path: '/admin/getDockInfo', component: DockInfoComponent},
@@ -96,4 +97,4 @@ const routes = {
     ]
 }
 
-ReactDOM.render(<AgentIndex/>, document.getElementById('content'));
+ReactDOM.render(<Router history={browserHistory} routes={routes}/>, document.getElementById('content'));
