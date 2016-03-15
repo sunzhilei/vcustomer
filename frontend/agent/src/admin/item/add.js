@@ -16,31 +16,25 @@ class AddItem extends React.Component {
     }
 
     getItem(uuid) {
-        $.ajax({
-            url: "/admin/getItem/" + uuid,
-            dataType: "json",
-            async: true,
-            success: data => {
-                if (!data.result) {
-                    alert(data.msg);
-                } else {
-                    if (data.custom.row) {
-                        this.setState(data.custom.row);
-                    }
+        $.get("/admin/getItem/" + uuid, {}, data => {
+            if (!data.result) {
+                alert(data.msg);
+            } else {
+                if (data.custom.row) {
+                    this.setState(data.custom.row);
                 }
             }
-        });
+        }, 'json');
     }
 
     handleSelectPicClick(e) {
         this.setState({model: true});
     }
 
-    handleGetImageUUID(e) {
-        $("#image").attr("src", e.target.currentSrc);
+    handleSelectFile(uuid, src) {
         this.setState({
-            pic_uuid: e.target.id,
-            pic_path: e.target.currentSrc
+            pic_uuid: uuid,
+            pic_path: src
         });
         this.setState({model: false});
     }
@@ -55,7 +49,7 @@ class AddItem extends React.Component {
             name: '',
             price: '',
             pic_uuid: '',
-            pic_path: '',
+            pic_path: '../../../../frontend/agent/img/default.png',
             descript: ''
         };
     }
@@ -87,7 +81,7 @@ class AddItem extends React.Component {
                     browserHistory.replace('/admin/getItemList');
                 }
             }, 'json');
-        }else{
+        } else {
             alert("请选择商品分类");
         }
     }
@@ -124,9 +118,7 @@ class AddItem extends React.Component {
                     <div className="form-group row">
                         <label className="col-sm-2 form-control-label">图片：</label>
                         <div className="col-sm-2">
-                            <img id="image" data-src="holder.js/200x200/auto" alt="200x200"
-                                 src={this.state.pic_path ? this.state.pic_path : "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzUwMHg1MDAvYXV0bwpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNi4wLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48IVtDREFUQVsjaG9sZGVyXzE1MjY4N2Y3MDNhIHRleHQgeyBmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjVwdCB9IF1dPjwvc3R5bGU+PC9kZWZzPjxnIGlkPSJob2xkZXJfMTUyNjg3ZjcwM2EiPjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRUVFRUVFIi8+PGc+PHRleHQgeD0iMTg1LjEyNSIgeT0iMjYxLjEiPjUwMHg1MDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4="}
-                                 className="img-thumbnail"/>
+                            <img id="image" src={this.state.pic_path} className="img-thumbnail"/>
                             <input type="hidden" name="pic_uuid" value={this.state.pic_uuid}/>
                             <input type="hidden" name="pic_path" value={this.state.pic_path}/>
                         </div>
@@ -153,7 +145,7 @@ class AddItem extends React.Component {
                     </div>
                 </form>
                 <FileLibraryComponent modalState={this.state.model}
-                                      onGetImageUUID={(e,uuid,path) => this.handleGetImageUUID(e)}/>
+                                      onSelectFile={(uuid, src) => this.handleSelectFile(uuid, src)}/>
             </div>
         );
     }

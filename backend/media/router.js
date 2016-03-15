@@ -8,10 +8,6 @@ let resUtil = require("./../util/resUtil.js");
 let bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({extended: false}));
 
-let fs = require('fs');
-let path = require('path');
-let multer = require('multer');
-
 /**
  * 为指定用户获取素材列表
  */
@@ -25,8 +21,37 @@ router.get('/getMediaList', (req, res) => {
 });
 
 /**
+ * 为指定用户删除指定素材
+ */
+router.get('/DelMedia/:uuid', (req, res) => {
+
+    media.queryMediaByUUID(req.params.uuid).then(rows => {
+        if (rows.length > 0) {
+            let dirPath = './upload/images/' + rows[0].path
+            if (fs.existsSync(dirPath)) {
+                media.DelMediaByUUID(req.session.account.uuid, req.params.uuid).then(result => {
+                    fs.unlinkSync(dirPath);
+                    resUtil.resultSuccess({msg:"删除成功！"}, req, res);
+                }, e => {
+                    console.error(e);
+                    resUtil.resultFail("系统异常，稍后重试！", req, res);
+                })
+            }
+        }
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+
+});
+
+/**
  * 为指定用户上传素材文件
  */
+
+let fs = require('fs');
+let path = require('path');
+let multer = require('multer');
 let storage = multer.diskStorage({
     //设置上传后文件路径，uploads文件夹会自动创建。
     destination: function (req, file, cb) {

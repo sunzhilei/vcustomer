@@ -24,8 +24,18 @@ class FileLibraryComponent extends React.Component {
         });
     }
 
-    handleImageClick(e) {
-        this.props.onGetImageUUID(e);
+    handleSelectClick(e) {
+        this.props.onSelectFile(e.target.id, document.getElementById('img-' + e.target.id).currentSrc);
+    }
+
+    handleDeleteClick(e) {
+        $.get("/media/DelMedia/" + e.target.id, {}, data => {
+            if (!data.result) {
+                alert(data.msg);
+            } else {
+                this.getMediaList(true);
+            }
+        }, 'json');
     }
 
     constructor() {
@@ -63,11 +73,28 @@ class FileLibraryComponent extends React.Component {
                                         return (
                                             <div key={'div-image-' + index}
                                                  className="col-xs-4 col-sm-3 col-md-2 m-t-0 m-t m-t-md">
-                                                <a href="#" className="thumbnail"
-                                                   onClick={e => this.handleImageClick(e)}>
-                                                    <img id={item.uuid} alt={item.name} title={item.name}
+                                                <div className="thumbnail">
+                                                    <img id={'img-' + item.uuid} alt={item.name} title={item.name}
                                                          src={'../../../upload/images/' + item.path}/>
-                                                </a>
+                                                    <div className="caption">
+                                                        <button type="button" className="btn btn-default btn-xs"
+                                                                aria-label="确定">
+                                                            <span id={item.uuid}
+                                                                  onClick={e => this.handleSelectClick(e)}
+                                                                  className="glyphicon glyphicon-ok" aria-hidden="true">
+                                                            </span>
+                                                        </button>
+                                                        &nbsp;
+                                                        <button type="button" className="btn btn-default btn-xs"
+                                                                aria-label="删除">
+                                                            <span id={item.uuid}
+                                                                  onClick={e => this.handleDeleteClick(e)}
+                                                                  className="glyphicon glyphicon-trash"
+                                                                  aria-hidden="true">
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         )
                                     })
