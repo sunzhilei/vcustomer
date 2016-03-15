@@ -2,6 +2,9 @@
  * Created by sunzhilei on 2016/1/7.
  */
 
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import "../../../frontend/agent/css/admin.css"
+
 import { Router, browserHistory } from 'react-router'
 
 import NavComponent from '../../public/lib/Nav';

@@ -2,6 +2,8 @@
  * Created by sunzhilei on 2016/1/7.
  */
 
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+
 import NavComponent from '../../../frontend/public/lib/Nav';
 import RegComponent from '../../../frontend/public/lib/Reg/Reg';
 

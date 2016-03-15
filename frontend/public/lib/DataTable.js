@@ -2,8 +2,6 @@
  * Created by sunzhilei on 2016/1/22.
  */
 
-import {Link} from 'react-router'
-
 class TableComponent extends React.Component {
     render() {
         return (

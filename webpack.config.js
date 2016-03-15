@@ -31,6 +31,24 @@ var config = {
         }, {
             test: /\.css$/,
             loader: 'style-loader!css-loader'
+        }, {
+            test: /.(png|jpg|jpeg)$/,
+            loader: 'url-loader?limit=8192'
+        }, {
+            test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+            loader: "url-loader?limit=8192&mimetype=application/font-woff"
+        }, {
+            test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+            loader: "url-loader?limit=8192&mimetype=application/font-woff2"
+        }, {
+            test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+            loader: "url-loader?limit=8192&mimetype=application/octet-stream"
+        }, {
+            test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+            loader: "file-loader"
+        }, {
+            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            loader: "url-loader?limit=8192&mimetype=image/svg+xml"
         }]
     },
     plugins: [

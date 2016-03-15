@@ -10,6 +10,7 @@ app.set('view engine', 'html');
 // 前端资源静态化
 app.use('/frontend', express.static('./frontend'));
 app.use('/upload', express.static('./upload'));
+app.use('/node_modules', express.static('./node_modules'));
 
 let session = require('express-session');
 let cookieParser = require('cookie-parser');

@@ -2,6 +2,9 @@
  * Created by sunzhilei on 2016/1/7.
  */
 
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../../../frontend/customer/css/index.css'
+
 import NavComponent from '../../../frontend/public/lib/Nav';
 import DataTableComponent from '../../../frontend/public/lib/DataTable';
 

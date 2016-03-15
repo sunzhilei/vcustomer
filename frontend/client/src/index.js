@@ -2,6 +2,8 @@
  * Created by sunzhilei on 2016/1/7.
  */
 
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+
 import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
 
 import HomeIndexComponent from './home/index';
