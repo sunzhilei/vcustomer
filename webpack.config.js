@@ -3,6 +3,7 @@
  * compile command: webpack --progress --profile --colors --config webpack.config.js
  */
 var webpack = require('webpack');
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 var config = {
     entry: {
@@ -13,7 +14,7 @@ var config = {
         "agent/index": ['./frontend/agent/src/index.js'],
         "agent/admin": ['./frontend/agent/src/admin.js'],
 
-        'client/index': ["./frontend/client/src/index.js"]
+        "client/index": ["./frontend/client/src/index.js"]
     },
     output: {
         publicPath: 'http://localhost/frontend/dist/',
@@ -53,10 +54,11 @@ var config = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'commons',
-            filename: 'commons.js',
-        }),
+
+        new CommonsChunkPlugin("customer.js", ["customer/index"]),
+        new CommonsChunkPlugin("agent.js", ["agent/reg", "agent/login", "agent/index", "agent/admin"]),
+        new CommonsChunkPlugin("client.js", ["client/index"]),
+
         new webpack.ProvidePlugin({
             React: 'react',
             ReactDOM: 'react-dom'
