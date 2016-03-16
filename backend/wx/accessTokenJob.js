@@ -19,8 +19,8 @@ exports.getAccessToken = (appid, secret) => {
         };
         let req = https.request(options, res => {
             if (res.statusCode === 200) {
-                res.on('data', data => {
-                    let access_token = data.toString().parseJSON().access_token;
+                res.on('data', buffer => {
+                    let access_token = JSON.parse(buffer.toString()).access_token;
                     resolve(access_token);
                 })
             } else {

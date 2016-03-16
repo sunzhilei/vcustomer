@@ -46,7 +46,8 @@ class AddItem extends React.Component {
 
             uuid: '',
             category_uuid: 0,
-            name: '',
+            title: '',
+            sub_title: '',
             price: '',
             pic_uuid: '',
             pic_path: '../../../../frontend/agent/img/default.png',
@@ -68,7 +69,7 @@ class AddItem extends React.Component {
         e.preventDefault();
         var validator = $("form").validate({
             rules: {
-                name: {
+                title: {
                     maxlength: 200
                 }
             }
@@ -102,10 +103,17 @@ class AddItem extends React.Component {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 form-control-label">名称：</label>
+                        <label className="col-sm-2 form-control-label">标题：</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" name="name" placeholder="名称"
-                                   required autofocus value={this.state.name} onChange={e => this.handleChange(e)}/>
+                            <input type="text" className="form-control" name="title" placeholder="标题"
+                                   required autofocus value={this.state.title} onChange={e => this.handleChange(e)}/>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-sm-2 form-control-label">副标题：</label>
+                        <div className="col-sm-10">
+                        <textarea className="form-control" rows="3" name="sub_title" placeholder="副标题"
+                                  value={this.state.sub_title} onChange={e => this.handleChange(e)}></textarea>
                         </div>
                     </div>
                     <div className="form-group row">

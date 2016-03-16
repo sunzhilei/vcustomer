@@ -54,6 +54,13 @@ MysqlPool.query({
     console.error('数据库连接失败，错误信息：', e.message);
 });
 
+//let navigation = require('./backend/wx/navigation');
+//navigation.getNavigation().then(d => {
+//    console.log(d.toString());
+//}, e => {
+//    console.log(e.message);
+//});
+
 // 启动对5050端口的监听
 app.listen(process.env.PORT || 5050);
 console.log("Node.js服务已启动，端口号为5050");

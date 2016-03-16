@@ -36,19 +36,19 @@ var config = {
             test: /.(png|jpg|jpeg)$/,
             loader: 'url-loader?limit=8192'
         }, {
-            test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+            test: /\.woff$/,
             loader: "url-loader?limit=8192&mimetype=application/font-woff"
         }, {
-            test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+            test: /\.woff2$/,
             loader: "url-loader?limit=8192&mimetype=application/font-woff2"
         }, {
-            test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+            test: /\.ttf$/,
             loader: "url-loader?limit=8192&mimetype=application/octet-stream"
         }, {
-            test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+            test: /\.eot$/,
             loader: "file-loader"
         }, {
-            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            test: /\.svg$/,
             loader: "url-loader?limit=8192&mimetype=image/svg+xml"
         }]
     },

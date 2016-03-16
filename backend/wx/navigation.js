@@ -3,28 +3,28 @@
  */
 
 let https = require('https');
-let accessTokenJob = require('./access_token/accessTokenJob');
+let accessTokenJob = require('./accessTokenJob');
 
 
-let getNavigation = () => {
+exports.getNavigation = () => {
     return new Promise((resolve, reject) => {
 
         let body = {
             "button": [
+                //{
+                //    "type": "view",
+                //    "name": "HOME",
+                //    "url": "http://vcustomer.applinzi.com/"
+                //},
+                //{
+                //    "type": "view",
+                //    "name": "Login",
+                //    "url": "http://vcustomer.applinzi.com/login"
+                //},
                 {
                     "type": "view",
-                    "name": "HOME",
-                    "url": "http://vcustomer.applinzi.com/"
-                },
-                {
-                    "type": "view",
-                    "name": "Login",
-                    "url": "http://vcustomer.applinzi.com/login"
-                },
-                {
-                    "type": "view",
-                    "name": "Manager",
-                    "url": "http://vcustomer.applinzi.com/customer"
+                    "name": "Home",
+                    "url": "http://vcustomer.applinzi.com/client"
                 }
             ]
         };
@@ -33,7 +33,7 @@ let getNavigation = () => {
 
         console.log(bodyString);
 
-        accessTokenJob.getAccessToken.then((access_token) => {
+        accessTokenJob.getAccessToken('wxb05bb562f6415aa6', '48e84b1eab2a7746623d896fd7b41e20').then((access_token) => {
             let options = {
                 hostname: 'api.weixin.qq.com',
                 port: 443,
@@ -65,9 +65,3 @@ let getNavigation = () => {
 
     });
 }
-
-getNavigation().then(d => {
-    console.log(d.toString());
-}, e => {
-    console.log(e.message);
-});

@@ -7,7 +7,7 @@ let uuid = require("./../../util/UUID.js");
 exports.queryItemList = (account_uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.name,item.price,item.pic_uuid,item.pic_path,item.descript from item,category where item.category_uuid = category.uuid and item.account_uuid = :account_uuid",
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript from item,category where item.category_uuid = category.uuid and item.account_uuid = :account_uuid",
             params: {account_uuid: account_uuid}
         }).then(rows => {
             if (rows.length > 0) {
@@ -28,7 +28,7 @@ exports.queryItemList = (account_uuid) => {
 exports.queryItemListForPagination = (account_uuid, page, number) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.name,item.price,item.pic_uuid,item.pic_path,item.descript from item,category where item.category_uuid = category.uuid and item.account_uuid = :account_uuid limit :page,:number",
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript from item,category where item.category_uuid = category.uuid and item.account_uuid = :account_uuid limit :page,:number",
             params: {account_uuid: account_uuid, page: parseInt(page) - 1, number: parseInt(number)}
         }).then(rows => {
             if (rows.length > 0) {
@@ -70,7 +70,7 @@ exports.queryItemListByAccountUUIDOfTotal = (account_uuid) => {
 exports.queryItemListByCategoryUUID = (category_uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.name,item.price,item.pic_uuid,item.pic_path,item.descript from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid",
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid",
             params: {category_uuid: category_uuid}
         }).then(rows => {
             if (rows.length > 0) {
@@ -91,7 +91,7 @@ exports.queryItemListByCategoryUUID = (category_uuid) => {
 exports.queryItemListByCategoryUUIDForPagination = (category_uuid, page, number) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.name,item.price,item.pic_uuid,item.pic_path,item.descript from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid limit :page,:number",
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid limit :page,:number",
             params: {category_uuid: category_uuid, page: parseInt(page) - 1, number: parseInt(number)}
         }).then(rows => {
             if (rows.length > 0) {
@@ -133,7 +133,7 @@ exports.queryItemListByCategoryUUIDOfTotal = (category_uuid) => {
 exports.queryItemByUUID = (uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT uuid,account_uuid,category_uuid,name,price,pic_uuid,pic_path,descript from item where uuid = :uuid",
+            sql: "SELECT uuid,account_uuid,category_uuid,title,sub_title,price,pic_uuid,pic_path,descript from item where uuid = :uuid",
             params: {uuid: uuid}
         }).then(rows => {
             if (rows.length > 0) {
@@ -154,12 +154,13 @@ exports.queryItemByUUID = (uuid) => {
 exports.insertItem = (account_uuid, body) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "insert into item(uuid,account_uuid,category_uuid,name,price,pic_uuid,pic_path,descript) VALUES(:uuid,:account_uuid,:category_uuid,:name,:price,:pic_uuid,:pic_path,:descript)",
+            sql: "insert into item(uuid,account_uuid,category_uuid,title,sub_title,price,pic_uuid,pic_path,descript) VALUES(:uuid,:account_uuid,:category_uuid,:title,:sub_title,:price,:pic_uuid,:pic_path,:descript)",
             params: {
                 uuid: uuid.createUUID(),
                 account_uuid: account_uuid,
                 category_uuid: body.category_uuid,
-                name: body.name,
+                title: body.title,
+                sub_title: body.sub_title,
                 price: body.price,
                 pic_uuid: body.pic_uuid,
                 pic_path: body.pic_path,
@@ -184,12 +185,13 @@ exports.insertItem = (account_uuid, body) => {
 exports.updateItem = (account_uuid, body) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "update item set account_uuid = :account_uuid, category_uuid = :category_uuid, name = :name, price = :price, pic_uuid = :pic_uuid, pic_path = :pic_path, descript = :descript where uuid = :uuid",
+            sql: "update item set account_uuid = :account_uuid, category_uuid = :category_uuid, title = :title, sub_title = :sub_title, price = :price, pic_uuid = :pic_uuid, pic_path = :pic_path, descript = :descript where uuid = :uuid",
             params: {
                 uuid: body.uuid,
                 account_uuid: account_uuid,
                 category_uuid: body.category_uuid,
-                name: body.name,
+                title: body.title,
+                sub_title: body.sub_title,
                 price: body.price,
                 pic_uuid: body.pic_uuid,
                 pic_path: body.pic_path,

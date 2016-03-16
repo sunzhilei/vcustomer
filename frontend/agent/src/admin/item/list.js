@@ -25,7 +25,7 @@ class ItemList extends React.Component {
 
         let DataConfig = {
             columns: [
-                {field: 'name', text: '名称'},
+                {field: 'title', text: '标题'},
                 {field: 'category_name', text: '类别'},
                 {field: 'price', text: '价格'},
                 {
