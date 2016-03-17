@@ -39,8 +39,7 @@
     "npm": "2.14.12"
   },
   "scripts": {
-    "start": "webpack --progress --profile --colors --config webpack.pro.config.js & node -use-strict -harmony node-server.js",
-    "localstart": "node -use-strict -harmony node-server.js",
+    "start": "node -use-strict -harmony node-server.js",
     "dev": "node webpack-dev-server.js",
     "pro": "webpack --progress --profile --colors --config webpack.pro.config.js"
   },
