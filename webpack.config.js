@@ -17,7 +17,7 @@ var config = {
         "client/index": ["./frontend/client/src/index.js"]
     },
     output: {
-        publicPath: 'http://localhost/frontend/dist/',
+        publicPath: 'http://localhost:5050/frontend/dist/',
         path: __dirname + '/frontend/dist',
         filename: '[name].bundle.js'
     },

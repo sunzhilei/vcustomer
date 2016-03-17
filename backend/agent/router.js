@@ -248,7 +248,7 @@ router.get('/admin/getItemList/:online/:categroy_uuid', (req, res) => {
  */
 router.get('/admin/getItemList/:account_uuid', (req, res) => {
     if (req.query.page && req.query.number) {
-        item.queryItemListForPagination(req.params.account_uuid, 1, req.query.page, req.query.number).then(rows => {
+        item.queryItemListByAccountUUIDOfTotal(req.params.account_uuid, 1, req.query.page, req.query.number).then(rows => {
             item.queryItemListByAccountUUIDOfTotal(req.params.account_uuid, 1).then(total => {
                 resUtil.resultData(total, rows, req, res);
             }, e => {

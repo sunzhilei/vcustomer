@@ -38,7 +38,7 @@ let NavData = {
     items: {
         right: [
             //{text: '公众号配置', href: '/admin/getDockInfo', link: true},
-            {text: '素材库管理', href: '/mediaLibrary', link: true},
+            {text: '素材库', href: '/mediaLibrary', link: true},
             {text: '退出', href: '/loginOut'}
         ]
     }
