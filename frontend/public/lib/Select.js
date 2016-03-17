@@ -7,7 +7,7 @@ class Select extends React.Component {
     constructor() {
         super();
         this.state = {
-            value: 0,
+            value: -1,
             rows: []
         }
     }
@@ -17,6 +17,10 @@ class Select extends React.Component {
             $.get(this.props.url, {}, data => {
                 this.setState({rows: data.rows});
             }, 'json');
+        } else {
+            if (this.props.data) {
+                this.setState({rows: this.props.data});
+            }
         }
     }
 
@@ -30,7 +34,7 @@ class Select extends React.Component {
             <select name={this.props.name ? this.props.name : ''}
                     className="form-control"
                     onChange={e => {this.props.onChange(e)}}>
-                <option value="0"> 请选择</option>
+                <option value="-1"> 请选择</option>
                 {
                     this.state.rows.map((item, index) => {
                         let option = <option key={'select-' + index} value={item.uuid}>{item.name}</option>;

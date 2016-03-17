@@ -6,8 +6,6 @@ var webpack = require('webpack');
 
 var config = require("./webpack.config.js");
 
-config.output.publicPath = 'http://localhost/frontend/dist/'
-
 config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
         test: /(\.jsx|\.js)$/,

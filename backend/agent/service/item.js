@@ -4,10 +4,10 @@ let uuid = require("./../../util/UUID.js");
 /**
  * 查询当前用户所有商品信息
  */
-exports.queryItemList = (account_uuid, online) => {
+exports.queryItemList = (account_uuid, line) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.online from item,category where item.category_uuid = category.uuid and item.account_uuid = :account_uuid and item.online = " + online,
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.line from item,category where item.category_uuid = category.uuid and item.account_uuid = :account_uuid and item.line = " + line,
             params: {account_uuid: account_uuid}
         }).then(rows => {
             if (rows.length > 0) {
@@ -25,10 +25,10 @@ exports.queryItemList = (account_uuid, online) => {
 /**
  * 查询指定品类的商品总数
  */
-exports.queryItemListByAccountUUIDOfTotal = (account_uuid, online) => {
+exports.queryItemListByAccountUUIDOfTotal = (account_uuid, line) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT count(1) as total from item where account_uuid = '" + account_uuid + "' and online = 1",
+            sql: "SELECT count(1) as total from item where account_uuid = '" + account_uuid + "' and line = 1",
             params: {}
         }).then(rows => {
             if (rows.length > 0) {
@@ -46,10 +46,10 @@ exports.queryItemListByAccountUUIDOfTotal = (account_uuid, online) => {
 /**
  * 根据品类ID查询商品列表
  */
-exports.queryItemListByCategoryUUID = (category_uuid, online) => {
+exports.queryItemListByCategoryUUID = (category_uuid, line) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.online from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid and item.online = " + online,
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.line from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid and item.line = " + line,
             params: {category_uuid: category_uuid}
         }).then(rows => {
             if (rows.length > 0) {
@@ -70,7 +70,7 @@ exports.queryItemListByCategoryUUID = (category_uuid, online) => {
 exports.queryItemListByCategoryUUIDForPagination = (category_uuid, page, number) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.online from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid and item.online = "+ online +" limit :page,:number",
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.line from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid and item.line = "+ line +" limit :page,:number",
             params: {
                 category_uuid: category_uuid,
                 page: parseInt(page) - 1,
@@ -92,10 +92,10 @@ exports.queryItemListByCategoryUUIDForPagination = (category_uuid, page, number)
 /**
  * 查询指定品类的商品总数
  */
-exports.queryItemListByCategoryUUIDOfTotal = (category_uuid, online) => {
+exports.queryItemListByCategoryUUIDOfTotal = (category_uuid, line) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT count(1) as total from item where category_uuid = '" + category_uuid + "' and online = " + online,
+            sql: "SELECT count(1) as total from item where category_uuid = '" + category_uuid + "' and line = " + line,
             params: {}
         }).then(rows => {
             if (rows.length > 0) {
@@ -116,7 +116,7 @@ exports.queryItemListByCategoryUUIDOfTotal = (category_uuid, online) => {
 exports.queryItemByUUID = (uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT uuid,account_uuid,category_uuid,title,sub_title,price,pic_uuid,pic_path,descript from item where uuid = :uuid",
+            sql: "SELECT uuid,account_uuid,category_uuid,title,sub_title,price,pic_uuid,pic_path,descript,line from item where uuid = :uuid",
             params: {uuid: uuid}
         }).then(rows => {
             if (rows.length > 0) {
@@ -137,7 +137,7 @@ exports.queryItemByUUID = (uuid) => {
 exports.insertItem = (account_uuid, body) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "insert into item(uuid,account_uuid,category_uuid,title,sub_title,price,pic_uuid,pic_path,descript) VALUES(:uuid,:account_uuid,:category_uuid,:title,:sub_title,:price,:pic_uuid,:pic_path,:descript)",
+            sql: "insert into item(uuid,account_uuid,category_uuid,title,sub_title,price,pic_uuid,pic_path,descript,line) VALUES(:uuid,:account_uuid,:category_uuid,:title,:sub_title,:price,:pic_uuid,:pic_path,:descript,line)",
             params: {
                 uuid: uuid.createUUID(),
                 account_uuid: account_uuid,
@@ -148,7 +148,7 @@ exports.insertItem = (account_uuid, body) => {
                 pic_uuid: body.pic_uuid,
                 pic_path: body.pic_path,
                 descript: body.descript,
-                online: body.online
+                line: parseInt(body.line)
             }
         }).then(result => {
             if (result.length > 0) {
@@ -169,7 +169,7 @@ exports.insertItem = (account_uuid, body) => {
 exports.updateItem = (account_uuid, body) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "update item set account_uuid = :account_uuid, category_uuid = :category_uuid, title = :title, sub_title = :sub_title, price = :price, pic_uuid = :pic_uuid, pic_path = :pic_path, descript = :descript, online = :online where uuid = :uuid",
+            sql: "update item set account_uuid = :account_uuid, category_uuid = :category_uuid, title = :title, sub_title = :sub_title, price = :price, pic_uuid = :pic_uuid, pic_path = :pic_path, descript = :descript, line = :line where uuid = :uuid",
             params: {
                 uuid: body.uuid,
                 account_uuid: account_uuid,
@@ -180,7 +180,7 @@ exports.updateItem = (account_uuid, body) => {
                 pic_uuid: body.pic_uuid,
                 pic_path: body.pic_path,
                 descript: body.descript,
-                online: body.online
+                line: parseInt(body.line)
             }
         }).then(result => {
             if (result.length > 0) {

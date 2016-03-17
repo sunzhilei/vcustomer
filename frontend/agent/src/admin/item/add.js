@@ -21,6 +21,7 @@ class AddItem extends React.Component {
                 alert(data.msg);
             } else {
                 if (data.custom.row) {
+                    console.log(data.custom.row);
                     this.setState(data.custom.row);
                 }
             }
@@ -45,18 +46,25 @@ class AddItem extends React.Component {
             model: false,
 
             uuid: '',
-            category_uuid: 0,
+            category_uuid: -1,
             title: '',
             sub_title: '',
             price: '',
             pic_uuid: '',
             pic_path: '../../../../frontend/agent/img/default.png',
-            descript: ''
+            descript: '',
+            line: -1
         };
     }
 
     componentDidMount() {
         this.getItem(this.props.location.query.uuid);
+    }
+
+    handleLineChange(e) {
+        this.setState({
+            line: e.target.value
+        });
     }
 
     handleCategoryChange(e) {
@@ -74,7 +82,8 @@ class AddItem extends React.Component {
                 }
             }
         });
-        if (validator.form() && this.state.category_uuid != 0) {
+        if (validator.form() && this.state.category_uuid != -1) {
+            console.log($('#itemForm').serialize());
             $.post('/admin/addItem', $('#itemForm').serialize(), data => {
                 if (!data.result) {
                     alert(data.msg);
@@ -94,6 +103,14 @@ class AddItem extends React.Component {
                     <input type="hidden" name="uuid" value={this.state.uuid}/>
                     <br/>
                     <h5 className="sub-header">项目信息</h5>
+                    <div className="form-group row">
+                        <label className="col-sm-2 form-control-label">状态：</label>
+                        <div className="col-sm-10">
+                            <SelectComponent name="line" data={[{uuid:0,name:'仓库'},{uuid:1,name:'在线'}]}
+                                             value={this.state.line}
+                                             onChange={e => {this.handleLineChange(e)}}/>
+                        </div>
+                    </div>
                     <div className="form-group row">
                         <label className="col-sm-2 form-control-label">商品分类：</label>
                         <div className="col-sm-10">
