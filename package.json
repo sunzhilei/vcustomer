@@ -39,10 +39,9 @@
     "npm": "2.14.12"
   },
   "scripts": {
-    "node-start": "node -use-strict -harmony node-server.js",
-    "dev-start": "node webpack-dev-server.js",
-    "pro-start": "webpack --progress --profile --colors --config webpack.pro.config.js",
-    "start": "webpack --progress --profile --colors --config webpack.pro.config.js & node -use-strict -harmony node-server.js"
+    "start": "node -use-strict -harmony node-server.js",
+    "dev": "node webpack-dev-server.js",
+    "pro": "webpack --progress --profile --colors --config webpack.pro.config.js"
   },
   "devDependencies": {
     "babel": "^6.3.26",
