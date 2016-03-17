@@ -37,7 +37,7 @@ let NavData = {
     brand: {text: '微客', href: '/admin'},
     items: {
         right: [
-            {text: '公众号配置', href: '/admin/getDockInfo', link: true},
+            //{text: '公众号配置', href: '/admin/getDockInfo', link: true},
             {text: '素材库管理', href: '/mediaLibrary', link: true},
             {text: '退出', href: '/loginOut'}
         ]
@@ -87,12 +87,12 @@ const routes = {
 
         {path: '/admin/getCategoryList', component: CategoryListComponent},
         {path: '/admin/getCategoryInfo', component: AddCategoryComponent},
-        {path: '/admin/editCategoryInfo/:uuid', component: AddCategoryComponent},
+        {path: '/admin/editCategoryInfo', component: AddCategoryComponent},
         {path: '/admin/delCategoryInfo', component: DelComponent},
 
         {path: '/admin/getItemList', component: ItemListComponent},
         {path: '/admin/getItemInfo', component: AddItemComponent},
-        {path: '/admin/editItemInfo/:uuid', component: AddItemComponent},
+        {path: '/admin/editItemInfo', component: AddItemComponent},
         {path: '/admin/delItemInfo', component: DelComponent}
 
 

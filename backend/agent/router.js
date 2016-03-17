@@ -194,10 +194,10 @@ router.post('/admin/delCategory/:uuid', (req, res) => {
 /**
  * 获取指定商品下的商品
  */
-router.get('/admin/getItemList', (req, res) => {
+router.get('/admin/getItemList/:online', (req, res) => {
     if (req.query.page && req.query.number) {
-        item.queryItemListForPagination(req.session.account.uuid, req.query.page, req.query.number).then(rows => {
-            item.queryItemListByAccountUUIDOfTotal(req.session.account.uuid).then(total => {
+        item.queryItemListForPagination(req.session.account.uuid, req.params.online, req.query.page, req.query.number).then(rows => {
+            item.queryItemListByAccountUUIDOfTotal(req.session.account.uuid, req.params.online).then(total => {
                 resUtil.resultData(total, rows, req, res);
             }, e => {
                 console.error(e);
@@ -208,7 +208,33 @@ router.get('/admin/getItemList', (req, res) => {
             resUtil.resultFail("系统异常，稍后重试！", req, res);
         })
     } else {
-        item.queryItemList(req.session.account.uuid).then(rows => {
+        item.queryItemList(req.session.account.uuid, req.params.online).then(rows => {
+            resUtil.resultData(0, rows, req, res);
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    }
+});
+
+/**
+ * 获取指定商品下的商品
+ */
+router.get('/admin/getItemList/:online/:categroy_uuid', (req, res) => {
+    if (req.query.page && req.query.number) {
+        item.queryItemListByCategoryUUIDForPagination(req.params.categroy_uuid, req.params.online, req.query.page, req.query.number).then(rows => {
+            item.queryItemListByCategoryUUIDOfTotal(req.body, req.params.online).then(total => {
+                resUtil.resultData(total, rows, req, res);
+            }, e => {
+                console.error(e);
+                resUtil.resultFail("系统异常，稍后重试！", req, res);
+            })
+        }, e => {
+            console.error(e);
+            resUtil.resultFail("系统异常，稍后重试！", req, res);
+        })
+    } else {
+        item.queryItemListByCategoryUUID(req.params.categroy_uuid, req.params.online).then(rows => {
             resUtil.resultData(0, rows, req, res);
         }, e => {
             console.error(e);
@@ -222,8 +248,8 @@ router.get('/admin/getItemList', (req, res) => {
  */
 router.get('/admin/getItemList/:account_uuid', (req, res) => {
     if (req.query.page && req.query.number) {
-        item.queryItemListForPagination(req.params.account_uuid, req.query.page, req.query.number).then(rows => {
-            item.queryItemListByAccountUUIDOfTotal(req.session.account.uuid).then(total => {
+        item.queryItemListForPagination(req.params.account_uuid, 1, req.query.page, req.query.number).then(rows => {
+            item.queryItemListByAccountUUIDOfTotal(req.params.account_uuid, 1).then(total => {
                 resUtil.resultData(total, rows, req, res);
             }, e => {
                 console.error(e);
@@ -234,33 +260,7 @@ router.get('/admin/getItemList/:account_uuid', (req, res) => {
             resUtil.resultFail("系统异常，稍后重试！", req, res);
         })
     } else {
-        item.queryItemList(req.params.account_uuid).then(rows => {
-            resUtil.resultData(0, rows, req, res);
-        }, e => {
-            console.error(e);
-            resUtil.resultFail("系统异常，稍后重试！", req, res);
-        })
-    }
-});
-
-/**
- * 获取指定商品下的商品
- */
-router.get('/admin/getItemList/:categroy_uuid', (req, res) => {
-    if (req.query.page && req.query.number) {
-        item.queryItemListByCategoryUUIDForPagination(req.params.categroy_uuid, req.query.page, req.query.number).then(rows => {
-            item.queryItemListByCategoryUUIDOfTotal(req.body).then(total => {
-                resUtil.resultData(total, rows, req, res);
-            }, e => {
-                console.error(e);
-                resUtil.resultFail("系统异常，稍后重试！", req, res);
-            })
-        }, e => {
-            console.error(e);
-            resUtil.resultFail("系统异常，稍后重试！", req, res);
-        })
-    } else {
-        item.queryItemListByCategoryUUID(req.params.categroy_uuid).then(rows => {
+        item.queryItemList(req.params.account_uuid, 1).then(rows => {
             resUtil.resultData(0, rows, req, res);
         }, e => {
             console.error(e);

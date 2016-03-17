@@ -16,19 +16,13 @@ class CategoryList extends React.Component {
                     field: 'uuid',
                     text: '动作',
                     formatter: function (value, index) {
-                        let query = {
-                            id: value,
-                            text: '商品分类',
-                            submit_url: '/admin/delCategory/',
-                            return_url: '/admin/getCategoryList/'
-                        };
-
                         let content =
                             <div>
-                                <Link key={'table-td-' + index} to={'/admin/editCategoryInfo/' + value}
+                                <Link key={'table-td-' + index} to='/admin/editCategoryInfo/'
+                                      query={{uuid: value}}
                                       className="btn btn-link">编辑</Link>
                                 <Link key={'table-td-' + (index + 1)} to='/admin/delCategoryInfo'
-                                      query={query}
+                                      query={{uuid: value, text: '商品分类', submit_url: '/admin/delCategory/', return_url: '/admin/getCategoryList/'}}
                                       className="btn btn-link">删除</Link>
                             </div>;
                         return content;

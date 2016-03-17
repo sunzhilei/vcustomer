@@ -38,8 +38,7 @@ class HomeIndex extends React.Component {
                                         <i className="weui_icon_checked"></i>
                                     </div>
                                     <div className="weui_cell_bd weui_cell_primary">
-                                        <Link to={"/client/home/desc/" + item.uuid} href="javascript:void(0);"
-                                              className="weui_media_box weui_media_appmsg">
+                                        <div className="weui_media_box weui_media_appmsg">
                                             <div className="weui_media_hd">
                                                 <img className="weui_media_appmsg_thumb" src={item.pic_path}
                                                      alt={item.title}/>
@@ -49,7 +48,8 @@ class HomeIndex extends React.Component {
                                                 <p className="weui_media_desc">
                                                     {item.sub_title}</p>
                                             </div>
-                                        </Link>
+                                            <Link to={"/client/home/desc/" + item.uuid}>详情</Link>
+                                        </div>
                                     </div>
                                 </label>
                             )

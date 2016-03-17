@@ -12,13 +12,17 @@ class ItemList extends React.Component {
     constructor() {
         super();
         this.state = {
-            url: '/admin/getItemList'
+            urlOnline: '/admin/getItemList/1',
+            urlOffline: '/admin/getItemList/0'
         };
     }
 
     handleChange(e) {
         e.preventDefault();
-        this.setState({url: "/admin/getItemList/" + e.target.value});
+        this.setState(
+            {urlOnline: "/admin/getItemList/1/" + e.target.value},
+            {urlOffline: "/admin/getItemList/0/" + e.target.value}
+        );
     }
 
     render() {
@@ -32,19 +36,13 @@ class ItemList extends React.Component {
                     field: 'uuid',
                     text: '动作',
                     formatter: function (value, index) {
-                        let query = {
-                            id: value,
-                            text: '商品信息',
-                            submit_url: '/admin/delItem/',
-                            return_url: '/admin/getItemList/'
-                        };
-
                         let content =
                             <div>
-                                <Link key={'table-td-' + index} to={'/admin/editItemInfo/' + value}
+                                <Link key={'table-td-' + index} to='/admin/editItemInfo/'
+                                      query={{uuid: value}}
                                       className="btn btn-link">编辑</Link>
                                 <Link key={'table-td-' + (index + 1)} to='/admin/delItemInfo'
-                                      query={query}
+                                      query={{uuid: value, text: '商品信息', submit_url: '/admin/delItem/', return_url: '/admin/getItemList/'}}
                                       className="btn btn-link">删除</Link>
                             </div>;
                         return content;
@@ -64,10 +62,22 @@ class ItemList extends React.Component {
                     </div>
 
                     <div className="col-xs-6 col-sm-6 col-md-6">
-                        <SelectComponent name="category_uuid" url="/admin/getCategoryList" onChange={e => {this.handleChange(e)}}/>
+                        <SelectComponent name="category_uuid" url="/admin/getCategoryList"
+                                         onChange={e => {this.handleChange(e)}}/>
                     </div>
                 </div>
-                <DataTableComponent config={DataConfig} url={this.state.url}/>
+                <ul className="nav nav-tabs nav-justified">
+                    <li role="presentation" className="active"><a href="#online-tab" data-toggle="tab">在线商品</a></li>
+                    <li role="presentation"><a href="#offline-tab" data-toggle="tab">仓库商品</a></li>
+                </ul>
+                <div className="tab-content">
+                    <div id="online-tab" className="tab-pane active">
+                        <DataTableComponent config={DataConfig} url={this.state.urlOnline}/>
+                    </div>
+                    <div id="offline-tab" className="tab-pane">
+                        <DataTableComponent config={DataConfig} url={this.state.urlOffline}/>
+                    </div>
+                </div>
             </form>
         );
     }

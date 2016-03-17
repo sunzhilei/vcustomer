@@ -36,7 +36,7 @@ class AddCategory extends React.Component {
     }
 
     componentDidMount() {
-        this.getCustomerInfo(this.props.params.uuid);
+        this.getCustomerInfo(this.props.location.query.uuid);
     }
 
     handleSubmit(e) {

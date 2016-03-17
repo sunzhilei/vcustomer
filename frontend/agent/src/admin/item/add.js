@@ -56,7 +56,7 @@ class AddItem extends React.Component {
     }
 
     componentDidMount() {
-        this.getItem(this.props.params.uuid);
+        this.getItem(this.props.location.query.uuid);
     }
 
     handleCategoryChange(e) {

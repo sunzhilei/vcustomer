@@ -16,7 +16,7 @@ class AddCategory extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
-        $.post(this.props.location.query.submit_url + this.props.location.query.id, data => {
+        $.post(this.props.location.query.submit_url + this.props.location.query.uuid, data => {
             if (!data.result) {
                 alert(data.msg);
             } else {
