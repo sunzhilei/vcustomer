@@ -69,15 +69,15 @@ class ItemList extends React.Component {
                                          onChange={e => {this.handleChange(e)}}/>
                     </div>
                 </div>
-                <ul className="nav nav-tabs nav-justified">
-                    <li className="active"><a href="#online-tab" data-toggle="tab">在线商品</a></li>
-                    <li><a href="#offline-tab" data-toggle="tab">仓库商品</a></li>
+                <ul className="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" className="active"><a href="#online-tab" aria-controls="online-tab" role="tab" data-toggle="tab">在线商品</a></li>
+                    <li role="presentation"><a href="#offline-tab" aria-controls="offline-tab" role="tab" data-toggle="tab">仓库商品</a></li>
                 </ul>
                 <div className="tab-content">
-                    <div id="online-tab" className="tab-pane active">
+                    <div role="tabpanel" className="tab-pane active" id="online-tab">
                         <DataTableComponent config={DataConfig} url={this.state.urlOnline}/>
                     </div>
-                    <div id="offline-tab" className="tab-pane">
+                    <div role="tabpanel" className="tab-pane" id="offline-tab">
                         <DataTableComponent config={DataConfig} url={this.state.urlOffline}/>
                     </div>
                 </div>
