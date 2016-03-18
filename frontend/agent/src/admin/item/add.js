@@ -21,7 +21,6 @@ class AddItem extends React.Component {
                 alert(data.msg);
             } else {
                 if (data.custom.row) {
-                    console.log(data.custom.row);
                     this.setState(data.custom.row);
                 }
             }
@@ -83,7 +82,6 @@ class AddItem extends React.Component {
             }
         });
         if (validator.form() && this.state.category_uuid != -1) {
-            console.log($('#itemForm').serialize());
             $.post('/admin/addItem', $('#itemForm').serialize(), data => {
                 if (!data.result) {
                     alert(data.msg);

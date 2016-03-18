@@ -14,7 +14,7 @@ class NavLeftItems extends React.Component {
                             if (item.link) {
                                 return (
                                     <li key={'nav-' + index}>
-                                        <Link className="nav-link" to={item.href} data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-controls="bs-example-navbar-collapse-1">
+                                        <Link to={item.href} data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-controls="bs-example-navbar-collapse-1">
                                             {item.text}
                                         </Link>
                                     </li>
@@ -22,7 +22,7 @@ class NavLeftItems extends React.Component {
                             } else {
                                 return (
                                     <li key={'nav-' + index}>
-                                        <a className="nav-link" href={item.href} data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-controls="bs-example-navbar-collapse-1">
+                                        <a href={item.href} data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-controls="bs-example-navbar-collapse-1">
                                             {item.text}
                                         </a>
                                     </li>
@@ -75,7 +75,7 @@ class NavRightItems extends React.Component {
 class Nav extends React.Component {
     render() {
         return (
-            <nav id="navbar-example" className="navbar navbar-default navbar-fixed-top navbar-inverse">
+            <nav id="navbar-example" className="navbar navbar-default navbar-fixed-top">
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"

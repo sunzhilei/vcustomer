@@ -8,7 +8,6 @@ import "../../../frontend/agent/css/admin.css"
 import { Router, browserHistory } from 'react-router'
 
 import NavComponent from '../../public/lib/Nav';
-import ListGroupComponent from '../../public/lib/ListGroup';
 
 //公共删除组件
 import DelComponent from './admin/del';
@@ -38,21 +37,13 @@ let NavData = {
     items: {
         right: [
             //{text: '公众号配置', href: '/admin/getDockInfo', link: true},
+            {text: '商品分类', href: '/admin/getCategoryList', link: true},
+            {text: '商品管理', href: '/admin/getItemList', link: true},
             {text: '素材库', href: '/mediaLibrary', link: true},
             {text: '退出', href: '/loginOut'}
         ]
     }
 }
-
-let SidebarData = [
-    {
-        title: '我的配置',
-        items: [
-            {text: '商品分类', href: '/admin/getCategoryList'},
-            {text: '商品管理', href: '/admin/getItemList'}
-        ]
-    }
-]
 
 class AgentIndex extends React.Component {
     render() {
@@ -61,10 +52,7 @@ class AgentIndex extends React.Component {
                 <NavComponent data={NavData}/>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-sm-3 col-md-2 blog-sidebar">
-                            <ListGroupComponent data={SidebarData}/>
-                        </div>
-                        <div className="col-sm-9 col-md-10 blog-main">
+                        <div className="col-sm-12 col-md-12 blog-main">
                             {this.props.children}
                         </div>
                     </div>

@@ -39,11 +39,14 @@ class ItemList extends React.Component {
                         let content =
                             <div>
                                 <Link key={'table-td-' + index} to='/admin/editItemInfo/'
-                                      query={{uuid: value}}
-                                      className="btn btn-link">编辑</Link>
+                                      query={{uuid: value}}>
+                                    编辑
+                                </Link>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
                                 <Link key={'table-td-' + (index + 1)} to='/admin/delItemInfo'
-                                      query={{uuid: value, text: '商品信息', submit_url: '/admin/delItem/', return_url: '/admin/getItemList/'}}
-                                      className="btn btn-link">删除</Link>
+                                      query={{uuid: value, text: '商品信息', submit_url: '/admin/delItem/', return_url: '/admin/getItemList/'}}>
+                                    删除
+                                </Link>
                             </div>;
                         return content;
                     }
@@ -67,8 +70,8 @@ class ItemList extends React.Component {
                     </div>
                 </div>
                 <ul className="nav nav-tabs nav-justified">
-                    <li role="presentation" className="active"><a href="#online-tab" data-toggle="tab">在线商品</a></li>
-                    <li role="presentation"><a href="#offline-tab" data-toggle="tab">仓库商品</a></li>
+                    <li className="active"><a href="#online-tab" data-toggle="tab">在线商品</a></li>
+                    <li><a href="#offline-tab" data-toggle="tab">仓库商品</a></li>
                 </ul>
                 <div className="tab-content">
                     <div id="online-tab" className="tab-pane active">
