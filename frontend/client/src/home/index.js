@@ -15,7 +15,7 @@ class HomeIndex extends React.Component {
     }
 
     componentDidMount() {
-        $.get("/admin/getItemList/e296ebfd469042c9ad4f2f744dbb549q", {}, data => {
+        $.get("/admin/getOnlineItemList/e296ebfd469042c9ad4f2f744dbb549q", {}, data => {
             if (data.rows) {
                 this.setState({list: data.rows});
             }

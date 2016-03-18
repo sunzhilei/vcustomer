@@ -246,7 +246,7 @@ router.get('/admin/getItemList/:line/:categroy_uuid', (req, res) => {
 /**
  * 终端客户获取指定商品下的商品
  */
-router.get('/admin/getItemList/:account_uuid', (req, res) => {
+router.get('/admin/getOnlineItemList/:account_uuid', (req, res) => {
     if (req.query.page && req.query.number) {
         item.queryItemListByAccountUUIDOfTotal(req.params.account_uuid, 1, req.query.page, req.query.number).then(rows => {
             item.queryItemListByAccountUUIDOfTotal(req.params.account_uuid, 1).then(total => {
