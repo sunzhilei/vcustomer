@@ -21,6 +21,8 @@ import AddCategoryComponent from './admin/category/add';
 import ItemListComponent from './admin/item/list';
 import AddItemComponent from './admin/item/add';
 
+import UserCenterInfoComponent from './admin/userCenter/info';
+
 //媒体库
 import FileLibraryComponent from '../../public/lib/FileLibrary';
 class MediaLibraryComponent extends React.Component {
@@ -40,6 +42,7 @@ let NavData = {
             {text: '商品分类', href: '/admin/getCategoryList', link: true},
             {text: '商品管理', href: '/admin/getItemList', link: true},
             {text: '素材库', href: '/mediaLibrary', link: true},
+            {text: '个人中心', href: '/admin/userCenter', link: true},
             {text: '退出', href: '/loginOut'}
         ]
     }
@@ -81,8 +84,9 @@ const routes = {
         {path: '/admin/getItemList', component: ItemListComponent},
         {path: '/admin/getItemInfo', component: AddItemComponent},
         {path: '/admin/editItemInfo', component: AddItemComponent},
-        {path: '/admin/delItemInfo', component: DelComponent}
+        {path: '/admin/delItemInfo', component: DelComponent},
 
+        {path: '/admin/userCenter', component: UserCenterInfoComponent}
 
     ]
 }

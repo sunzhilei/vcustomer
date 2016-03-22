@@ -81,7 +81,9 @@ router.post('/reg/valid', (req, res) => {
  */
 router.get('/admin', (req, res) => {
     if (req.session.account) {
-        res.render('./agent/admin');
+        res.render('./agent/admin', {account_uuid: req.session.account.uuid}, function (err, html) {
+            res.send(html);
+        });
     } else {
         res.render('./agent/login');
     }
