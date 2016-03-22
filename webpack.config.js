@@ -7,14 +7,18 @@ var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 var config = {
     entry: {
-        "customer/index": ['./frontend/customer/src/index.js'],
-
         "agent/reg": ['./frontend/agent/src/reg.js'],
         "agent/login": ['./frontend/agent/src/login.js'],
         "agent/index": ['./frontend/agent/src/index.js'],
         "agent/admin": ['./frontend/agent/src/admin.js'],
 
-        "client/index": ["./frontend/client/src/index.js"]
+        "client/index": ["./frontend/client/src/index.js"],
+
+        "customer/index": ['./frontend/customer/src/index.js']
+
+        //"jquery": ['./node_modules/jquery/dist/jquery.min.js'],
+        //"bootstrap": ['./node_modules/bootstrap/dist/js/bootstrap.min.js'],
+        //"validate": ['./node_modules/jquery-validation/dist/jquery.validate.js']
     },
     output: {
         publicPath: 'http://localhost:5050/frontend/dist/',
@@ -55,9 +59,9 @@ var config = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
 
-        new CommonsChunkPlugin("customer.js", ["customer/index"]),
-        new CommonsChunkPlugin("agent.js", ["agent/reg", "agent/login", "agent/index", "agent/admin"]),
-        new CommonsChunkPlugin("client.js", ["client/index"]),
+        new CommonsChunkPlugin("agent.js", ["agent/admin", "agent/index", "agent/login", "agent/reg"]),
+        //new CommonsChunkPlugin("client.js", ["client/index"]),
+        //new CommonsChunkPlugin("customer.js", ["customer/index"]),
 
         new webpack.ProvidePlugin({
             React: 'react',

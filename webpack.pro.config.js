@@ -10,10 +10,9 @@ config.output.publicPath = 'http://vcustomer.applinzi.com/frontend/dist/';
 
 config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
-        test: /(\.jsx|\.js)$/,
         compress: {
             warnings: false
-        },
+        }
     })
 );
 

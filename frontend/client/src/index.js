@@ -54,11 +54,11 @@ class ClientIndex extends React.Component {
 //</div>
 
 const routes = {
-    path: '/',
+    path: '/:account_uuid',
     component: ClientIndex,
     indexRoute: {component: HomeIndexComponent},
     childRoutes: [
-        {path: '/client', component: HomeIndexComponent},
+        {path: '/client/:account_uuid', component: HomeIndexComponent},
         {path: '/client/home', component: HomeIndexComponent},
         {path: '/client/home/desc/:uuid', component: DescComponent},
 

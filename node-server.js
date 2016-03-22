@@ -8,9 +8,22 @@ app.set('views', './frontend');
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 // 前端资源静态化
-app.use('/frontend', express.static('./frontend'));
-app.use('/upload', express.static('./upload'));
-app.use('/node_modules', express.static('./node_modules'));
+var options = {
+    etag: true,
+    extensions: ['htm', 'html', 'css', 'png', 'gif', 'jpg', 'js', 'tpl'],
+    lastModified: true,
+    maxAge: 100 * 24 * 60 * 60,
+    redirect: false,
+    setHeaders: function (res, path, stat) {
+        //res.setHeader('Last-Modified', new Date().toUTCString());
+        res.setHeader('Expires', new Date(new Date().valueOf() + 100 * 24 * 60 * 60 * 1000).toUTCString());
+        res.setHeader('cache-control', 'max-age=' + 100 * 24 * 60 * 60);
+        //res.setHeader('Pragma', 'Pragma');
+    }
+};
+app.use('/frontend', express.static('./frontend', options));
+app.use('/upload', express.static('./upload', options));
+app.use('/node_modules', express.static('./node_modules', options));
 
 let session = require('express-session');
 let cookieParser = require('cookie-parser');
