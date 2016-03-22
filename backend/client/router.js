@@ -5,7 +5,6 @@ let router = express.Router();
  */
 router.get('/:account_uuid', (req, res) => {
     res.render('./client/index', {account_uuid: req.params.account_uuid}, function (err, html) {
-        console.log(html);
         res.send(html);
     });
 });

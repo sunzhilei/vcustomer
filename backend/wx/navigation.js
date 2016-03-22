@@ -24,7 +24,7 @@ exports.getNavigation = () => {
                 {
                     "type": "view",
                     "name": "Home",
-                    "url": "http://vcustomer.applinzi.com/client"
+                    "url": "http://vcustomer.applinzi.com/client/e296ebfd469042c9ad4f2f744dbb549q"
                 }
             ]
         };
