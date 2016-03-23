@@ -11,19 +11,14 @@ exports.getNavigation = () => {
 
         let body = {
             "button": [
-                //{
-                //    "type": "view",
-                //    "name": "HOME",
-                //    "url": "http://vcustomer.applinzi.com/"
-                //},
-                //{
-                //    "type": "view",
-                //    "name": "Login",
-                //    "url": "http://vcustomer.applinzi.com/login"
-                //},
                 {
                     "type": "view",
-                    "name": "Home",
+                    "name": "管理商品",
+                    "url": "http://vcustomer.applinzi.com/admin"
+                },
+                {
+                    "type": "view",
+                    "name": "展示商品",
                     "url": "http://vcustomer.applinzi.com/client/e296ebfd469042c9ad4f2f744dbb549q"
                 }
             ]
@@ -40,8 +35,8 @@ exports.getNavigation = () => {
                 path: '/cgi-bin/menu/create?access_token=' + access_token,
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Content-Length': bodyString.length
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Content-Length': new Buffer(bodyString).length
                 }
             };
 
@@ -54,7 +49,7 @@ exports.getNavigation = () => {
                     resolve(d);
                 })
             });
-            req.write(bodyString, 'utf-8');
+            req.write(bodyString, 'UTF-8');
             req.end();
             req.on('error', e => {
                 reject(new Error(e));

@@ -67,11 +67,11 @@ exports.queryCustomerOfTotal = () => {
 exports.queryCustomerOfAll = () => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT * from customer",
+            sql: "SELECT uuid,wx_appid,wx_secret from customer",
             params: {}
-        }).then(total => {
-            if (total.length > 0) {
-                resolve(total[0].total);
+        }).then(rows => {
+            if (rows.length > 0) {
+                resolve(rows);
             } else {
                 resolve([]);
             }

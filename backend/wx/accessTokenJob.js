@@ -13,7 +13,6 @@ exports.getAccessToken = (appid, secret) => {
         let options = {
             hostname: 'api.weixin.qq.com',
             port: 443,
-            //path: '/cgi-bin/token?grant_type=client_credential&appid=wxb05bb562f6415aa6&secret=48e84b1eab2a7746623d896fd7b41e20',
             path: '/cgi-bin/token?grant_type=client_credential&appid=' + appid + '&secret=' + secret,
             method: 'GET'
         };
@@ -38,16 +37,18 @@ exports.updateAccessTokenscheduleJob = () => {
     rule.minute = 55;
     schedule.scheduleJob(rule, () => {
         customer.queryCustomerOfAll().then(rows => {
-            this.getAccessToken(rows.wx_appid, rows.wx_secret).then(access_token => {
-                customer.updateCustomerAccessToken(rows.uuid, access_token).then(result => {
-                    resolve(result);
+            rows.forEach(row => {
+                this.getAccessToken(row.wx_appid, row.wx_secret).then(access_token => {
+                    customer.updateCustomerAccessToken(row.uuid, access_token).then(result => {
+                        resolve(result);
+                    }, e => {
+                        console.log("更新访问令牌出现异常");
+                        reject(new Error(e));
+                    })
                 }, e => {
-                    reject(new Error(e));
-                    console.log("更新访问令牌出现异常");
-                })
-            }, e => {
-                console.error(e);
-            });
+                    console.error("customer_uuid:" + row.uuid + "  " + e);
+                });
+            })
         }, e => {
             console.error(e);
             resUtil.resultFail("系统异常，稍后重试！", req, res);
