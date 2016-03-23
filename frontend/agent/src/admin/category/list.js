@@ -24,7 +24,7 @@ class CategoryList extends React.Component {
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <Link key={'table-td-' + (index + 1)} to='/admin/delCategoryInfo'
-                                      query={{uuid: value, text: '商品分类', submit_url: '/admin/delCategory/', return_url: '/admin/getCategoryList/'}}>
+                                      query={{uuid: value, text: '确定删除此商品分类吗？', submit_url: '/admin/delCategory/', return_url: '/admin/getCategoryList/'}}>
                                     删除
                                 </Link>
                             </div>;

@@ -20,14 +20,16 @@ class ItemList extends React.Component {
     handleChange(e) {
         e.preventDefault();
         this.setState(
-            {urlOnline: "/admin/getItemList/1/" + e.target.value},
+            {urlOnline: "/admin/getItemList/1/" + e.target.value}
+        );
+        this.setState(
             {urlOffline: "/admin/getItemList/0/" + e.target.value}
         );
     }
 
     render() {
 
-        let DataConfig = {
+        let OnlineDataConfig = {
             columns: [
                 {field: 'title', text: '标题'},
                 {field: 'category_name', text: '类别'},
@@ -37,14 +39,46 @@ class ItemList extends React.Component {
                     text: '动作',
                     formatter: function (value, index) {
                         let content =
-                            <div>
-                                <Link key={'table-td-' + index} to='/admin/editItemInfo/'
-                                      query={{uuid: value}}>
+                            <div key={'table-td-div-' + index}>
+                                <Link to='/admin/setItemOffline/' query={{uuid: value, text: '确定下架此商品信息吗？', submit_url: '/admin/setItemOffline/', return_url: '/admin/getItemList/'}}>
+                                    下架
+                                </Link>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <Link to='/admin/editItemInfo/' query={{uuid: value}}>
                                     编辑
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <Link key={'table-td-' + (index + 1)} to='/admin/delItemInfo'
-                                      query={{uuid: value, text: '商品信息', submit_url: '/admin/delItem/', return_url: '/admin/getItemList/'}}>
+                                <Link to='/admin/delItemInfo' query={{uuid: value, text: '确定删除此商品信息吗', submit_url: '/admin/delItem/', return_url: '/admin/getItemList/'}}>
+                                    删除
+                                </Link>
+                            </div>;
+                        return content;
+                    }
+                }
+            ],
+            pagination: false
+        }
+
+        let OfflineDataConfig = {
+            columns: [
+                {field: 'title', text: '标题'},
+                {field: 'category_name', text: '类别'},
+                {field: 'price', text: '价格'},
+                {
+                    field: 'uuid',
+                    text: '动作',
+                    formatter: function (value, index) {
+                        let content =
+                            <div key={'table-td-div-' + index}>
+                                <Link to='/admin/setItemOnline/' query={{uuid: value, text: '确定上架此商品信息吗？', submit_url: '/admin/setItemOnline/', return_url: '/admin/getItemList/'}}>
+                                    上架
+                                </Link>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <Link to='/admin/editItemInfo/' query={{uuid: value}}>
+                                    编辑
+                                </Link>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <Link to='/admin/delItemInfo' query={{uuid: value, text: '确定删除此商品信息吗？', submit_url: '/admin/delItem/', return_url: '/admin/getItemList/'}}>
                                     删除
                                 </Link>
                             </div>;
@@ -75,10 +109,10 @@ class ItemList extends React.Component {
                 </ul>
                 <div className="tab-content">
                     <div role="tabpanel" className="tab-pane active" id="online-tab">
-                        <DataTableComponent config={DataConfig} url={this.state.urlOnline}/>
+                        <DataTableComponent config={OnlineDataConfig} url={this.state.urlOnline}/>
                     </div>
                     <div role="tabpanel" className="tab-pane" id="offline-tab">
-                        <DataTableComponent config={DataConfig} url={this.state.urlOffline}/>
+                        <DataTableComponent config={OfflineDataConfig} url={this.state.urlOffline}/>
                     </div>
                 </div>
             </form>

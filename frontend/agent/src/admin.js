@@ -85,6 +85,9 @@ const routes = {
         {path: '/admin/getItemInfo', component: AddItemComponent},
         {path: '/admin/editItemInfo', component: AddItemComponent},
         {path: '/admin/delItemInfo', component: DelComponent},
+        {path: '/admin/setItemOffline/', component: DelComponent},
+        {path: '/admin/setItemOnline/', component: DelComponent},
+
 
         {path: '/admin/userCenter', component: UserCenterInfoComponent}
 

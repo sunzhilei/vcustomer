@@ -49,8 +49,11 @@ exports.queryItemListByAccountUUIDOfTotal = (account_uuid, line) => {
 exports.queryItemListByCategoryUUID = (category_uuid, line) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.line from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid and item.line = " + line,
-            params: {category_uuid: category_uuid}
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.line from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid and item.line = :line",
+            params: {
+                category_uuid: category_uuid,
+                line:parseInt(line)
+            }
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows);
@@ -67,12 +70,13 @@ exports.queryItemListByCategoryUUID = (category_uuid, line) => {
 /**
  * 根据品类ID查询商品列表 - 分页
  */
-exports.queryItemListByCategoryUUIDForPagination = (category_uuid, page, number) => {
+exports.queryItemListByCategoryUUIDForPagination = (category_uuid, line, page, number) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.line from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid and item.line = "+ line +" limit :page,:number",
+            sql: "SELECT item.uuid,item.account_uuid,item.category_uuid,category.name as category_name,item.title,item.sub_title,item.price,item.pic_uuid,item.pic_path,item.descript,item.line from item,category where item.category_uuid = category.uuid and item.category_uuid = :category_uuid and item.line = :line limit :page,:number",
             params: {
                 category_uuid: category_uuid,
+                line: parseInt(line),
                 page: parseInt(page) - 1,
                 number: parseInt(number)
             }
@@ -95,8 +99,11 @@ exports.queryItemListByCategoryUUIDForPagination = (category_uuid, page, number)
 exports.queryItemListByCategoryUUIDOfTotal = (category_uuid, line) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
-            sql: "SELECT count(1) as total from item where category_uuid = '" + category_uuid + "' and line = " + line,
-            params: {}
+            sql: "SELECT count(1) as total from item where category_uuid = :category_uuid and line = :line",
+            params: {
+                category_uuid: category_uuid,
+                line: parseInt(line),
+            }
         }).then(rows => {
             if (rows.length > 0) {
                 resolve(rows[0].total);
@@ -202,6 +209,52 @@ exports.delItemByUUID = (uuid) => {
     return new Promise((resolve, reject) => {
         MysqlPool.query({
             sql: "delete from item where uuid = :uuid",
+            params: {
+                uuid: uuid
+            }
+        }).then(result => {
+            if (result.length > 0) {
+                resolve(result);
+            } else {
+                resolve(null);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(error));
+        })
+    })
+}
+
+/**
+ * 为指定用户下架商品信息
+ */
+exports.updateOffLineForItemByUUID = (uuid) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "update item set line = 0 where uuid = :uuid",
+            params: {
+                uuid: uuid
+            }
+        }).then(result => {
+            if (result.length > 0) {
+                resolve(result);
+            } else {
+                resolve(null);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(error));
+        })
+    })
+}
+
+/**
+ * 为指定用户上架商品信息
+ */
+exports.updateOnLineForItemByUUID = (uuid) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "update item set line = 1 where uuid = :uuid",
             params: {
                 uuid: uuid
             }

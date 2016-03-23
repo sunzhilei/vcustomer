@@ -316,4 +316,28 @@ router.post('/admin/delItem/:uuid', (req, res) => {
     })
 });
 
+/**
+ * 下架指定的商品信息
+ */
+router.post('/admin/setItemOffline/:uuid', (req, res) => {
+    item.updateOffLineForItemByUUID(req.params.uuid).then(result => {
+        resUtil.resultSuccess({}, req, res);
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+});
+
+/**
+ * 上架指定的商品信息
+ */
+router.post('/admin/setItemOnline/:uuid', (req, res) => {
+    item.updateOnLineForItemByUUID(req.params.uuid).then(result => {
+        resUtil.resultSuccess({}, req, res);
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+});
+
 module.exports = router;

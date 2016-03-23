@@ -10,7 +10,7 @@ class Info extends React.Component {
         return (
             <form>
                 <br/>
-                <h5 className="sub-header">服务器配置</h5>
+                <h5 className="sub-header">个人中心</h5>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">分享地址&nbsp;：</label>
                     <div className="col-sm-10">
