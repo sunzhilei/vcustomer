@@ -112,7 +112,7 @@ class ItemList extends React.Component {
                                     下架
                                 </button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <Link to='/admin/editItemInfo/' query={{uuid: value}}>
+                                <Link to='/admin/commondity/editItemInfo/' query={{uuid: value}}>
                                     编辑
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp;

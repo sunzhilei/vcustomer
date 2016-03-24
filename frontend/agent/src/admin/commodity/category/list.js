@@ -45,8 +45,8 @@ class CategoryList extends React.Component {
                     text: '动作',
                     formatter: (value, index) => {
                         let content =
-                            <div>
-                                <Link key={'table-td-' + index} to='/admin/commondity/editCategoryInfo/'
+                            <div key={'table-td-div-' + index}>
+                                <Link to='/admin/commondity/editCategoryInfo/'
                                       query={{uuid: value}}>
                                     编辑
                                 </Link>
