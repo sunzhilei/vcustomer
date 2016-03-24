@@ -4,7 +4,6 @@
 
 import {Link} from 'react-router'
 
-
 class ListGroup extends React.Component {
     render() {
         return (
@@ -20,7 +19,8 @@ class ListGroup extends React.Component {
                                 {
                                     data.items.map((item, index) => {
                                         return (
-                                            <Link key={'sidebar-item-' + index} to={item.href} className="list-group-item">
+                                            <Link key={'sidebar-item-' + index} to={item.href}
+                                                  className="list-group-item">
                                                 {item.text}
                                             </Link>
                                         )

@@ -4,8 +4,8 @@
 
 import {Link} from 'react-router'
 
-import DataTableComponent from '../../../../../frontend/public/lib/DataTable';
-import ModalComponent from '../../../../public/lib/Modal';
+import DataTableComponent from '../../../../../../frontend/public/lib/DataTable';
+import ModalComponent from '../../../../../public/lib/Modal';
 
 class CategoryList extends React.Component {
 
@@ -29,7 +29,7 @@ class CategoryList extends React.Component {
                     uuid: value,
                     text: '确定删除此商品分类吗？',
                     submit_url: '/admin/delCategory/',
-                    return_url: '/admin/getCategoryList/'
+                    return_url: '/admin/commondity/getCategoryList/'
                 }
             }
         )
@@ -46,7 +46,7 @@ class CategoryList extends React.Component {
                     formatter: (value, index) => {
                         let content =
                             <div>
-                                <Link key={'table-td-' + index} to='/admin/editCategoryInfo/'
+                                <Link key={'table-td-' + index} to='/admin/commondity/editCategoryInfo/'
                                       query={{uuid: value}}>
                                     编辑
                                 </Link>
@@ -66,10 +66,10 @@ class CategoryList extends React.Component {
         return (
             <form>
                 <br/>
-                <h5 className="sub-header">品类列表</h5>
+                <h5 className="sub-header">分类列表</h5>
                 <div className="form-group row">
                     <div className="col-sm-12">
-                        <Link to="/admin/getCategoryInfo" className="btn btn-primary">增加</Link>
+                        <Link to="/admin/commondity/addCategoryInfo" className="btn btn-primary">增加</Link>
                     </div>
                 </div>
                 <DataTableComponent config={DataConfig} url="/admin/getCategoryList"/>

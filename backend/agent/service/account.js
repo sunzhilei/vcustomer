@@ -21,6 +21,7 @@ exports.queryAccount = (body) => {
         })
     })
 }
+
 /**
  * 插入登录用户信息
  */
@@ -29,6 +30,27 @@ exports.insertAccount = (body) => {
         MysqlPool.query({
             sql: "insert into account(uuid,account,password) VALUES(:uuid,:account,:password)",
             params: {uuid: uuid.createUUID(), account: body.account, password: body.password}
+        }).then(result => {
+            if (result.length > 0) {
+                resolve(result);
+            } else {
+                resolve(null);
+            }
+        }, e => {
+            console.error(e);
+            reject(new Error(error));
+        })
+    })
+}
+
+/**
+ * 修改密码
+ */
+exports.updatePasswordForAccount = (uuid, body) => {
+    return new Promise((resolve, reject) => {
+        MysqlPool.query({
+            sql: "update account set password = :password where uuid = :uuid",
+            params: {uuid: uuid, password: body.new_pwd}
         }).then(result => {
             if (result.length > 0) {
                 resolve(result);

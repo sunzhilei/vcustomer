@@ -4,9 +4,9 @@
 
 import {Link} from 'react-router'
 
-import RadioComponent from '../../../../public/lib/Radio';
+import RadioComponent from '../../../../../public/lib/Radio';
 
-class DockConfig extends React.Component {
+class EditDock extends React.Component {
 
     getCustomerInfo() {
         $.ajax({
@@ -139,7 +139,7 @@ class DockConfig extends React.Component {
                     <div className="col-sm-12">
                         <button type="submit" className="btn btn-primary">保存</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to="/admin/getDockInfo" className="btn btn-default">返回</Link>
+                        <Link to="/admin/userCenter/DockInfo" className="btn btn-default">返回</Link>
                     </div>
                 </div>
             </form>
@@ -147,4 +147,4 @@ class DockConfig extends React.Component {
     }
 }
 
-module.exports = DockConfig;
+module.exports = EditDock;

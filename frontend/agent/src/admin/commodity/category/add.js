@@ -53,7 +53,7 @@ class AddCategory extends React.Component {
                 if (!data.result) {
                     alert(data.msg);
                 } else {
-                    browserHistory.replace('/admin/getCategoryList');
+                    browserHistory.replace('/admin/commondity/getCategoryList');
                 }
             }, 'json');
         }
@@ -64,7 +64,7 @@ class AddCategory extends React.Component {
             <form noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
                 <input type="hidden" name="uuid" value={this.state.uuid}/>
                 <br/>
-                <h5 className="sub-header">品类信息</h5>
+                <h5 className="sub-header">分类信息</h5>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">名称：</label>
                     <div className="col-sm-10">
@@ -76,7 +76,7 @@ class AddCategory extends React.Component {
                     <div className="col-sm-12">
                         <button type="submit" className="btn btn-primary">保存</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to="/admin/getCategoryList" className="btn btn-default">返回</Link>
+                        <Link to="/admin/commondity/getCategoryList" className="btn btn-default">返回</Link>
                     </div>
                 </div>
             </form>

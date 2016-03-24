@@ -4,8 +4,8 @@
 
 import {browserHistory, Link} from 'react-router'
 
-import SelectComponent from '../../../../../frontend/public/lib/Select';
-import FileLibraryComponent from '../../../../../frontend/public/lib/FileLibrary';
+import SelectComponent from '../../../../../../frontend/public/lib/Select';
+import FileLibraryComponent from '../../../../../../frontend/public/lib/FileLibrary';
 
 class AddItem extends React.Component {
 
@@ -86,7 +86,7 @@ class AddItem extends React.Component {
                 if (!data.result) {
                     alert(data.msg);
                 } else {
-                    browserHistory.replace('/admin/getItemList');
+                    browserHistory.replace('/admin/commondity/getItemList');
                 }
             }, 'json');
         } else {
@@ -100,7 +100,7 @@ class AddItem extends React.Component {
                 <form id="itemForm" noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
                     <input type="hidden" name="uuid" value={this.state.uuid}/>
                     <br/>
-                    <h5 className="sub-header">项目信息</h5>
+                    <h5 className="sub-header">商品信息</h5>
                     <div className="form-group row">
                         <label className="col-sm-2 form-control-label">状态：</label>
                         <div className="col-sm-10">
@@ -163,7 +163,7 @@ class AddItem extends React.Component {
                         <div className="col-sm-12">
                             <button type="submit" className="btn btn-primary">保存</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <Link to="/admin/getItemList" className="btn btn-default">返回</Link>
+                            <Link to="/admin/commondity/getItemList" className="btn btn-default">返回</Link>
                         </div>
                     </div>
                 </form>

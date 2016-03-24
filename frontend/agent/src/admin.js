@@ -5,20 +5,21 @@
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import "../../../frontend/agent/css/admin.css"
 
-import { Router, browserHistory } from 'react-router'
+import { Router, Route, Link, browserHistory } from 'react-router'
 
 import NavComponent from '../../public/lib/Nav';
 
-import DockInfoComponent from './admin/personalCenter/DockInfo';
-import DockConfigComponent from './admin/personalCenter/DockConfig';
+import CommondityIndexComponent from './admin/commodity/index';
+import CategoryListComponent from './admin/commodity/category/list';
+import AddCategoryComponent from './admin/commodity/category/add';
+import ItemListComponent from './admin/commodity/item/list';
+import AddItemComponent from './admin/commodity/item/add';
 
-import CategoryListComponent from './admin/category/list';
-import AddCategoryComponent from './admin/category/add';
-
-import ItemListComponent from './admin/item/list';
-import AddItemComponent from './admin/item/add';
-
-import UserCenterInfoComponent from './admin/userCenter/info';
+import UserCenterIndexComponent from './admin/userCenter/index';
+import UserInfoComponent from './admin/userCenter/user/info';
+import EditPwdComponent from './admin/userCenter/user/editPwd';
+import DockInfoComponent from './admin/userCenter/dock/info';
+import DockEditComponent from './admin/userCenter/dock/edit';
 
 //媒体库
 import FileLibraryComponent from '../../public/lib/FileLibrary';
@@ -35,17 +36,15 @@ let NavData = {
     brand: {text: '微客', href: '/admin'},
     items: {
         right: [
-            //{text: '公众号配置', href: '/admin/getDockInfo', link: true},
-            {text: '商品分类', href: '/admin/getCategoryList', link: true},
-            {text: '商品管理', href: '/admin/getItemList', link: true},
-            {text: '素材库', href: '/mediaLibrary', link: true},
+            {text: '商品管理', href: '/admin/commondity', link: true},
+            //{text: '素材库', href: '/admin/mediaLibrary', link: true},
             {text: '个人中心', href: '/admin/userCenter', link: true},
             {text: '退出', href: '/loginOut'}
         ]
     }
 }
 
-class AgentIndex extends React.Component {
+class AgentIndexComponent extends React.Component {
     render() {
         return (
             <div>
@@ -63,28 +62,30 @@ class AgentIndex extends React.Component {
     }
 }
 
-const routes = {
-    path: '/',
-    component: AgentIndex,
-    childRoutes: [
-        {path: '/admin', component: ''},
-        {path: '/mediaLibrary', component: MediaLibraryComponent},
+ReactDOM.render(
+    <Router history={browserHistory}>
+        <Route path="/admin" component={AgentIndexComponent}>
 
-        {path: '/admin/getDockInfo', component: DockInfoComponent},
-        {path: '/admin/getDockConfig', component: DockConfigComponent},
+            <Route path="commondity" component={CommondityIndexComponent}>
+                <Route path="getCategoryList" component={CategoryListComponent}/>
+                <Route path="addCategoryInfo" component={AddCategoryComponent}/>
+                <Route path="editCategoryInfo" component={AddCategoryComponent}/>
 
-        {path: '/admin/getCategoryList', component: CategoryListComponent},
-        {path: '/admin/getCategoryInfo', component: AddCategoryComponent},
-        {path: '/admin/editCategoryInfo', component: AddCategoryComponent},
+                <Route path="getItemList" component={ItemListComponent}/>
+                <Route path="addItemInfo" component={AddItemComponent}/>
+                <Route path="editItemInfo" component={AddItemComponent}/>
+            </Route>
 
-        {path: '/admin/getItemList', component: ItemListComponent},
-        {path: '/admin/getItemInfo', component: AddItemComponent},
-        {path: '/admin/editItemInfo', component: AddItemComponent},
+            <Route path="userCenter" component={UserCenterIndexComponent}>
+                <Route path="UserInfo" component={UserInfoComponent}/>
 
+                <Route path="EditPwd" component={EditPwdComponent}/>
 
-        {path: '/admin/userCenter', component: UserCenterInfoComponent}
+                <Route path="DockInfo" component={DockInfoComponent}/>
+                <Route path="DockEdit" component={DockEditComponent}/>
+            </Route>
 
-    ]
-}
-
-ReactDOM.render(<Router history={browserHistory} routes={routes}/>, document.getElementById('content'));
+            <Route path="mediaLibrary" component={MediaLibraryComponent}/>
+        </Route>
+    </Router>,
+    document.getElementById('content'));

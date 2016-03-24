@@ -81,7 +81,10 @@ router.post('/reg/valid', (req, res) => {
  */
 router.get('/admin', (req, res) => {
     if (req.session.account) {
-        res.render('./agent/admin', {account_uuid: req.session.account.uuid}, function (err, html) {
+        res.render('./agent/admin', {
+            account_uuid: req.session.account.uuid,
+            account_name: req.session.account.account
+        }, function (err, html) {
             res.send(html);
         });
     } else {
@@ -333,6 +336,19 @@ router.post('/admin/setItemOffline/:uuid', (req, res) => {
  */
 router.post('/admin/setItemOnline/:uuid', (req, res) => {
     item.updateOnLineForItemByUUID(req.params.uuid).then(result => {
+        resUtil.resultSuccess({}, req, res);
+    }, e => {
+        console.error(e);
+        resUtil.resultFail("系统异常，稍后重试！", req, res);
+    })
+});
+
+
+/**
+ * 修改密码
+ */
+router.post('/admin/editPwdForAccount', (req, res) => {
+    account.updatePasswordForAccount(req.session.account.uuid, req.body).then(result => {
         resUtil.resultSuccess({}, req, res);
     }, e => {
         console.error(e);

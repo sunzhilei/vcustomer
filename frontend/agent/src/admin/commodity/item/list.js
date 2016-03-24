@@ -4,9 +4,9 @@
 
 import {Link} from 'react-router'
 
-import SelectComponent from '../../../../../frontend/public/lib/Select';
-import DataTableComponent from '../../../../../frontend/public/lib/DataTable';
-import ModalComponent from '../../../../public/lib/Modal';
+import SelectComponent from '../../../../../../frontend/public/lib/Select';
+import DataTableComponent from '../../../../../../frontend/public/lib/DataTable';
+import ModalComponent from '../../../../../public/lib/Modal';
 
 class ItemList extends React.Component {
 
@@ -42,7 +42,7 @@ class ItemList extends React.Component {
                     uuid: value,
                     text: '确定下架此商品信息吗？',
                     submit_url: '/admin/setItemOffline/',
-                    return_url: '/admin/getItemList/'
+                    return_url: '/admin/commondity/getItemList/'
                 }
             }
         )
@@ -57,7 +57,7 @@ class ItemList extends React.Component {
                     uuid: value,
                     text: '确定删除此商品信息吗',
                     submit_url: '/admin/delItem/',
-                    return_url: '/admin/getItemList/'
+                    return_url: '/admin/commondity/getItemList/'
                 }
             }
         )
@@ -72,7 +72,7 @@ class ItemList extends React.Component {
                     uuid: value,
                     text: '确定上架此商品信息吗？',
                     submit_url: '/admin/setItemOnline/',
-                    return_url: '/admin/getItemList/'
+                    return_url: '/admin/commondity/getItemList/'
                 }
             }
         )
@@ -87,7 +87,7 @@ class ItemList extends React.Component {
                     uuid: value,
                     text: '确定删除此商品信息吗？',
                     submit_url: '/admin/delItem/',
-                    return_url: '/admin/getItemList/'
+                    return_url: '/admin/commondity/getItemList/'
                 }
             }
         )
@@ -144,7 +144,7 @@ class ItemList extends React.Component {
                                     上架
                                 </button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <Link to='/admin/editItemInfo/' query={{uuid: value}}>
+                                <Link to='/admin/commondity/editItemInfo/' query={{uuid: value}}>
                                     编辑
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -163,10 +163,10 @@ class ItemList extends React.Component {
         return (
             <form>
                 <br/>
-                <h5 className="sub-header">项目列表</h5>
+                <h5 className="sub-header">商品列表</h5>
                 <div className="form-group row">
                     <div className="col-xs-6 col-sm-6 col-md-6">
-                        <Link to="/admin/getItemInfo" className="btn btn-primary">增加</Link>
+                        <Link to="/admin/commondity/addItemInfo" className="btn btn-primary">增加</Link>
                     </div>
 
                     <div className="col-xs-6 col-sm-6 col-md-6">

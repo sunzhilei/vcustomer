@@ -4,13 +4,21 @@
 
 import {Link} from 'react-router'
 
-class Info extends React.Component {
+class UserInfo extends React.Component {
     render() {
         let share_url = "http://vcustomer.applinzi.com/client/" + account_uuid;
         return (
             <form>
                 <br/>
-                <h5 className="sub-header">个人中心</h5>
+                <h5 className="sub-header">个人信息</h5>
+                <div className="form-group row">
+                    <label className="col-sm-2 form-control-label">帐号&nbsp;：</label>
+                    <div className="col-sm-10">
+                        <span className="form-control-label">
+                            {account_name}
+                        </span>
+                    </div>
+                </div>
                 <div className="form-group row">
                     <label className="col-sm-2 form-control-label">分享地址&nbsp;：</label>
                     <div className="col-sm-10">
@@ -24,4 +32,4 @@ class Info extends React.Component {
     }
 }
 
-module.exports = Info;
+module.exports = UserInfo;
