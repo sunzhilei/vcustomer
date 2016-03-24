@@ -75,6 +75,21 @@ router.post('/reg/valid', (req, res) => {
         res.redirect('/reg');
     })
 });
+/**
+ * 处理本地路由返回当前页面
+ */
+router.get('/router/*', (req, res) => {
+    if (req.session.account) {
+        res.render('./agent/admin', {
+            account_uuid: req.session.account.uuid,
+            account_name: req.session.account.account
+        }, function (err, html) {
+            res.send(html);
+        });
+    } else {
+        res.render('./agent/login');
+    }
+});
 
 /**
  * 跳转到客户后台管理

@@ -53,7 +53,7 @@ class AddCategory extends React.Component {
                 if (!data.result) {
                     alert(data.msg);
                 } else {
-                    browserHistory.replace('/admin/commondity/getCategoryList');
+                    browserHistory.replace('/router/commondity/getCategoryList');
                 }
             }, 'json');
         }
@@ -76,7 +76,7 @@ class AddCategory extends React.Component {
                     <div className="col-sm-12">
                         <button type="submit" className="btn btn-primary">保存</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to="/admin/commondity/getCategoryList" className="btn btn-default">返回</Link>
+                        <Link to="/router/commondity/getCategoryList" className="btn btn-default">返回</Link>
                     </div>
                 </div>
             </form>

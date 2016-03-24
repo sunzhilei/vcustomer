@@ -8,9 +8,9 @@ let ListGroupData = [
     {
         title: '用户中心',
         items: [
-            {text: '个人信息', href: '/admin/userCenter/UserInfo'},
-            {text: '密码管理', href: '/admin/userCenter/EditPwd'},
-            {text: '公众号对接', href: '/admin/userCenter/DockInfo'}
+            {text: '个人信息', href: '/router/userCenter/UserInfo'},
+            {text: '密码管理', href: '/router/userCenter/EditPwd'},
+            {text: '公众号对接', href: '/router/userCenter/DockInfo'}
         ]
     }
 ]

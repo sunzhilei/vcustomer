@@ -36,9 +36,9 @@ let NavData = {
     brand: {text: '微客', href: '/admin'},
     items: {
         right: [
-            {text: '商品管理', href: '/admin/commondity', link: true},
-            //{text: '素材库', href: '/admin/mediaLibrary', link: true},
-            {text: '个人中心', href: '/admin/userCenter', link: true},
+            {text: '商品管理', href: '/router/commondity', link: true},
+            //{text: '素材库', href: '/router/mediaLibrary', link: true},
+            {text: '个人中心', href: '/router/userCenter', link: true},
             {text: '退出', href: '/loginOut'}
         ]
     }
@@ -64,7 +64,8 @@ class AgentIndexComponent extends React.Component {
 
 ReactDOM.render(
     <Router history={browserHistory}>
-        <Route path="/admin" component={AgentIndexComponent}>
+        <Route path="/admin" component={AgentIndexComponent}></Route>
+        <Route path="/router" component={AgentIndexComponent}>
 
             <Route path="commondity" component={CommondityIndexComponent}>
                 <Route path="getCategoryList" component={CategoryListComponent}/>

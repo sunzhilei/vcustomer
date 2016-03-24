@@ -86,7 +86,7 @@ class AddItem extends React.Component {
                 if (!data.result) {
                     alert(data.msg);
                 } else {
-                    browserHistory.replace('/admin/commondity/getItemList');
+                    browserHistory.replace('/router/commondity/getItemList');
                 }
             }, 'json');
         } else {
@@ -163,7 +163,7 @@ class AddItem extends React.Component {
                         <div className="col-sm-12">
                             <button type="submit" className="btn btn-primary">保存</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <Link to="/admin/commondity/getItemList" className="btn btn-default">返回</Link>
+                            <Link to="/router/commondity/getItemList" className="btn btn-default">返回</Link>
                         </div>
                     </div>
                 </form>

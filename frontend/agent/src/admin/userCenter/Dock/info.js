@@ -55,7 +55,7 @@ class DockInfo extends React.Component {
                 <br/>
                 <div className="form-group row pull-right">
                     <div className="col-sm-12">
-                        <Link to="/admin/userCenter/DockEdit" className="btn btn-primary">配置公众号</Link>
+                        <Link to="/router/userCenter/DockEdit" className="btn btn-primary">配置公众号</Link>
                     </div>
                 </div>
             </form>

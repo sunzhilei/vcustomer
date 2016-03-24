@@ -139,7 +139,7 @@ class EditDock extends React.Component {
                     <div className="col-sm-12">
                         <button type="submit" className="btn btn-primary">保存</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to="/admin/userCenter/DockInfo" className="btn btn-default">返回</Link>
+                        <Link to="/router/userCenter/DockInfo" className="btn btn-default">返回</Link>
                     </div>
                 </div>
             </form>

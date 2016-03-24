@@ -8,8 +8,8 @@ let ListGroupData = [
     {
         title: '商品管理',
         items: [
-            {text: '商品分类', href: '/admin/commondity/getCategoryList'},
-            {text: '商品信息', href: '/admin/commondity/getItemList'}
+            {text: '商品分类', href: '/router/commondity/getCategoryList'},
+            {text: '商品信息', href: '/router/commondity/getItemList'}
         ]
     }
 ]
