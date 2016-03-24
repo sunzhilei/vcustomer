@@ -84,7 +84,7 @@ router.post('/fileUpload', (req, res) => {
                 resUtil.resultFail("请上传20M以下的文件", req, res);
             } else {
                 media.insertMedia(req.session.account.uuid, reqFile.originalname, reqFile.filename).then(result => {
-                    resUtil.resultSuccess({url: 'http://' + req.headers.host + '/' + reqFile.filename}, req, res);
+                    resUtil.resultSuccess({msg: reqFile.originalname + '文件上传成功！'}, req, res);
                 }, e => {
                     console.error(e);
                     resUtil.resultFail("系统异常，稍后重试！", req, res);

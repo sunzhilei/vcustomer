@@ -19,10 +19,12 @@ class FileLibraryComponent extends React.Component {
         $('#meidaForm').ajaxSubmit({
             url: "/media/fileUpload",
             success: data => {
-                if(data.result){
+                let dataJson = JSON.parse(data);
+                if(dataJson.result){
+                    alert(dataJson.custom.msg);
                     this.getMediaList(true);
                 }else{
-                    alert(data.msg);
+                    alert(dataJson.msg);
                 }
             }
         });
