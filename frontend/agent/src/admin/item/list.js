@@ -6,6 +6,7 @@ import {Link} from 'react-router'
 
 import SelectComponent from '../../../../../frontend/public/lib/Select';
 import DataTableComponent from '../../../../../frontend/public/lib/DataTable';
+import ModalComponent from '../../../../public/lib/Modal';
 
 class ItemList extends React.Component {
 
@@ -13,7 +14,13 @@ class ItemList extends React.Component {
         super();
         this.state = {
             urlOnline: '/admin/getItemList/1',
-            urlOffline: '/admin/getItemList/0'
+            urlOffline: '/admin/getItemList/0',
+            config: {
+                uuid: '',
+                text: '',
+                submit_url: '',
+                return_url: ''
+            }
         };
     }
 
@@ -27,6 +34,66 @@ class ItemList extends React.Component {
         );
     }
 
+    handleOffLineClick(e, value) {
+        e.preventDefault();
+        this.setState(
+            {
+                config: {
+                    uuid: value,
+                    text: '确定下架此商品信息吗？',
+                    submit_url: '/admin/setItemOffline/',
+                    return_url: '/admin/getItemList/'
+                }
+            }
+        )
+        $('#ModalComponent').modal('show');
+    }
+
+    handleDelOnLineClick(e, value) {
+        e.preventDefault();
+        this.setState(
+            {
+                config: {
+                    uuid: value,
+                    text: '确定删除此商品信息吗',
+                    submit_url: '/admin/delItem/',
+                    return_url: '/admin/getItemList/'
+                }
+            }
+        )
+        $('#ModalComponent').modal('show');
+    }
+
+    handleOnLineClick(e, value) {
+        e.preventDefault();
+        this.setState(
+            {
+                config: {
+                    uuid: value,
+                    text: '确定上架此商品信息吗？',
+                    submit_url: '/admin/setItemOnline/',
+                    return_url: '/admin/getItemList/'
+                }
+            }
+        )
+        $('#ModalComponent').modal('show');
+    }
+
+    handleDelOffLineClick(e, value) {
+        e.preventDefault();
+        this.setState(
+            {
+                config: {
+                    uuid: value,
+                    text: '确定删除此商品信息吗？',
+                    submit_url: '/admin/delItem/',
+                    return_url: '/admin/getItemList/'
+                }
+            }
+        )
+        $('#ModalComponent').modal('show');
+    }
+
     render() {
 
         let OnlineDataConfig = {
@@ -37,20 +104,22 @@ class ItemList extends React.Component {
                 {
                     field: 'uuid',
                     text: '动作',
-                    formatter: function (value, index) {
+                    formatter: (value, index) => {
                         let content =
                             <div key={'table-td-div-' + index}>
-                                <Link to='/admin/setItemOffline/' query={{uuid: value, text: '确定下架此商品信息吗？', submit_url: '/admin/setItemOffline/', return_url: '/admin/getItemList/'}}>
+                                <button className="btn btn-link" type="button"
+                                        onClick={e => this.handleOffLineClick(e,value)}>
                                     下架
-                                </Link>
+                                </button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <Link to='/admin/editItemInfo/' query={{uuid: value}}>
                                     编辑
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <Link to='/admin/delItemInfo' query={{uuid: value, text: '确定删除此商品信息吗', submit_url: '/admin/delItem/', return_url: '/admin/getItemList/'}}>
+                                <button className="btn btn-link" type="button"
+                                        onClick={e => this.handleDelOnLineClick(e,value)}>
                                     删除
-                                </Link>
+                                </button>
                             </div>;
                         return content;
                     }
@@ -67,20 +136,22 @@ class ItemList extends React.Component {
                 {
                     field: 'uuid',
                     text: '动作',
-                    formatter: function (value, index) {
+                    formatter: (value, index) => {
                         let content =
                             <div key={'table-td-div-' + index}>
-                                <Link to='/admin/setItemOnline/' query={{uuid: value, text: '确定上架此商品信息吗？', submit_url: '/admin/setItemOnline/', return_url: '/admin/getItemList/'}}>
+                                <button className="btn btn-link" type="button"
+                                        onClick={e => this.handleOnLineClick(e,value)}>
                                     上架
-                                </Link>
+                                </button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <Link to='/admin/editItemInfo/' query={{uuid: value}}>
                                     编辑
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <Link to='/admin/delItemInfo' query={{uuid: value, text: '确定删除此商品信息吗？', submit_url: '/admin/delItem/', return_url: '/admin/getItemList/'}}>
+                                <button className="btn btn-link" type="button"
+                                        onClick={e => this.handleDelOffLineClick(e,value)}>
                                     删除
-                                </Link>
+                                </button>
                             </div>;
                         return content;
                     }
@@ -104,8 +175,10 @@ class ItemList extends React.Component {
                     </div>
                 </div>
                 <ul className="nav nav-tabs nav-justified" role="tablist">
-                    <li role="presentation" className="active"><a href="#online-tab" aria-controls="online-tab" role="tab" data-toggle="tab">在线商品</a></li>
-                    <li role="presentation"><a href="#offline-tab" aria-controls="offline-tab" role="tab" data-toggle="tab">仓库商品</a></li>
+                    <li role="presentation" className="active"><a href="#online-tab" aria-controls="online-tab"
+                                                                  role="tab" data-toggle="tab">在线商品</a></li>
+                    <li role="presentation"><a href="#offline-tab" aria-controls="offline-tab" role="tab"
+                                               data-toggle="tab">仓库商品</a></li>
                 </ul>
                 <div className="tab-content">
                     <div role="tabpanel" className="tab-pane active" id="online-tab">
@@ -115,6 +188,7 @@ class ItemList extends React.Component {
                         <DataTableComponent config={OfflineDataConfig} url={this.state.urlOffline}/>
                     </div>
                 </div>
+                <ModalComponent config={this.state.config}></ModalComponent>
             </form>
         );
     }

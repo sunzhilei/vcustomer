@@ -5,8 +5,36 @@
 import {Link} from 'react-router'
 
 import DataTableComponent from '../../../../../frontend/public/lib/DataTable';
+import ModalComponent from '../../../../public/lib/Modal';
 
 class CategoryList extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+            config: {
+                uuid: '',
+                text: '',
+                submit_url: '',
+                return_url: ''
+            }
+        };
+    }
+
+    handleDelCategoryClick(e, value) {
+        e.preventDefault();
+        this.setState(
+            {
+                config: {
+                    uuid: value,
+                    text: '确定删除此商品分类吗？',
+                    submit_url: '/admin/delCategory/',
+                    return_url: '/admin/getCategoryList/'
+                }
+            }
+        )
+        $('#ModalComponent').modal('show');
+    }
 
     render() {
         let DataConfig = {
@@ -15,7 +43,7 @@ class CategoryList extends React.Component {
                 {
                     field: 'uuid',
                     text: '动作',
-                    formatter: function (value, index) {
+                    formatter: (value, index) => {
                         let content =
                             <div>
                                 <Link key={'table-td-' + index} to='/admin/editCategoryInfo/'
@@ -23,10 +51,10 @@ class CategoryList extends React.Component {
                                     编辑
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <Link key={'table-td-' + (index + 1)} to='/admin/delCategoryInfo'
-                                      query={{uuid: value, text: '确定删除此商品分类吗？', submit_url: '/admin/delCategory/', return_url: '/admin/getCategoryList/'}}>
+                                <button className="btn btn-link" type="button"
+                                        onClick={e => this.handleDelCategoryClick(e,value)}>
                                     删除
-                                </Link>
+                                </button>
                             </div>;
                         return content;
                     }
@@ -45,6 +73,7 @@ class CategoryList extends React.Component {
                     </div>
                 </div>
                 <DataTableComponent config={DataConfig} url="/admin/getCategoryList"/>
+                <ModalComponent config={this.state.config}></ModalComponent>
             </form>
         );
     }

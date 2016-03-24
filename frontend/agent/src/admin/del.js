@@ -6,14 +6,6 @@ import {browserHistory, Link} from 'react-router'
 
 class AddCategory extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            uuid: '',
-            name: ''
-        };
-    }
-
     handleClick(e) {
         e.preventDefault();
         $.post(this.props.location.query.submit_url + this.props.location.query.uuid, data => {
@@ -27,7 +19,7 @@ class AddCategory extends React.Component {
 
     render() {
         return (
-            <form noValidate="false" onSubmit={e => {this.handleSubmit(e)}}>
+            <form noValidate="false">
                 <br/>
                 <h5 className="sub-header">确认信息</h5>
                 <div className="form-group row">

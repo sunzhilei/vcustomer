@@ -9,9 +9,6 @@ import { Router, browserHistory } from 'react-router'
 
 import NavComponent from '../../public/lib/Nav';
 
-//公共删除组件
-import DelComponent from './admin/del';
-
 import DockInfoComponent from './admin/personalCenter/DockInfo';
 import DockConfigComponent from './admin/personalCenter/DockConfig';
 
@@ -79,14 +76,10 @@ const routes = {
         {path: '/admin/getCategoryList', component: CategoryListComponent},
         {path: '/admin/getCategoryInfo', component: AddCategoryComponent},
         {path: '/admin/editCategoryInfo', component: AddCategoryComponent},
-        {path: '/admin/delCategoryInfo', component: DelComponent},
 
         {path: '/admin/getItemList', component: ItemListComponent},
         {path: '/admin/getItemInfo', component: AddItemComponent},
         {path: '/admin/editItemInfo', component: AddItemComponent},
-        {path: '/admin/delItemInfo', component: DelComponent},
-        {path: '/admin/setItemOffline/', component: DelComponent},
-        {path: '/admin/setItemOnline/', component: DelComponent},
 
 
         {path: '/admin/userCenter', component: UserCenterInfoComponent}
